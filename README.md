@@ -1,6 +1,6 @@
 # Class 2 Learning Quest
 
-A level-based learning game for CBSE Class 2, made for tablets: **Maths, English, Hindi and World Around Us**. Screens are in English, and the voice speaks Tamil. One self-contained `index.html`, no build step.
+A level-based learning game for CBSE Class 2, made for tablets and phones: **Maths, English, Hindi, Tamil and World Around Us**. Maths, English and World Around Us are in English (screen and voice); Tamil lessons are fully in Tamil and Hindi lessons fully in Hindi. One self-contained `index.html`, no build step.
 
 Every level is mapped to a learning outcome, success criteria and the NCF for Foundational Stage 2022. See [CURRICULUM.md](CURRICULUM.md).
 
@@ -29,7 +29,20 @@ Every level is mapped to a learning outcome, success criteria and the NCF for Fo
 |---|---|
 | English | Sound Safari (phonics), Word Workshop (words and spelling), Grammar Garden (naming, action and describing words), Story Corner (reading) |
 | Hindi | Akshar Mela (letters), Matra Magic (vowel signs), Shabd Bagicha (words), Vakya Ghar (sentences) |
+| Tamil (Samacheer Kalvi Class 2 topics) | உயிர் எழுத்து உலா (vowels, குறில்–நெடில்), மெய் எழுத்து மாலை (consonants, வல்லினம்/மெல்லினம்/இடையினம்), சொல் தோட்டம் (உயிர்மெய், words, எதிர்ச்சொல், ஒருமை–பன்மை), கதை வீடு (sentences, colours and days, ஆத்திசூடி, stories) |
 | World Around Us | My Body and Health, Plants and Animals, Family and Community, Our Earth |
+
+## Ways to answer (no typing)
+
+Tap an answer, say it out loud, or do one of the hands-on activities mixed into each level:
+
+- **Match the following**: tap or drag a line between pairs
+- **Sort into boxes**: drag or tap cards into bins (wet or dry waste, odd or even, pet, farm or wild)
+- **Put in order**: tap in sequence (days, months, counting, building a sentence)
+- **Circle it**: draw a ring around the right picture with a finger
+- **Trace it**: trace big letters and numbers (அ, क, b, 7)
+- **Number line**: drag the frog to the right number
+- **Tap to count**: tap the right number of pictures
 
 ## Talking with Kili
 
@@ -41,9 +54,9 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 4. **Brain buster**: an optional harder bonus question.
 5. **Teach Kili**: the child explains what they learned, then rates the level Easy, OK or Tricky.
 
-**Voice language.** Each child chooses Tamil, Hindi or English, and can switch at any time with the speaker button at the top right of every screen. English and Hindi words inside a sentence are spoken in their own voices. Kili uses the most natural voice installed on the tablet, and parents can pick a specific voice in the settings. For the most natural Tamil and Hindi, use Microsoft Edge (free Natural voices) or install Google's voices. On Android, install the Tamil and Hindi voices under Settings › Text-to-speech › Google › Install voice data.
+**Language.** There is no language to choose. Maths, English and World Around Us are shown and spoken in English, in an Indian English (en-IN) voice at a calm speed. Inside a Tamil lesson everything is Tamil: questions, buttons, hints and Kili's voice. Inside a Hindi lesson everything is Hindi. The speaker button at the top right turns Kili's voice on or off.
 
-**Natural Hindi voice, built in.** About 1,400 Hindi lines are recorded into the game (`audio/hi-*.json`): every Hindi letter, word, sentence and story, Kili's Hindi instructions, and the Hindi lines for English and World Around Us. They were generated with the open-source [Piper](https://github.com/rhasspy/piper) voice *hi_IN-priyamvada*, so nothing has to be installed on the tablet. Lines with changing parts, such as names and numbers in maths, still use the tablet's own voice.
+**Natural Tamil and Hindi voices, built in.** The Tamil and Hindi lessons play recorded voices, so nothing has to be installed on the tablet. Tamil uses the open-source [Piper](https://github.com/rhasspy/piper) voice *ta_IN-HemaLatha* (about 4,900 lines, recorded at an unhurried pace). Hindi uses *hi_IN-priyamvada* (about 4,000 lines). Numbers are spoken as Tamil or Hindi words. English uses the tablet's own Indian English voice.
 
 **Animated Kili.** Kili is a drawn, animated parrot: she blinks, nods while talking, tilts her head while listening, and flaps her wings for right answers. Her beak moves with the loudness of the recorded voice (lip-sync), or with word timing for the tablet's voice.
 
@@ -59,3 +72,7 @@ Tap **Parents** and answer a times-table question. Shows today's time, questions
 - Opened anywhere else (GitHub Pages, a local file), progress is saved in that browser only.
 
 The password is a simple front door for children, not real security: anyone who reads the page source can see it.
+
+## Versions
+
+The version number shows at the top left. On GitHub Pages the game checks `version.json` and reloads itself to the newest version between levels, so no hard refresh is needed.
