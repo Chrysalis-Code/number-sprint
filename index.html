@@ -297,6 +297,10 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .kili .kbird { font-size: 3.4rem; line-height: 1; position: relative; animation: bob 2.4s ease-in-out infinite; flex: none; }
 .kili .ear { position: absolute; right: -14px; top: -6px; font-size: 1.4rem; animation: pulse 1s ease-in-out infinite; }
 .kili .kbubble { position: relative; background: var(--card); border: 2px solid var(--teal); border-radius: 18px 18px 18px 4px; padding: 10px 14px; font: 700 1.1rem/1.35 var(--font-display); flex: 1; min-width: 0; }
+.turn { margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: .7rem; letter-spacing: .04em; text-transform: none; background: var(--seq0); color: var(--muted); }
+.turn:empty { display: none; }
+.turn.kili { background: var(--teal-soft); color: var(--teal); }
+.turn.you { background: var(--mango); color: #fff; animation: pulse 1.2s ease-in-out infinite; }
 .kili .kbubble b { display: block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
 .kili.small .kbird { font-size: 2.6rem; }
 .kili.small { width: 100%; text-align: left; }
@@ -424,7 +428,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       <div class="stepper" id="stepper" aria-label="Lesson steps"></div>
       <div class="kili" aria-live="polite">
         <div class="kbird" aria-hidden="true">🦜<span class="ear" id="kiliEar" hidden>👂</span></div>
-        <div class="kbubble"><b>Kili</b><span id="kiliLine">Hi!</span></div>
+        <div class="kbubble"><b>Kili <span class="turn" id="turn"></span></b><span id="kiliLine">Hi!</span></div>
       </div>
       <div class="kidrow"><div class="kidline" id="kidLine" hidden></div>
         <button class="mic" type="button" data-mic="1" hidden><svg width="18" height="20" viewBox="0 0 18 22" aria-hidden="true"><rect x="5" y="1" width="8" height="13" rx="4" fill="#fff"/><path d="M2 10a7 7 0 0 0 14 0M9 17v4" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><span class="ml">Talk to Kili</span></button>
@@ -600,6 +604,22 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       <div class="panel">
         <div class="panel-head"><h2>Daily log</h2><span class="note">Every day played, newest first</span></div>
         <div class="tablewrap"><table id="logTable"></table></div>
+      </div>
+
+      <div class="panel" id="editPanel">
+        <div class="panel-head"><h2>Edit profile</h2><span class="note">Name, animal and how Kili talks</span></div>
+        <form id="editForm" class="create" style="max-width:none;display:flex;flex-direction:column;gap:12px">
+          <label class="label" for="editName">Name</label>
+          <input type="text" id="editName" maxlength="20" autocomplete="off" required>
+          <span class="label" id="editAvLabel">Animal</span>
+          <div class="avatars" id="editAvatars" role="group" aria-labelledby="editAvLabel"></div>
+          <div class="settings">
+            <label for="editVoice">Kili speaks
+              <select id="editVoice"><option value="ta">Tamil (தமிழ்)</option><option value="hi">Hindi (हिन्दी)</option><option value="en">English</option></select>
+            </label>
+          </div>
+          <div class="settings"><button class="btn" type="submit">Save changes</button><span class="note" id="editMsg" role="status"></span></div>
+        </form>
       </div>
 
       <div class="panel danger">
@@ -1714,23 +1734,40 @@ function segments(text, base) {
 let speakSeq = 0;
 function speakText(text, base, { force = false, onend } = {}) {
   const seq = ++speakSeq;
-  let done = false; const finish = () => { if (done || seq !== speakSeq) return; done = true; if (onend) onend(); };
-  if (!canSpeak || (!force && S.profile.voice === false) || !text) { setTimeout(finish, 300); return; }
+  let done = false; const finish = () => { if (done || seq !== speakSeq) return; done = true; clearInterval(poll); setTurn(null); if (onend) setTimeout(onend, 250); };
+  let poll = null;
+  if (!canSpeak || (!force && S.profile.voice === false) || !text) { setTimeout(finish, 400); return; }
   try {
     speechSynthesis.cancel();
     const kid = S.profile.voiceStyle !== "adult";
     const parts = segments(cleanSpeech(text, base), base);
+    let started = false; const t0 = Date.now();
     parts.forEach(([l, t], i) => {
       const u = new SpeechSynthesisUtterance(t.trim());
       u.lang = LANG_TAG[l] || "en-IN"; if (VOICES[l]) u.voice = VOICES[l];
-      u.rate = kid ? 1.0 : 0.92; u.pitch = kid ? 1.45 : 1.05;
+      u.rate = kid ? 0.98 : 0.92; u.pitch = kid ? 1.45 : 1.05;
+      u.onstart = () => { started = true; };
       if (i === parts.length - 1) { u.onend = finish; u.onerror = finish; }
       speechSynthesis.speak(u);
     });
-    if (!parts.length) setTimeout(finish, 200);
-    // Some browsers never fire onend; fall back to an estimate of the speaking time.
-    setTimeout(finish, 1500 + text.length * 85);
+    if (!parts.length) { setTimeout(finish, 200); return; }
+    setTurn("kili");
+    // Some browsers never fire onend. Poll the engine: finish only when it has stopped speaking.
+    poll = setInterval(() => {
+      const busy = speechSynthesis.speaking || speechSynthesis.pending, el = Date.now() - t0;
+      if ((started || el > 2500) && !busy && el > 700) finish();
+      else if (!started && el > 6000) finish();          // the voice never started (no voice available)
+      else if (el > 90000) finish();                     // hard safety limit
+    }, 250);
   } catch (e) { setTimeout(finish, 300); }
+}
+// Whose turn is it? Shown as a badge on Kili's bubble.
+function setTurn(t) {
+  const el = document.getElementById("turn"); if (!el) return;
+  if (t === "kili") { el.textContent = "Kili is talking…"; el.className = "turn kili"; }
+  else if (t === "you") { el.textContent = listening ? "Your turn · Kili is listening" : "Your turn"; el.className = "turn you"; }
+  else if (t === "think") { el.textContent = "Kili is thinking…"; el.className = "turn"; }
+  else if (!listening && G && G.waiting) { el.textContent = "Your turn"; el.className = "turn you"; }
 }
 // say({en, ta, hi}, opts) or say(en, ta, opts): speaks the player's language when a line and a voice exist, else English.
 function say(a, b, c) {
@@ -1804,7 +1841,7 @@ function listen(mode, onHeard, onSilence) {
   try { rec = new SR(); rec.lang = recLang(mode); rec.interimResults = false; rec.maxAlternatives = 5; rec.continuous = false; }
   catch (e) { micUnavailable(); return false; }
   let got = false; const r0 = rec;
-  rec.onstart = () => { listening = true; setListeningUI(true); };
+  rec.onstart = () => { listening = true; setListeningUI(true); setTurn("you"); };
   rec.onend = () => { if (rec === r0) { listening = false; setListeningUI(false); } if (!got && onSilence && rec === r0) onSilence(); };
   rec.onerror = (e) => { if (e.error === "not-allowed" || e.error === "service-not-allowed" || e.error === "audio-capture") { got = true; micUnavailable(); } };
   rec.onresult = (e) => { got = true; const alts = Array.from(e.results[0] || []).map(a => a.transcript); if (alts[0]) kidSays(alts[0]); onHeard(alts); };
@@ -1955,7 +1992,7 @@ function kili(L, o = {}) {
   $("kiliLine").textContent = L.en;
   const after = () => {
     if (o.then) o.then();
-    if (o.listen && S.profile.autoMic !== false && !micBlocked && SR) listen(o.listen, o.onHeard || (() => {}), o.onSilence);
+    if (o.listen && S.profile.autoMic !== false && !micBlocked && SR) { setTurn("you"); listen(o.listen, o.onHeard || (() => {}), o.onSilence); }
   };
   say(L, { onend: after, force: o.force });
 }
@@ -2009,7 +2046,18 @@ function thinkTogether() {
       { listen: "yesno", onHeard: (a) => { if (G && G.step === 1 && !CMD.no.test(a.join(" "))) startPlay(); } });
   } });
 }
-function startPlay() { if (!G || G.step >= 2) return; stopListening(); $("myTurn").hidden = true; setStep(2); nextQ(); }
+function startPlay() {
+  if (!G || G.step >= 2) return; stopListening(); $("myTurn").hidden = true; setStep(2);
+  howToPlay();
+}
+// Kili explains the turn-taking once, at the start of Play.
+function howToPlay() {
+  const mic = SR && !micBlocked && S.profile.autoMic !== false;
+  const L = mic ? { en: "Here's how we play. I'll ask a question and read the answers. Then it's your turn. Say your answer, or tap it.", ta: "இப்படித்தான் விளையாடப் போறோம். நான் ஒரு கேள்வி கேட்டு, விடைகளைப் படிப்பேன். அப்புறம் உன் முறை. விடையைச் சொல்லு, இல்லன்னா தொடு.", hi: "ऐसे खेलेंगे। मैं एक सवाल पूछूँगा और जवाब पढ़ूँगा। फिर तुम्हारी बारी। अपना जवाब बोलो, या उस पर टैप करो।" }
+                : { en: "Here's how we play. I'll ask a question and read the answers. Then it's your turn. Tap your answer.", ta: "இப்படித்தான் விளையாடப் போறோம். நான் ஒரு கேள்வி கேட்டு, விடைகளைப் படிப்பேன். அப்புறம் உன் முறை. விடையைத் தொடு.", hi: "ऐसे खेलेंगे। मैं एक सवाल पूछूँगा और जवाब पढ़ूँगा। फिर तुम्हारी बारी। अपने जवाब पर टैप करो।" };
+  showPanel("qCard"); $("qText").innerHTML = ""; $("qVisual").hidden = true; $("qOpts").innerHTML = ""; $("hintBox").hidden = true; $("praise").textContent = "";
+  const g0 = G; kili(L, { then: () => { if (G === g0 && G.step === 2 && !G.q) nextQ(); } });
+}
 function makeQ(lv) {
   lv = lv || (G.review ? pick(G.pool) : G.lv); let q, guard = 0;
   do { q = lv.gen(); guard++; } while (G.seen.has(strip(q.text) + (q.desc || "")) && guard < 25);
@@ -2033,16 +2081,27 @@ function nextQ() {
   renderQ(G.q); renderDots();
   askQ();
 }
+// Kili's turn: read the question and the answers, then hand the turn to the child and wait.
 function askQ(repeat) {
-  const q = G.q, s = questionSpeech(q);
-  kili(repeat ? { en: s.en, ta: s.ta, hi: s.hi } : { en: s.en, ta: s.ta, hi: s.hi }, { listen: "answer", onHeard: heardAnswer, onSilence: silence });
+  if (!G || !G.q) return;
+  const q = G.q, s = questionSpeech(q), n = G.bbActive ? 0 : G.i + 1;
+  const pre = repeat ? { en: "Listen again.", ta: "மறுபடியும் கேளு.", hi: "फिर से सुनो।" } : n ? { en: `Question ${n}.`, ta: `கேள்வி ${n}.`, hi: `सवाल ${n}।` } : { en: "", ta: "", hi: "" };
+  const ask = { en: "What do you think?", ta: "நீ என்ன நினைக்கிற?", hi: "तुम्हें क्या लगता है?" };
+  G.waiting = false; G.silent = 0;
+  kili({ en: `${pre.en} ${s.en} ${ask.en}`, ta: `${pre.ta} ${s.ta || s.en} ${ask.ta}`, hi: `${pre.hi} ${s.hi || s.en} ${ask.hi}` }, { then: yourTurn });
   $("kiliLine").textContent = strip(q.text).replace(/__+/g, "___") || "Listen…";
 }
+// The child's turn: wait for an answer by voice or tap, for as long as it takes.
+function yourTurn() {
+  if (!G || G.locked || !G.q) return;
+  G.waiting = true; setTurn("you");
+  if (S.profile.autoMic !== false && SR && !micBlocked) listen("answer", heardAnswer, silence);
+}
 function silence() {
-  if (!G || G.locked || G.step !== 2 && !G.bbActive) return;
+  if (!G || G.locked || !G.waiting) return;
   G.silent++;
-  if (G.silent <= 1) kili({ en: "I'm listening. Say the answer, or tap it.", ta: "நான் கேட்டுக்கிட்டு இருக்கேன். விடையைச் சொல்லு, இல்லன்னா தொடு.", hi: "मैं सुन रहा हूँ। जवाब बोलो, या उस पर टैप करो।" }, { listen: "answer", onHeard: heardAnswer, onSilence: silence });
-  else $("kiliLine").textContent = "Tap your answer, or tap Talk to Kili.";
+  if (G.silent <= 2) kili({ en: "I'm still listening. Take your time. Say your answer, or tap it.", ta: "நான் இன்னும் கேட்டுக்கிட்டு இருக்கேன். நிதானமா யோசி. விடையைச் சொல்லு, இல்லன்னா தொடு.", hi: "मैं अभी भी सुन रहा हूँ। आराम से सोचो। जवाब बोलो, या टैप करो।" }, { then: yourTurn });
+  else { $("kiliLine").textContent = "Your turn. Tap an answer, or tap Talk to Kili."; setTurn("you"); }
 }
 function heardAnswer(alts) {
   if (!G || G.locked) return;
@@ -2051,14 +2110,16 @@ function heardAnswer(alts) {
   if (hit) { const btn = [...document.querySelectorAll(".opt")].find(b => b.dataset.v === hit.v); if (btn && !btn.disabled) { answer(btn); return; } }
   if (CMD.repeat.test(all)) { askQ(true); return; }
   if (CMD.dunno.test(all) || CMD.hint.test(all)) { giveHint(true); return; }
-  kili({ en: `I heard "${alts[0]}". Say one of the answers, or tap it.`, ta: "ஏதாவது ஒரு விடையைச் சொல்லு, இல்லன்னா தொடு.", hi: "कोई एक जवाब बोलो, या उस पर टैप करो।" }, { listen: "answer", onHeard: heardAnswer, onSilence: silence });
+  const x = alts[0] || "";
+  kili({ en: `I heard "${x}". That's not one of the answers. Please say one of them, or tap it.`, ta: `"${x}"-ன்னு கேட்டுச்சு. அது விடைகள்ல இல்லை. ஒரு விடையைச் சொல்லு, இல்லன்னா தொடு.`, hi: `मैंने "${x}" सुना। यह जवाबों में नहीं है। कोई एक जवाब बोलो, या उस पर टैप करो।` }, { then: yourTurn });
 }
 function giveHint(asked) {
   const h = hintOf(G.q.lv);
   $("hintBox").hidden = false; $("hintBox").innerHTML = `<b>Hint:</b><span>${esc(G.q.lv.hint)}</span>`;
-  kili(asked ? { en: `That's okay! Let's think. ${h.en}`, ta: `பரவாயில்ல! சேர்ந்து யோசிப்போம். ${h.ta}`, hi: `कोई बात नहीं! साथ में सोचते हैं। ${h.hi}` }
-             : { en: `Not quite. Try again! Here's a hint. ${h.en}`, ta: `பரவாயில்லை, மறுபடியும் முயற்சி பண்ணு! ஒரு குறிப்பு. ${h.ta}`, hi: `कोई बात नहीं, फिर से कोशिश करो! एक संकेत: ${h.hi}` },
-       { listen: "answer", onHeard: heardAnswer, onSilence: silence });
+  G.waiting = false;
+  kili(asked ? { en: `That's okay! Let's think together. ${h.en} Now, what do you think?`, ta: `பரவாயில்ல! சேர்ந்து யோசிப்போம். ${h.ta} இப்போ சொல்லு, நீ என்ன நினைக்கிற?`, hi: `कोई बात नहीं! साथ में सोचते हैं। ${h.hi} अब बताओ, तुम्हें क्या लगता है?` }
+             : { en: `Hmm, not quite. Here's a hint. ${h.en} Try again!`, ta: `ம்ம், சரியில்லை. ஒரு குறிப்பு. ${h.ta} மறுபடி முயற்சி பண்ணு!`, hi: `हम्म, सही नहीं है। एक संकेत। ${h.hi} फिर से कोशिश करो!` },
+       { then: yourTurn });
 }
 const optSpeech = (o) => o.say || ({ "<": "less than", ">": "greater than", "=": "equal to" }[o.v]) || strip(o.html);
 function questionSpeech(q) {
@@ -2074,38 +2135,39 @@ function renderDots() {
 function tick() { const now = performance.now(); G.ms += Math.min(now - G.lastT, 60000); G.lastT = now; }
 function answer(btn) {
   if (!G || G.locked || btn.disabled || !G.q) return;
-  stopListening();
+  stopListening(); G.waiting = false;
   const q = G.q, v = btn.dataset.v;
   if (G.bbActive) return answerBB(btn);
+  const ansO = q.options.find(o => o.v === q.answer), an = ansO ? optSpeech(ansO) : q.answer;
   if (v === q.answer) {
     tick(); G.locked = true;
     btn.classList.add("right");
     const first = G.tries === 0; G.results[G.i] = first ? 1 : 2; if (first) { G.first++; G.combo++; } else G.combo = 0; G.coins += first ? 2 : 1;
-    const [pr, prTa, prHi] = pick(PRAISE), withName = Math.random() < 0.5;
-    $("praise").textContent = pr + (first ? " +2 coins" : " +1 coin");
+    const [pr, prTa, prHi] = pick(PRAISE);
+    $("praise").className = "praise"; $("praise").textContent = pr + (first ? " +2 coins" : " +1 coin");
     tone(first ? [660, 880] : [660]);
     document.querySelectorAll(".opt").forEach(b => b.disabled = true);
     renderDots();
     const combo = first && (G.combo === 3 || G.combo === 5 || G.combo === 8);
     if (combo) burst(14);
-    const L = combo ? { en: `${pr} ${G.combo} in a row! You're on fire!`, ta: `${prTa} தொடர்ந்து ${G.combo} சரி! கலக்குற!`, hi: `${prHi} लगातार ${G.combo} सही! कमाल कर रहे हो!` }
-                    : { en: withName ? `${pr} ${me()}!` : pr, ta: withName ? `${prTa} ${me()}!` : prTa, hi: withName ? `${prHi} ${me()}!` : prHi };
-    // A thinking trigger after some first-try answers: "How did you work that out?"
+    let L = first ? { en: `${pr} ${an} is right!`, ta: `${prTa} ${an} சரியான விடை!`, hi: `${prHi} ${an} सही जवाब है!` }
+                  : { en: `Yes! ${an} is right. Well done for trying again!`, ta: `ஆமா! ${an} சரி. மறுபடி முயற்சி பண்ணது சூப்பர்!`, hi: `हाँ! ${an} सही है। दोबारा कोशिश करना बहुत अच्छा था!` };
+    if (combo) L = { en: `${L.en} That's ${G.combo} in a row, ${me()}!`, ta: `${L.ta} தொடர்ந்து ${G.combo} சரி, ${me()}!`, hi: `${L.hi} लगातार ${G.combo} सही, ${me()}!` };
     const ask = first && (G.i === 2 || G.i === 6);
     const g0 = G;
-    kili(L, { then: () => { if (G !== g0 || G.locked2) return; if (ask) thinkTrigger(); else setTimeout(() => { if (G === g0 && !G.locked2 && G.step === 2) { G.i++; nextQ(); } }, 350); } });
+    kili(L, { then: () => { if (G !== g0 || G.locked2) return; if (ask) thinkTrigger(); else { G.i++; nextQ(); } } });
   } else {
     G.tries++; G.combo = 0; btn.classList.add("wrong"); btn.disabled = true; tone([240], 0.18);
     if (G.tries === 1) { $("praise").className = "praise oops"; $("praise").textContent = "Not quite. Try again!"; giveHint(false); }
     else {
       tick(); G.locked = true; G.results[G.i] = 0;
-      G.misses.push({ t: q.desc ? `${strip(q.text)} (${q.desc})` : strip(q.text), a: strip(q.options.find(o => o.v === q.answer)?.html || q.answer) || q.answer, g: strip(btn.innerHTML) || v, l: q.lv.id });
+      G.misses.push({ t: q.desc ? `${strip(q.text)} (${q.desc})` : strip(q.text), a: strip(ansO?.html || q.answer) || q.answer, g: strip(btn.innerHTML) || v, l: q.lv.id });
       document.querySelectorAll(".opt").forEach(b => { b.disabled = true; if (b.dataset.v === q.answer) b.classList.add("right"); });
       $("praise").className = "praise oops"; $("praise").textContent = "Here is the right answer. Mistakes help us learn!";
-      const ansO = q.options.find(o => o.v === q.answer), an = ansO ? optSpeech(ansO) : q.answer;
-      $("nextBtn").hidden = false; renderDots();
-      kili({ en: `The answer is ${an}. Mistakes help us learn. You'll get it next time! Say next, or tap Next.`, ta: `சரியான விடை ${an}. தப்பு பண்ணும்போதுதான் நாம கத்துக்கிறோம். அடுத்த தடவை நீ சரியா சொல்லுவ! அடுத்தது-ன்னு சொல்லு.`, hi: `सही जवाब है ${an}। गलती से ही हम सीखते हैं। अगली बार तुम ज़रूर सही बोलोगे! अगला बोलो।` },
-        { listen: "yesno", onHeard: () => { if (G && G.locked && !$("nextBtn").hidden) { G.i++; nextQ(); } } });
+      renderDots();
+      const g0 = G;
+      kili({ en: `The answer is ${an}. Mistakes help us learn. Let's try the next one.`, ta: `சரியான விடை ${an}. தப்பு பண்ணும்போதுதான் கத்துக்கிறோம். அடுத்த கேள்விக்குப் போவோம்.`, hi: `सही जवाब है ${an}। गलती से ही हम सीखते हैं। चलो अगला सवाल करते हैं।` },
+        { then: () => { if (G === g0 && !G.locked2) { G.i++; nextQ(); } } });
     }
   }
 }
@@ -2146,7 +2208,7 @@ function startBB() {
   G.bbActive = true; G.q = makeQ(lv); G.tries = 0; G.locked = false; G.silent = 0;
   renderQ(G.q); $("progDots").innerHTML = `<span class="bbtag">Brain buster</span>`;
   const s = questionSpeech(G.q);
-  kili({ en: `Brain buster! Think carefully. ${s.en}`, ta: `மூளைக்கு வேலை! கவனமா யோசி. ${s.ta || s.en}`, hi: `दिमागी पहेली! ध्यान से सोचो। ${s.hi || s.en}` }, { listen: "answer", onHeard: heardAnswer, onSilence: silence });
+  kili({ en: `Brain buster! Think carefully. ${s.en} What do you think?`, ta: `மூளைக்கு வேலை! கவனமா யோசி. ${s.ta || s.en} நீ என்ன நினைக்கிற?`, hi: `दिमागी पहेली! ध्यान से सोचो। ${s.hi || s.en} तुम्हें क्या लगता है?` }, { then: yourTurn });
 }
 function answerBB(btn) {
   const q = G.q, ok = btn.dataset.v === q.answer;
@@ -2267,7 +2329,16 @@ function micTap(where) {
   if (!$("chatCard").hidden && G.step === 2) return listen("free", (a) => { const t = a.join(" ").toLowerCase(); thinkReply(/count|எண்ண|गिन/.test(t) ? "counted" : /guess|अंदाज़/.test(t) ? "guessed" : "spoke"); });
   if (!$("chatCard").hidden && G.step === 3) return listen("yesno", (a) => { const t = a.join(" "); if (CMD.yes.test(t)) startBB(); else finishLevel(false); });
   if (G.locked && !$("nextBtn").hidden) return listen("yesno", () => { G.i++; nextQ(); });
-  if (G.q && !G.locked) { G.silent = 0; return listen("answer", heardAnswer, silence); }
+  if (G.q && !G.locked) { G.silent = 0; G.waiting = true; return listen("answer", heardAnswer, silence); }
+}
+let editAv = null;
+function renderEdit() {
+  $("editPanel").hidden = !S.pid;
+  if (!S.pid) return;
+  if (document.activeElement !== $("editName")) $("editName").value = S.profile.name || "";
+  if (!editAv || editAv.pid !== S.pid) editAv = { pid: S.pid, av: S.profile.avatar || AVATARS[0] };
+  $("editVoice").value = S.profile.voiceLang || "ta";
+  $("editAvatars").innerHTML = AVATARS.map(a => `<button type="button" class="av" data-eav="${a}" aria-pressed="${a === editAv.av}">${a}</button>`).join("");
 }
 async function deleteProfile(pid) {
   if (S.mode === "cloud" && S.db) {
@@ -2337,6 +2408,7 @@ function renderParent() {
   $("todayTiles").innerHTML = tiles.map(([l, v, s]) => `<div class="tile"><span class="label">${l}</span><span class="v">${v}</span><span class="s">${s}</span></div>`).join("");
   renderChart(); renderCal(); renderSkills(); renderMisses(); renderLog(); renderPedagogy(); renderVoiceNote();
   $("voiceLangSel").value = S.profile.voiceLang || "ta"; $("voiceStyleSel").value = S.profile.voiceStyle || "kid"; $("autoMicChk").checked = S.profile.autoMic !== false;
+  renderEdit();
   $("delName").textContent = S.pid ? (S.profile.name || "this child") : "this child"; $("delBtn").disabled = !S.pid;
   $("goalSel").value = String(g); $("unlockChk").checked = !!S.profile.unlockAll; $("soundChk").checked = S.profile.sound !== false; $("voiceChk").checked = S.profile.voice !== false;
 }
@@ -2433,12 +2505,13 @@ document.addEventListener("click", (e) => {
   const pl = e.target.closest(".player"); if (pl) {
     if (pl.id === "addPlayer") { openCreate(); return; }
     selectProfile(pl.dataset.pid); show("vMap"); renderMap(); say({ en: `Welcome back, ${me()}! What shall we play today? Pick a subject.`, ta: `வா ${me()}! இன்னைக்கு எதை விளையாடலாம்? ஒரு பாடத்தைத் தொடு.`, hi: `आओ ${me()}! आज क्या खेलें? एक विषय चुनो।` }); return; }
-  const av = e.target.closest(".av"); if (av) { newAvatar = av.dataset.av; renderAvatars(); return; }
+  const av = e.target.closest("[data-av]"); if (av) { newAvatar = av.dataset.av; renderAvatars(); return; }
   const pk = e.target.closest("[data-pin]"); if (pk) { pressPin(pk.dataset.pin); return; }
   const sj = e.target.closest("[data-subj]"); if (sj) { S.profile.subject = sj.dataset.subj; saveProfile(); renderMap(); const x = SUBJ[sj.dataset.subj]; say({ en: x.name, ta: x.ta, hi: x.hi }); return; }
   const th = e.target.closest("[data-think]"); if (th) { thinkReply(th.dataset.think); return; }
   const bb = e.target.closest("[data-bb]"); if (bb) { if (bb.dataset.bb === "yes") startBB(); else finishLevel(false); return; }
   const vl = e.target.closest("[data-vl]"); if (vl) { newVL = vl.dataset.vl; document.querySelectorAll("[data-vl]").forEach(b => b.setAttribute("aria-pressed", String(b === vl))); say({ en: "I'll talk in English.", ta: "நான் தமிழ்ல பேசுவேன்.", hi: "मैं हिंदी में बोलूँगा।" }, { force: true }); return; }
+  const ea = e.target.closest("[data-eav]"); if (ea && editAv) { editAv.av = ea.dataset.eav; document.querySelectorAll("[data-eav]").forEach(b => b.setAttribute("aria-pressed", String(b === ea))); return; }
   const mc = e.target.closest("[data-mic]"); if (mc) { micTap(mc.dataset.mic); return; }
   const fl = e.target.closest("[data-feel]"); if (fl) { recordFeel(fl.dataset.feel); document.querySelectorAll("[data-feel]").forEach(b => b.setAttribute("aria-pressed", String(b === fl))); return; }
 });
@@ -2482,6 +2555,13 @@ $("stickBack").addEventListener("click", () => { show("vMap"); renderMap(); });
 $("parentsBtn").addEventListener("click", () => { location.hash = "parent"; });
 $("gateBack").addEventListener("click", () => { location.hash = ""; goHome(); });
 $("dashBack").addEventListener("click", () => { location.hash = ""; goHome(); });
+$("editForm").addEventListener("submit", (e) => { e.preventDefault(); if (!S.pid) return;
+  const name = $("editName").value.trim().replace(/\s+/g, " ").slice(0, 20);
+  if (!name) { $("editMsg").textContent = "Type a name first."; return; }
+  if (Object.entries(S.profiles).some(([id, p]) => id !== S.pid && (p.name || "").toLowerCase() === name.toLowerCase())) { $("editMsg").textContent = `Another child is already called ${name}. Choose a different name.`; return; }
+  S.profile.name = name; S.profile.avatar = editAv ? editAv.av : S.profile.avatar; S.profile.voiceLang = $("editVoice").value;
+  saveProfile(); $("editMsg").textContent = "Saved."; renderParent(); setTimeout(() => { $("editMsg").textContent = ""; }, 2500);
+});
 $("delBtn").addEventListener("click", () => { $("delStep1").hidden = true; $("delStep2").hidden = false; $("delConfirm").value = ""; $("delMsg").textContent = ""; $("delConfirm").focus(); });
 $("delNo").addEventListener("click", () => { $("delStep1").hidden = false; $("delStep2").hidden = true; $("delMsg").textContent = ""; });
 $("delYes").addEventListener("click", async () => {

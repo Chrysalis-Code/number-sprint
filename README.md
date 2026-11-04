@@ -37,7 +37,7 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 1. **Wonder**: Kili tells the world's story and today's learning goal ("I can…"), then asks "Ready?"
 2. **Think together**: Kili solves one example out loud, using the level's strategy.
-3. **Play**: 10 questions. Kili reads each one, then **listens automatically**. The child can say the answer, "repeat", "help" or "I don't know", or tap. Now and then Kili asks "How did you work that out?"
+3. **Play**: 10 questions, taking turns. Kili reads the question and the answers, then says "Your turn" and **waits, listening**, for as long as the child needs. After the answer Kili gives feedback, and only then moves to the next question. The child can say the answer, "repeat", "help" or "I don't know", or tap. Now and then Kili asks "How did you work that out?"
 4. **Brain buster**: an optional harder bonus question.
 5. **Teach Kili**: the child explains what they learned, then rates the level Easy, OK or Tricky.
 
@@ -47,7 +47,7 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 ## Parent dashboard
 
-Tap **Parents** and answer a times-table question. Shows today's time, questions and accuracy, a 14-day chart, a practice calendar, skill status for every level, tricky questions, a daily log, and per-child settings, and a way to delete a child's profile.
+Tap **Parents** and answer a times-table question. Shows today's time, questions and accuracy, a 14-day chart, a practice calendar, skill status for every level, tricky questions, a daily log, and per-child settings, and a way to edit or delete a child's profile.
 
 ## Saving progress
 
