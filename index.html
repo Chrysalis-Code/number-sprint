@@ -836,7 +836,7 @@ body { background:
 <script>
 (() => {
 "use strict";
-const APP_VERSION = "2.2.0";
+const APP_VERSION = "2.2.1";
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -2295,7 +2295,7 @@ function kidSays(t) { const k = document.getElementById("kidLine"); if (k) { k.h
 // Natural Hindi recordings are built into the game (generated with the open Piper "Priyamvada" voice),
 // so no voice has to be installed on the tablet. Clips load per bundle the first time they are needed.
 const CLIPS = {}, CLIP_BUF = {}, BUNDLES = {}, LOADED = {}, CLIPS_LANG = {};
-const BUNDLE_PARTS = {"ta-w3": ["ta-w3a", "ta-w3b", "ta-w3c"], "ta-w4": ["ta-w4a", "ta-w4b", "ta-w4c"], "ta-w5": ["ta-w5a", "ta-w5b"], "ta-words": ["ta-wordsa", "ta-wordsb"]};
+const BUNDLE_PARTS = {"ta-words": ["ta-wordsa", "ta-wordsb"]};
 function loadBundle(name) {
   const file = name.includes("-") ? name : "hi-" + name;
   if (!BUNDLES[name]) BUNDLES[name] = Promise.all((BUNDLE_PARTS[file] || [file]).map(f => fetch(`audio/${f}.json?v=${APP_VERSION}`).then(r => r.ok ? r.json() : {}).catch(() => ({}))))
