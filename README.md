@@ -43,6 +43,10 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 **Voice language.** Each child chooses Tamil, Hindi or English, and can switch at any time with the speaker button at the top right of every screen. English and Hindi words inside a sentence are spoken in their own voices. Kili uses the most natural voice installed on the tablet, and parents can pick a specific voice in the settings. For the most natural Tamil and Hindi, use Microsoft Edge (free Natural voices) or install Google's voices. On Android, install the Tamil and Hindi voices under Settings › Text-to-speech › Google › Install voice data.
 
+**Natural Hindi voice, built in.** About 1,400 Hindi lines are recorded into the game (`audio/hi-*.json`): every Hindi letter, word, sentence and story, Kili's Hindi instructions, and the Hindi lines for English and World Around Us. They were generated with the open-source [Piper](https://github.com/rhasspy/piper) voice *hi_IN-priyamvada*, so nothing has to be installed on the tablet. Lines with changing parts, such as names and numbers in maths, still use the tablet's own voice.
+
+**Animated Kili.** Kili is a drawn, animated parrot: she blinks, nods while talking, tilts her head while listening, and flaps her wings for right answers. Her beak moves with the loudness of the recorded voice (lip-sync), or with word timing for the tablet's voice.
+
 **Microphone.** Listening works in Chrome on Android and in Safari on iPad when the game is opened from GitHub Pages. The Claude artifact viewer blocks the microphone, so there the child taps instead.
 
 ## Parent dashboard

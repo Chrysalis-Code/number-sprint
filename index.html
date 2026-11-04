@@ -76,7 +76,8 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px s
 .pill svg { flex: none; }
 .pill.btnish { cursor: pointer; }
 .goal { display: flex; align-items: center; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 16px; }
-.goal .bar { flex: 1; height: 14px; border-radius: 7px; background: var(--seq0); overflow: hidden; }
+.goal { flex-wrap: wrap; }
+.goal .bar { flex: 1 1 140px; height: 14px; border-radius: 7px; background: var(--seq0); overflow: hidden; }
 .goal .bar i { display: block; height: 100%; background: var(--good); border-radius: 7px; transition: width .4s; }
 .goal b { font-family: var(--font-display); font-size: 1.05rem; white-space: nowrap; }
 .status { font-size: .85rem; color: var(--muted); text-align: center; }
@@ -244,9 +245,9 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .chip.bad { background: var(--bad-soft); color: var(--bad); }
 .chip.none { background: var(--seq0); color: var(--muted); }
 .settings { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
-.settings label { display: flex; gap: 8px; align-items: center; font-weight: 600; }
-.settings select { font: inherit; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--ink); }
-.settings input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--teal); }
+.settings label { display: flex; gap: 8px; align-items: center; font-weight: 600; flex-wrap: wrap; min-width: 0; max-width: 100%; min-height: 44px; cursor: pointer; }
+.settings select { max-width: 100%; min-width: 0; min-height: 40px; font: inherit; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--ink); }
+.settings input[type="checkbox"] { width: 28px; height: 28px; accent-color: var(--teal); }
 .gate { max-width: 420px; margin: 40px auto; text-align: center; align-items: center; }
 .gate input { font: 800 2rem var(--font-display); width: 140px; text-align: center; border: 2px solid var(--line-strong); border-radius: 14px; padding: 6px; color: var(--ink); background: var(--card); }
 .empty { color: var(--muted); font-size: .95rem; padding: 8px 0; }
@@ -278,7 +279,10 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .player.add .em { font: 800 3rem var(--font-display); color: var(--teal); }
 .create { max-width: 560px; width: 100%; text-align: left; }
 .create input[type="text"] { font: 700 1.5rem var(--font-display); width: 100%; border: 2px solid var(--line-strong); border-radius: 14px; padding: 10px 14px; color: var(--ink); background: var(--card); }
-.avatars { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.avatars { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 8px; }
+#voicePickers label { flex: 1 1 240px; }
+#voicePickers select { flex: 1 1 160px; width: 100%; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .av { font-size: 2.2rem; line-height: 1; padding: 8px 0; border-radius: 14px; border: 2px solid var(--line); background: var(--card); cursor: pointer; }
 .av[aria-pressed="true"] { border-color: var(--mango); background: var(--sun-soft); box-shadow: 0 0 0 3px var(--sun); }
 .avatar.em { background: var(--sun-soft); box-shadow: 0 3px 0 var(--sun); font-size: 1.9rem; cursor: pointer; border: 0; }
@@ -297,13 +301,32 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .vomenu button small { font: 600 .85rem var(--font-body); color: var(--muted); }
 .vomenu button[aria-checked="true"] { border-color: var(--mango); background: var(--sun-soft); }
 .top, .playbar { padding-right: 120px; }
-@media (max-width: 520px) { .top, .playbar { padding-right: 0; padding-top: 44px; } }
+@media (max-width: 520px) { .top, .playbar { padding-right: 0; padding-top: 40px; } .vofab { padding: 5px 10px; font-size: .85rem; top: calc(env(safe-area-inset-top, 0px) + 6px); } .vofab svg { width: 18px; height: 18px; } .vomenu { top: calc(env(safe-area-inset-top, 0px) + 46px); } }
 .stepper { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
 .stepper span { font: 700 .78rem var(--font-display); padding: 3px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
 .stepper span.now { background: var(--mango); border-color: var(--mango); color: #fff; }
 .stepper span.done { background: var(--good-soft); border-color: var(--good); color: var(--good); }
 .kili { display: flex; gap: 10px; align-items: flex-end; }
-.kili .kbird { font-size: 3.4rem; line-height: 1; position: relative; animation: bob 2.4s ease-in-out infinite; flex: none; }
+.kili .kbird { width: 96px; position: relative; flex: none; }
+.kiliSvg { width: 100%; height: auto; display: block; overflow: visible; }
+.kiliSvg .kBody { transform-origin: 60px 120px; animation: kBreathe 3.2s ease-in-out infinite; }
+.kiliSvg .kHead { transform-origin: 62px 64px; transition: transform .35s; }
+.kiliSvg .kWing { transform-origin: 44px 72px; }
+.kiliSvg .kLid { transform-origin: 71px 28px; transform: scaleY(0); animation: kBlink 4.6s infinite; }
+.kiliSvg .kPupil { transition: transform .3s; }
+.kbird.talk .kHead { animation: kNod .9s ease-in-out infinite; }
+.kbird.listen .kHead { transform: rotate(-9deg); }
+.kbird.listen .kPupil { transform: translate(-2px, -1px); }
+.kbird.cheer .kBody { animation: kHop .45s ease-out 2; }
+.kbird.cheer .kWing { animation: kFlap .18s ease-in-out 6; }
+.kbird.oops .kHead { transform: rotate(10deg); }
+.kbird.think .kPupil { transform: translate(-1px, -3px); }
+@keyframes kBreathe { 0%,100% { transform: scale(1) } 50% { transform: scale(1.015, .985) } }
+@keyframes kBlink { 0%, 92%, 100% { transform: scaleY(0) } 95% { transform: scaleY(1) } }
+@keyframes kNod { 0%,100% { transform: rotate(0) } 50% { transform: rotate(-4deg) translateY(1px) } }
+@keyframes kHop { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+@keyframes kFlap { 0%,100% { transform: rotate(0) } 50% { transform: rotate(-38deg) } }
+@media (max-width: 520px) { .kili .kbird { width: 72px; } }
 .kili .ear { position: absolute; right: -14px; top: -6px; font-size: 1.4rem; animation: pulse 1s ease-in-out infinite; }
 .kili .kbubble { position: relative; background: var(--card); border: 2px solid var(--teal); border-radius: 18px 18px 18px 4px; padding: 10px 14px; font: 700 1.1rem/1.35 var(--font-display); flex: 1; min-width: 0; }
 .turn { margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: .7rem; letter-spacing: .04em; text-transform: none; background: var(--seq0); color: var(--muted); }
@@ -311,7 +334,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .turn.talking { background: var(--teal-soft); color: var(--teal); }
 .turn.you { background: var(--mango); color: #fff; animation: pulse 1.2s ease-in-out infinite; }
 .kili .kbubble b { display: block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
-.kili.small .kbird { font-size: 2.6rem; }
+.kili.small .kbird { width: 70px; }
 .kili.small { width: 100%; text-align: left; }
 .kidrow { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
 .kidline { background: var(--sun-soft); border-radius: 18px 18px 4px 18px; padding: 8px 14px; font: 700 1rem var(--font-display); max-width: 80%; }
@@ -410,7 +433,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
           <div><h1 id="helloName">Hi!</h1><p id="helloSub">Pick a level to play.</p></div>
         </div>
         <div class="pills">
-          <span class="pill" title="Coins"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--sun)" stroke="var(--warn)" stroke-width="2"/><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--warn)">₹</text></svg><span id="coinCount">0</span><span class="sr" style="position:absolute;left:-9999px">coins</span></span>
+          <span class="pill" title="Coins"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--sun)" stroke="var(--warn)" stroke-width="2"/><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--warn)">₹</text></svg><span id="coinCount">0</span><span class="sr">coins</span></span>
           <span class="pill" title="Stars"><span id="starIcon"></span><span id="starCount">0</span>/<span id="starMax">300</span></span>
           <span class="pill" title="Days in a row"><svg width="20" height="22" viewBox="0 0 20 24" aria-hidden="true"><path d="M10 1c1 5 7 7 7 14a7 7 0 0 1-14 0c0-4 3-6 3-9 2 1 3 3 3 5 1-3 1-6 1-10z" fill="var(--mango)"/></svg><span id="streakCount">0</span> day streak</span>
           <button class="pill btnish" id="stickersBtn" type="button">Stickers</button>
@@ -444,7 +467,22 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       </div>
       <div class="stepper" id="stepper" aria-label="Lesson steps"></div>
       <div class="kili" aria-live="polite">
-        <div class="kbird" aria-hidden="true">🦜<span class="ear" id="kiliEar" hidden>👂</span></div>
+        <div class="kbird" id="kiliBird" aria-hidden="true"><svg class="kiliSvg" viewBox="0 0 120 132" aria-hidden="true"><g class="kBody">
+<path d="M44 108 L30 128 L46 122 L52 130 L58 112 Z" fill="#1f8a52"/>
+<ellipse cx="60" cy="86" rx="31" ry="37" fill="#3cb44b"/>
+<ellipse cx="63" cy="94" rx="17" ry="24" fill="#b5e48c"/>
+<g class="kWing"><path d="M36 70 C24 86 28 108 46 114 C52 98 52 82 46 70 Z" fill="#23935c"/><path d="M34 92 C38 100 42 106 46 110" stroke="#1a6e45" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+<path d="M50 120 l-4 8 M50 120 l2 8 M68 120 l-2 8 M68 120 l4 8" stroke="#f5a524" stroke-width="3.5" stroke-linecap="round"/>
+<g class="kHead">
+<path d="M50 22 C46 8 54 2 58 14 C58 2 68 0 66 16 C72 6 80 10 72 22 Z" fill="#e0475e"/>
+<circle cx="62" cy="44" r="27" fill="#45c463"/>
+<circle cx="48" cy="56" r="6" fill="#ff9fb2" opacity=".75"/>
+<g class="kEye"><circle cx="71" cy="39" r="9.5" fill="#fff"/><circle class="kPupil" cx="73" cy="40" r="5.2" fill="#1e2b45"/><circle cx="75" cy="37.6" r="1.8" fill="#fff"/>
+<rect class="kLid" x="60" y="28" width="22" height="22" rx="11" fill="#45c463"/></g>
+<path d="M58 30 q8 -6 18 -2" stroke="#1f8a52" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<path class="kBeakTop" d="M82 44 C94 42 104 50 101 62 C98 57 92 55 84 56 Z" fill="#f5a524"/>
+<path class="kJaw" d="M84 56 C92 56 97 58 98 61 C94 66 88 67 83 64 Z" fill="#d97f0f"/>
+</g></g></svg><span class="ear" id="kiliEar" hidden>👂</span></div>
         <div class="kbubble"><b>Kili <span class="turn" id="turn"></span></b><span id="kiliLine">Hi!</span></div>
       </div>
       <div class="kidrow"><div class="kidline" id="kidLine" hidden></div>
@@ -489,7 +527,22 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       <h2 id="resTitle">Well done!</h2>
       <p class="note" id="resText" style="font-size:1.1rem"></p>
       <div class="result-row" id="resPills"></div>
-      <div class="kili small"><div class="kbird" aria-hidden="true">🦜</div><div class="kbubble"><b>Kili</b><span id="resKili">…</span></div></div>
+      <div class="kili small"><div class="kbird" id="kiliBird2" aria-hidden="true"><svg class="kiliSvg" viewBox="0 0 120 132" aria-hidden="true"><g class="kBody">
+<path d="M44 108 L30 128 L46 122 L52 130 L58 112 Z" fill="#1f8a52"/>
+<ellipse cx="60" cy="86" rx="31" ry="37" fill="#3cb44b"/>
+<ellipse cx="63" cy="94" rx="17" ry="24" fill="#b5e48c"/>
+<g class="kWing"><path d="M36 70 C24 86 28 108 46 114 C52 98 52 82 46 70 Z" fill="#23935c"/><path d="M34 92 C38 100 42 106 46 110" stroke="#1a6e45" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+<path d="M50 120 l-4 8 M50 120 l2 8 M68 120 l-2 8 M68 120 l4 8" stroke="#f5a524" stroke-width="3.5" stroke-linecap="round"/>
+<g class="kHead">
+<path d="M50 22 C46 8 54 2 58 14 C58 2 68 0 66 16 C72 6 80 10 72 22 Z" fill="#e0475e"/>
+<circle cx="62" cy="44" r="27" fill="#45c463"/>
+<circle cx="48" cy="56" r="6" fill="#ff9fb2" opacity=".75"/>
+<g class="kEye"><circle cx="71" cy="39" r="9.5" fill="#fff"/><circle class="kPupil" cx="73" cy="40" r="5.2" fill="#1e2b45"/><circle cx="75" cy="37.6" r="1.8" fill="#fff"/>
+<rect class="kLid" x="60" y="28" width="22" height="22" rx="11" fill="#45c463"/></g>
+<path d="M58 30 q8 -6 18 -2" stroke="#1f8a52" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<path class="kBeakTop" d="M82 44 C94 42 104 50 101 62 C98 57 92 55 84 56 Z" fill="#f5a524"/>
+<path class="kJaw" d="M84 56 C92 56 97 58 98 61 C94 66 88 67 83 64 Z" fill="#d97f0f"/>
+</g></g></svg></div><div class="kbubble"><b>Kili</b><span id="resKili">…</span></div></div>
       <div class="teach" id="teachBox" hidden>
         <span class="label">Teach Kili</span>
         <p id="teachQ"></p>
@@ -1744,7 +1797,7 @@ if (canSpeak) { pickVoice(); try { speechSynthesis.addEventListener("voiceschang
 let guestVoice = (() => { try { return localStorage.getItem("mq-guest-voice") || "ta"; } catch (e) { return "ta"; } })();
 const voiceLang = () => (S.pid ? S.profile.voiceLang : guestVoice) || "ta";
 const voiceOn = () => S.pid ? S.profile.voice !== false : guestVoice !== "off";
-const langOK = (l) => l === "en" || !!VOICES[l] || !voicesLoaded;
+const langOK = (l) => l === "en" || !!VOICES[l] || !voicesLoaded || (l === "hi" && Object.keys(CLIPS).length > 0);
 const EMO_G = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}|[️‍⃣])+/gu;
 const SPEAK_WORDS = { ta: ["ரூபாய்", "கழித்தல்", "பெருக்கல்", "கோடிட்ட இடம்"], hi: ["रुपये", "घटा", "गुणा", "खाली जगह"], en: ["rupees", "minus", "times", "blank"] };
 function cleanSpeech(t, base) {
@@ -1768,36 +1821,41 @@ function segments(text, base, mergeEn) {
 let speakSeq = 0;
 function speakText(text, base, { force = false, onend } = {}) {
   const seq = ++speakSeq;
-  let done = false; const finish = () => { if (done || seq !== speakSeq) return; done = true; clearInterval(poll); setTurn(null); if (onend) setTimeout(onend, 250); };
-  let poll = null;
-  if (!canSpeak || (!force && !voiceOn()) || !text) { setTimeout(finish, 400); return; }
-  try {
-    speechSynthesis.cancel();
-    const young = S.profile.voiceStyle === "young";
-    pickVoice();
-    // Keep English words inside a Tamil or Hindi sentence in the same voice: switching voices mid-sentence
-    // sounds choppy. English is only spoken separately in the English subject, where pronunciation matters.
-    const keepEn = !!(G && G.q && G.q.lv && G.q.lv.subj.id === "english") || base === "en";
-    const parts = segments(cleanSpeech(text, base), base, !keepEn && !!VOICES[base]);
-    let started = false; const t0 = Date.now();
-    parts.forEach(([l, t], i) => {
-      const u = new SpeechSynthesisUtterance(t.trim());
-      u.lang = LANG_TAG[l] || "en-IN"; if (VOICES[l]) u.voice = VOICES[l];
-      u.rate = l === "en" ? 0.95 : 0.92; u.pitch = young ? 1.15 : 1.0;
-      u.onstart = () => { started = true; };
-      if (i === parts.length - 1) { u.onend = finish; u.onerror = finish; }
-      speechSynthesis.speak(u);
-    });
-    if (!parts.length) { setTimeout(finish, 200); return; }
-    setTurn("kili");
-    // Some browsers never fire onend. Poll the engine: finish only when it has stopped speaking.
-    poll = setInterval(() => {
-      const busy = speechSynthesis.speaking || speechSynthesis.pending, el = Date.now() - t0;
-      if ((started || el > 2500) && !busy && el > 700) finish();
-      else if (!started && el > 6000) finish();          // the voice never started (no voice available)
-      else if (el > 90000) finish();                     // hard safety limit
-    }, 250);
-  } catch (e) { setTimeout(finish, 300); }
+  let done = false; const finish = () => { if (done || seq !== speakSeq) return; done = true; kiliTalking(false); mouthMode = null; setTurn(null); if (onend) setTimeout(onend, 250); };
+  if ((!canSpeak && !Object.keys(CLIPS).length) || (!force && !voiceOn()) || !text) { setTimeout(finish, 400); return; }
+  try { canSpeak && speechSynthesis.cancel(); } catch (e) {}
+  stopClip(); pickVoice();
+  const young = S.profile.voiceStyle === "young";
+  // Keep English words inside a Tamil or Hindi sentence in the same voice; the English subject speaks
+  // English words in the English voice because their pronunciation is what is being taught.
+  const keepEn = !!(G && G.q && G.q.lv && G.q.lv.subj.id === "english") || base === "en";
+  const parts = segments(cleanSpeech(text, base), base, !keepEn && !!VOICES[base]);
+  const items = [];
+  for (const [l, t] of parts) {
+    if (l === "hi") { for (const c of hiChunks(t)) { if (CLIPS[c]) items.push({ clip: c }); else items.push({ l, t: c }); } }
+    else items.push({ l, t });
+  }
+  // merge neighbouring device-voice items in the same language so speech flows
+  const merged = []; items.forEach(it => { const last = merged[merged.length - 1]; if (last && !it.clip && !last.clip && last.l === it.l) last.t += " " + it.t; else merged.push({ ...it }); });
+  if (!merged.length) { setTimeout(finish, 200); return; }
+  setTurn("kili"); kiliTalking(true);
+  const sayTTS = (it) => new Promise((res) => {
+    if (!canSpeak) return res();
+    let started = false, fin = false; const t0 = Date.now(); const end = () => { if (fin) return; fin = true; clearInterval(poll); mouthMode = null; res(); };
+    const u = new SpeechSynthesisUtterance(it.t.trim());
+    u.lang = LANG_TAG[it.l] || "en-IN"; if (VOICES[it.l]) u.voice = VOICES[it.l];
+    u.rate = it.l === "en" ? 0.95 : 0.92; u.pitch = young ? 1.15 : 1.0;
+    u.onstart = () => { started = true; mouthMode = "tts"; }; u.onboundary = () => { wordPulse = 0.9; };
+    u.onend = end; u.onerror = end;
+    speechSynthesis.speak(u);
+    // Some browsers never fire onend: finish only when the engine has really stopped speaking.
+    const poll = setInterval(() => { const busy = speechSynthesis.speaking || speechSynthesis.pending, el = Date.now() - t0;
+      if ((started || el > 2500) && !busy && el > 600) end(); else if (!started && el > 6000) end(); else if (el > 90000) end(); }, 200);
+  });
+  (async () => {
+    for (const it of merged) { if (seq !== speakSeq) return; if (it.clip) await playClip(it.clip); else await sayTTS(it); }
+    finish();
+  })();
 }
 // Whose turn is it? Shown as a badge on Kili's bubble.
 function setTurn(t) {
@@ -1814,7 +1872,7 @@ function say(a, b, c) {
   speakText(L[lang] || L.en, lang, opts);
 }
 const speak = (text, opts) => speakText(text, "en", opts);
-const stopSpeaking = () => { speakSeq++; try { canSpeak && speechSynthesis.cancel(); } catch (e) {} };
+const stopSpeaking = () => { speakSeq++; try { canSpeak && speechSynthesis.cancel(); } catch (e) {} stopClip(); kiliTalking(false); };
 
 // Voice input (speech to text): works where the browser allows the microphone.
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1892,10 +1950,71 @@ function micUnavailable() {
   const k = document.getElementById("kidLine"); if (k) { k.hidden = false; k.textContent = "The microphone isn't available here, so tap your answers."; }
 }
 function setListeningUI(on) {
+  kiliListening(on);
   document.querySelectorAll(".mic").forEach(b => { b.classList.toggle("listening", on); const l = b.querySelector(".ml"); if (l) l.textContent = on ? "Listening…" : "Talk to Kili"; });
   const ear = document.getElementById("kiliEar"); if (ear) ear.hidden = !on;
 }
 function kidSays(t) { const k = document.getElementById("kidLine"); if (k) { k.hidden = false; k.textContent = `You said: “${t}”`; } }
+
+/* ===================== embedded natural Hindi voice + Kili's lip-sync ===================== */
+// Natural Hindi recordings are built into the game (generated with the open Piper "Priyamvada" voice),
+// so no voice has to be installed on the tablet. Clips load per bundle the first time they are needed.
+const CLIPS = {}, CLIP_BUF = {}, BUNDLES = {}, LOADED = {};
+function loadBundle(name) {
+  if (!BUNDLES[name]) BUNDLES[name] = fetch(`audio/hi-${name}.json`).then(r => r.ok ? r.json() : {}).then(d => { Object.assign(CLIPS, d); LOADED[name] = true; return Object.keys(d).length; }).catch(() => { LOADED[name] = true; return 0; });
+  return BUNDLES[name];
+}
+const clipKey = (t) => t.replace(/\s+/g, " ").trim();
+function hiChunks(t) {
+  const out = [];
+  for (let c of t.split(/(?<=[।?!.,])\s+/)) { c = clipKey(c); if (!c) continue; if (/^या\s/.test(c)) { out.push("या"); c = c.slice(3).trim(); } if (c) out.push(c); }
+  return out;
+}
+let analyser = null, anaBuf = null, curSrc = null, curEl = null;
+function audioCtx() {
+  try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); } catch (e) { actx = null; }
+  if (actx && !analyser) { analyser = actx.createAnalyser(); analyser.fftSize = 512; anaBuf = new Uint8Array(analyser.fftSize); analyser.connect(actx.destination); }
+  return actx;
+}
+["pointerdown", "keydown", "touchstart"].forEach(ev => document.addEventListener(ev, () => audioCtx(), { passive: true }));
+function b64ToBuf(b64) { const bin = atob(b64), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u.buffer; }
+function playClip(key) {
+  return new Promise(async (resolve) => {
+    const b64 = CLIPS[key]; if (!b64) return resolve();
+    const rate = S.profile.voiceStyle === "young" ? 1.07 : 1;
+    const ctx = audioCtx();
+    try {
+      if (ctx && ctx.state === "running") {
+        const buf = CLIP_BUF[key] || (CLIP_BUF[key] = await ctx.decodeAudioData(b64ToBuf(b64)));
+        const src = ctx.createBufferSource(); src.buffer = buf; src.playbackRate.value = rate; src.connect(analyser);
+        curSrc = src; mouthMode = "clip";
+        src.onended = () => { if (curSrc === src) { curSrc = null; mouthMode = null; } resolve(); };
+        src.start(); return;
+      }
+    } catch (e) {}
+    const el = new Audio("data:audio/mpeg;base64," + b64); el.playbackRate = rate; curEl = el; mouthMode = "sim";
+    el.onended = el.onerror = () => { if (curEl === el) { curEl = null; mouthMode = null; } resolve(); };
+    el.play().catch(() => resolve());
+  });
+}
+function stopClip() { try { curSrc && curSrc.stop(); } catch (e) {} curSrc = null; try { curEl && curEl.pause(); } catch (e) {} curEl = null; mouthMode = null; }
+// Lip-sync: the beak opens with the loudness of the clip; for device voices it follows word timing.
+let mouthMode = null, mouthV = 0, wordPulse = 0;
+function mouthLoop(t) {
+  let target = 0;
+  if (mouthMode === "clip" && analyser) { analyser.getByteTimeDomainData(anaBuf); let sum = 0; for (let i = 0; i < anaBuf.length; i++) { const x = (anaBuf[i] - 128) / 128; sum += x * x; } target = Math.min(1, Math.sqrt(sum / anaBuf.length) * 7); }
+  else if (mouthMode === "tts" || mouthMode === "sim") { wordPulse *= 0.9; target = Math.max(wordPulse, 0.25 + 0.3 * Math.abs(Math.sin(t / 70)) * (0.6 + 0.4 * Math.sin(t / 23))); }
+  mouthV += (target - mouthV) * 0.5;
+  document.querySelectorAll(".kJaw").forEach(j => j.setAttribute("transform", `rotate(${(mouthV * 28).toFixed(1)} 84 57)`));
+  document.querySelectorAll(".kBeakTop").forEach(j => j.setAttribute("transform", `rotate(${(-mouthV * 6).toFixed(1)} 84 50)`));
+  requestAnimationFrame(mouthLoop);
+}
+requestAnimationFrame(mouthLoop);
+function kiliMood(m, ms) {
+  ["kiliBird", "kiliBird2"].forEach(id => { const el = document.getElementById(id); if (!el) return; el.classList.remove("cheer", "oops", "think"); if (m) { el.classList.add(m); if (ms) setTimeout(() => el.classList.remove(m), ms); } });
+}
+function kiliTalking(on) { ["kiliBird", "kiliBird2"].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle("talk", on); }); }
+function kiliListening(on) { const el = document.getElementById("kiliBird"); if (el) el.classList.toggle("listen", on); }
 
 /* ===================== views ===================== */
 const VIEWS = ["vLogin", "vWho", "vCreate", "vMap", "vPlay", "vResult", "vStickers", "vGate", "vParent"];
@@ -2043,8 +2162,21 @@ function setStep(i) {
   $("stepper").innerHTML = STEPS.map((s, k) => `<span class="${k < i ? "done" : k === i ? "now" : ""}">${k + 1}. ${s}</span>`).join("");
 }
 function showPanel(id) { ["introCard", "qCard", "chatCard"].forEach(x => $(x).hidden = x !== id); }
-function startLevel(id) {
+function needBundles(id) {
+  const L = [];
+  if (voiceLang() === "hi") L.push("core");
+  const lv = LEVEL[id]; if ((lv && lv.subj.id === "hindi") || (id === "review" && curSubj().id === "hindi")) L.push("hindi");
+  return L;
+}
+function startLevel(id, ready) {
   if (!S.ready || !S.daysReady || !S.pid) return;
+  const need = ready ? [] : needBundles(id).filter(n => !LOADED[n]);
+  if (need.length) {
+    if (startLevel.waiting) return;
+    startLevel.waiting = true; $("continueBtn").textContent = "Kili is getting ready…";
+    Promise.race([Promise.all(need.map(loadBundle)), new Promise(r => setTimeout(r, 8000))]).then(() => { startLevel.waiting = false; startLevel(id, true); });
+    return;
+  }
   stopListening();
   const review = id === "review", pool = review ? reviewPool() : null;
   if (review && !pool.length) return;
@@ -2183,7 +2315,7 @@ function answer(btn) {
     const first = G.tries === 0; G.results[G.i] = first ? 1 : 2; if (first) { G.first++; G.combo++; } else G.combo = 0; G.coins += first ? 2 : 1;
     const [pr, prTa, prHi] = pick(PRAISE);
     $("praise").className = "praise"; $("praise").textContent = pr + (first ? " +2 coins" : " +1 coin");
-    tone(first ? [660, 880] : [660]);
+    tone(first ? [660, 880] : [660]); kiliMood("cheer", 1200);
     document.querySelectorAll(".opt").forEach(b => b.disabled = true);
     renderDots();
     const combo = first && (G.combo === 3 || G.combo === 5 || G.combo === 8);
@@ -2195,7 +2327,7 @@ function answer(btn) {
     const g0 = G;
     kili(L, { then: () => { if (G !== g0 || G.locked2) return; if (ask) thinkTrigger(); else { G.i++; nextQ(); } } });
   } else {
-    G.tries++; G.combo = 0; btn.classList.add("wrong"); btn.disabled = true; tone([240], 0.18);
+    G.tries++; G.combo = 0; btn.classList.add("wrong"); btn.disabled = true; tone([240], 0.18); kiliMood("oops", 1800);
     if (G.tries === 1) { $("praise").className = "praise oops"; $("praise").textContent = "Not quite. Try again!"; giveHint(false); }
     else {
       tick(); G.locked = true; G.results[G.i] = 0;
@@ -2308,7 +2440,7 @@ function showResult(stars, newStars, bonus) {
   $("teachBox").hidden = !teach; $("teachQ").textContent = teach ? `Be my teacher! Tell me: ${teachLine(r.lv)}` : "";
   $("teachDone").disabled = false;
   show("vResult");
-  if (stars) { tone([523, 659, 784, 1047], 0.13); burst(40); }
+  if (stars) { tone([523, 659, 784, 1047], 0.13); burst(40); setTimeout(() => kiliMood("cheer", 1500), 300); }
   if (r.review) setStep(4);
   const name = me(), f = r.first;
   const L = r.review ? { en: `Practice done! ${f} out of ${r.n} on the first try.`, ta: `பயிற்சி முடிஞ்சது! ${r.n}-க்கு ${f} சரி.`, hi: `अभ्यास पूरा! ${r.n} में से ${f} सही।` }
@@ -2590,6 +2722,7 @@ function renderVoFab() {
   document.querySelectorAll("[data-volang]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.volang === l)));
 }
 function setVoiceLang(l) {
+  if (l === "hi") loadBundle("core");
   if (S.pid) { if (l === "off") S.profile.voice = false; else { S.profile.voice = true; S.profile.voiceLang = l; } saveProfile(); }
   else { guestVoice = l; try { localStorage.setItem("mq-guest-voice", l); } catch (e) {} }
   renderVoFab(); $("voMenu").hidden = true; $("voFab").setAttribute("aria-expanded", "false");
@@ -2656,6 +2789,7 @@ window.addEventListener("hashchange", route);
 
 show(authed ? "vWho" : "vLogin");
 initStore();
+if (voiceLang() === "hi") loadBundle("core");
 route();
 })();
 </script>
