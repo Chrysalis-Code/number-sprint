@@ -6,7 +6,7 @@ Every level is mapped to a learning outcome, success criteria and the NCF for Fo
 
 ## How it works
 
-1. **Log in** with the password (default `1234`, set by `APP_PASSWORD` in `index.html`).
+1. **Log in** with the password (default `2026`, set by `APP_PASSWORD` in `index.html`).
 2. **Pick your player**, or tap **New player** to make one (name + animal).
 3. **Choose a subject**, then play: Maths has 8 worlds and each other subject has 4, with 5 levels per world (100 levels in all). Each level is 10 untimed questions. Earn 1–3 stars (7, 9 or 10 right on the first try); one star unlocks the next level. Coins buy stickers.
 
@@ -31,14 +31,23 @@ Every level is mapped to a learning outcome, success criteria and the NCF for Fo
 | Hindi | Akshar Mela (letters), Matra Magic (vowel signs), Shabd Bagicha (words), Vakya Ghar (sentences) |
 | World Around Us | My Body and Health, Plants and Animals, Family and Community, Our Earth |
 
-## Voice
+## Talking with Kili
 
-- **Read aloud in Tamil**: instructions, hints and praise are spoken in Tamil, while English and Hindi words are spoken in their own voices. The voice language can be switched to English in the parent settings. The quality depends on the voices installed on the tablet. On Android, install the Tamil voice under Settings › Text-to-speech › Google › Install voice data.
-- **Say your answer**: tap the microphone and say the answer ("forty-seven", "half past four", "greater than"). Works in Chrome and Safari when the page is served over HTTPS, for example GitHub Pages.
+Every level is a conversation with Kili the parrot, in five steps that follow the Chrysalis lesson flow: engagement, concept-building, assessment, reflection.
+
+1. **Wonder**: Kili tells the world's story and today's learning goal ("I can…"), then asks "Ready?"
+2. **Think together**: Kili solves one example out loud, using the level's strategy.
+3. **Play**: 10 questions. Kili reads each one, then **listens automatically**. The child can say the answer, "repeat", "help" or "I don't know", or tap. Now and then Kili asks "How did you work that out?"
+4. **Brain buster**: an optional harder bonus question.
+5. **Teach Kili**: the child explains what they learned, then rates the level Easy, OK or Tricky.
+
+**Voice language.** Each child chooses Tamil, Hindi or English, and can change it in the parent settings. English and Hindi words inside a sentence are spoken in their own voices. The child-like style raises the pitch of the tablet's Indian voice. The quality depends on the voices installed. On Android, install the Tamil and Hindi voices under Settings › Text-to-speech › Google › Install voice data.
+
+**Microphone.** Listening works in Chrome on Android and in Safari on iPad when the game is opened from GitHub Pages. The Claude artifact viewer blocks the microphone, so there the child taps instead.
 
 ## Parent dashboard
 
-Tap **Parents** and answer a times-table question. Shows today's time, questions and accuracy, a 14-day chart, a practice calendar, skill status for every level, tricky questions, a daily log, and per-child settings.
+Tap **Parents** and answer a times-table question. Shows today's time, questions and accuracy, a 14-day chart, a practice calendar, skill status for every level, tricky questions, a daily log, and per-child settings, and a way to delete a child's profile.
 
 ## Saving progress
 
