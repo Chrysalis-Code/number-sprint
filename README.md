@@ -34,7 +34,7 @@ Every level is mapped to a learning outcome, success criteria and the NCF for Fo
 
 ## Ways to answer (no typing)
 
-Tap an answer, say it out loud, or do one of the hands-on activities mixed into each level:
+Tap an answer, say it out loud, or do one of the hands-on activities. Every level has at least two kinds, and 3 of its 10 rounds are hands-on:
 
 - **Match the following**: tap or drag a line between pairs
 - **Sort into boxes**: drag or tap cards into bins (wet or dry waste, odd or even, pet, farm or wild)
@@ -42,7 +42,13 @@ Tap an answer, say it out loud, or do one of the hands-on activities mixed into 
 - **Circle it**: draw a ring around the right picture with a finger
 - **Trace it**: trace big letters and numbers (அ, क, b, 7)
 - **Number line**: drag the frog to the right number
-- **Tap to count**: tap the right number of pictures
+- **Tap to count**: tap the right number of pictures (or share them equally)
+- **Build the word**: tap letter or syllable tiles in order (cat, गाय, மரம்), including a few tiles that don't belong; also number parts and shape patterns
+- **Drag into the blank**: drag the right answer into the box in the sentence or sum
+- **Find in the picture**: tap every matching thing in a scene (good habits, wild animals, every “க்”)
+- **Pay with coins**: tap or drag coins and notes into the purse to pay a price or give change
+
+**Listening questions** ("Listen. Which letter do you hear?") never show the letter or word on screen or in Kili's speech bubble. A big speaker button plays just that sound again.
 
 ## Talking with Kili
 
