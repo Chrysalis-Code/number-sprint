@@ -224,7 +224,8 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .who { text-align: center; gap: 22px; display: flex; flex-direction: column; align-items: center; padding-block: 20px; }
 .who h1 { font-size: clamp(2rem, 6vw, 2.8rem); }
 .who h1 span { color: var(--mango); }
-.players { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; width: 100%; max-width: 760px; }
+.players { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; width: 100%; max-width: 760px; }
+.players .player { flex: 0 1 170px; }
 .player { background: var(--card); border: 2px solid var(--line); border-radius: 22px; padding: 18px 10px 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 5px 0 var(--line-strong); }
 .player:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--line-strong); }
 .player .em { font-size: 3.4rem; line-height: 1; }
