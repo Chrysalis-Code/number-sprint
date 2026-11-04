@@ -1,0 +1,458 @@
+<title>Number Sprint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one squared-paper exercise pad, a single column card; the equation is the hero, the keypad sits under it. */
+:root {
+  --paper: #f3f6fb;
+  --grid: #dbe3f0;
+  --card: #ffffff;
+  --ink: #1b2a4a;
+  --muted: #5d6b86;
+  --line: #cfd8e8;
+  --accent: #2f5bd3;      /* ink-blue pen */
+  --accent-ink: #ffffff;
+  --margin: #e0565b;      /* red margin rule */
+  --good: #1f8a5b;
+  --bad: #c8343a;
+  --key: #eef2f9;
+  --key-press: #dde5f3;
+  --font-display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Fredoka", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-num: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1a30; --grid: #1a2a49; --card: #15223d; --ink: #e8eefc; --muted: #9aa9c8;
+    --line: #2a3b60; --accent: #7fa2ff; --accent-ink: #0d1730; --margin: #ff7b80;
+    --good: #4fd19a; --bad: #ff7b80; --key: #1d2c4d; --key-press: #283b63; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1a30; --grid: #1a2a49; --card: #15223d; --ink: #e8eefc; --muted: #9aa9c8;
+  --line: #2a3b60; --accent: #7fa2ff; --accent-ink: #0d1730; --margin: #ff7b80;
+  --good: #4fd19a; --bad: #ff7b80; --key: #1d2c4d; --key-press: #283b63; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 40px;
+}
+.wrap { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: 2rem; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h1 span { color: var(--accent); }
+.best { font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.best b { color: var(--ink); font-family: var(--font-num); font-weight: 500; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 1px 0 var(--line), 0 10px 30px -18px rgba(20, 40, 90, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+/* red margin rule, like an exercise book */
+.card::before { content: ""; position: absolute; top: 0; bottom: 0; left: 28px; width: 2px; background: var(--margin); opacity: 0.55; }
+.card-inner { padding: 20px 20px 20px 48px; display: flex; flex-direction: column; gap: 18px; }
+
+.label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); }
+.group { display: flex; flex-direction: column; gap: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: 500 1rem var(--font-body);
+  border: 1.5px solid var(--line); background: var(--key); color: var(--ink);
+  border-radius: 999px; padding: 8px 16px; cursor: pointer; min-width: 52px;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.chip.op { font-family: var(--font-num); font-size: 1.2rem; padding: 6px 0; width: 52px; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.chip:focus-visible, .key:focus-visible, .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.hint { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+.btn {
+  font: 600 1.1rem var(--font-body); border: 0; border-radius: 12px; padding: 14px 20px; cursor: pointer;
+  background: var(--accent); color: var(--accent-ink);
+}
+.btn.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--line); }
+.btn:active { transform: translateY(1px); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row .btn { flex: 1 1 140px; }
+
+/* Play screen */
+.hud { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat .v { font-family: var(--font-num); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.stat.time .v.low { color: var(--bad); }
+.bar { height: 6px; border-radius: 3px; background: var(--key); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: left; transition: transform .25s linear; }
+
+.question {
+  font-family: var(--font-num); font-weight: 500;
+  font-size: clamp(2.4rem, 11vw, 3.6rem); text-align: center; line-height: 1.1;
+  padding-block: 12px 4px; font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.answer {
+  font-family: var(--font-num); font-size: clamp(2rem, 9vw, 2.8rem); text-align: center;
+  min-height: 1.4em; border-bottom: 2px dashed var(--line); margin: 0 auto; width: min(220px, 80%);
+  color: var(--accent); font-variant-numeric: tabular-nums;
+}
+.answer.empty::after { content: "?"; color: var(--line); }
+.answer.good { color: var(--good); border-color: var(--good); }
+.answer.bad { color: var(--bad); border-color: var(--bad); animation: shake .35s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+@keyframes pop { 0%{transform:scale(.9);opacity:.4} 100%{transform:scale(1);opacity:1} }
+.question.new { animation: pop .18s ease-out; }
+.feedback { text-align: center; min-height: 1.4em; font-weight: 500; color: var(--muted); }
+.feedback.good { color: var(--good); }
+.feedback.bad { color: var(--bad); }
+
+.keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.key {
+  font: 500 1.5rem var(--font-num); padding: 14px 0; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--key); color: var(--ink); cursor: pointer; touch-action: manipulation; user-select: none;
+}
+.key:active { background: var(--key-press); }
+.key.small { font: 600 1rem var(--font-body); }
+.key.go { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+/* Results */
+.big { font-family: var(--font-num); font-size: 3.4rem; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
+.newbest { display: inline-block; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  background: var(--good); color: var(--card); border-radius: 999px; padding: 3px 10px; margin-left: 8px; vertical-align: middle; }
+.summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 16px; }
+.misses { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-family: var(--font-num); font-size: 1rem; }
+.misses li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dotted var(--line); padding-bottom: 6px; }
+.misses .you { color: var(--bad); text-decoration: line-through; }
+.foot { font-size: 0.8rem; color: var(--muted); text-align: center; }
+kbd { font-family: var(--font-num); font-size: .8em; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; background: var(--key); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Number <span>Sprint</span></h1>
+    <div class="best" id="bestLine">Best: <b id="bestVal">–</b></div>
+  </header>
+
+  <!-- SETUP -->
+  <section class="card" id="setup">
+    <div class="card-inner">
+      <div class="group">
+        <div class="label" id="opsLabel">Operations</div>
+        <div class="chips" role="group" aria-labelledby="opsLabel">
+          <button class="chip op" id="op-add" data-op="add" aria-pressed="true" aria-label="Addition">+</button>
+          <button class="chip op" id="op-sub" data-op="sub" aria-pressed="true" aria-label="Subtraction">−</button>
+          <button class="chip op" id="op-mul" data-op="mul" aria-pressed="false" aria-label="Multiplication">×</button>
+          <button class="chip op" id="op-div" data-op="div" aria-pressed="false" aria-label="Division">÷</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="label" id="lvlLabel">Level</div>
+        <div class="chips" role="group" aria-labelledby="lvlLabel">
+          <button class="chip" id="lvl-easy" data-level="easy" aria-pressed="false">Easy</button>
+          <button class="chip" id="lvl-medium" data-level="medium" aria-pressed="true">Medium</button>
+          <button class="chip" id="lvl-hard" data-level="hard" aria-pressed="false">Hard</button>
+        </div>
+        <p class="hint" id="lvlHint"></p>
+      </div>
+      <div class="group">
+        <div class="label" id="modeLabel">Mode</div>
+        <div class="chips" role="group" aria-labelledby="modeLabel">
+          <button class="chip" id="mode-sprint" data-mode="sprint" aria-pressed="true">60-second sprint</button>
+          <button class="chip" id="mode-practice" data-mode="practice" aria-pressed="false">Practice (20 questions)</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="label">Sample question</div>
+        <div class="question" id="preview" aria-live="polite">7 + 5</div>
+      </div>
+      <button class="btn" id="startBtn">Start</button>
+      <p class="hint">Type with your keyboard or tap the keypad. A correct answer is accepted the moment you type it. Streaks of 5 or more earn bonus points.</p>
+    </div>
+  </section>
+
+  <!-- PLAY -->
+  <section class="card" id="play" hidden>
+    <div class="card-inner">
+      <div class="hud">
+        <div class="stat"><span class="label">Score</span><span class="v" id="score">0</span></div>
+        <div class="stat"><span class="label">Streak</span><span class="v" id="streak">0</span></div>
+        <div class="stat time"><span class="label" id="timeLabel">Time</span><span class="v" id="time">60</span></div>
+      </div>
+      <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+      <div class="question" id="question" aria-live="polite"></div>
+      <div class="answer empty" id="answer" aria-label="Your answer"></div>
+      <div class="feedback" id="feedback" role="status"></div>
+      <div class="keypad" id="keypad">
+        <button class="key" id="k7" data-k="7">7</button><button class="key" id="k8" data-k="8">8</button><button class="key" id="k9" data-k="9">9</button>
+        <button class="key" id="k4" data-k="4">4</button><button class="key" id="k5" data-k="5">5</button><button class="key" id="k6" data-k="6">6</button>
+        <button class="key" id="k1" data-k="1">1</button><button class="key" id="k2" data-k="2">2</button><button class="key" id="k3" data-k="3">3</button>
+        <button class="key small" id="kdel" data-k="del" aria-label="Delete">⌫ Del</button>
+        <button class="key" id="k0" data-k="0">0</button>
+        <button class="key small go" id="kenter" data-k="enter">Check</button>
+      </div>
+      <div class="row">
+        <button class="btn ghost" id="skipBtn">Skip</button>
+        <button class="btn ghost" id="quitBtn">End game</button>
+      </div>
+      <p class="foot"><kbd>Enter</kbd> check · <kbd>Backspace</kbd> delete · <kbd>Esc</kbd> skip</p>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="card" id="results" hidden>
+    <div class="card-inner">
+      <div class="group">
+        <div class="label">Final score</div>
+        <div><span class="big" id="finalScore">0</span><span class="newbest" id="newBest" hidden>New best</span></div>
+      </div>
+      <div class="summary">
+        <div class="stat"><span class="label">Correct</span><span class="v" id="rCorrect">0</span></div>
+        <div class="stat"><span class="label">Accuracy</span><span class="v" id="rAcc">0%</span></div>
+        <div class="stat"><span class="label">Best streak</span><span class="v" id="rStreak">0</span></div>
+        <div class="stat"><span class="label">Avg. per answer</span><span class="v" id="rAvg">–</span></div>
+      </div>
+      <div class="group" id="missGroup">
+        <div class="label">To practise</div>
+        <ul class="misses" id="misses"></ul>
+      </div>
+      <div class="row">
+        <button class="btn" id="againBtn">Play again</button>
+        <button class="btn ghost" id="setupBtn">Change settings</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const SYM = { add: "+", sub: "−", mul: "×", div: "÷" };
+  const LEVELS = {
+    easy:   { max: 10,  tmax: 5,  hint: "Numbers up to 10, times tables to 5." },
+    medium: { max: 50,  tmax: 12, hint: "Numbers up to 50, times tables to 12." },
+    hard:   { max: 200, tmax: 20, hint: "Numbers up to 200, times tables to 20." },
+  };
+  const SPRINT_SECS = 60, PRACTICE_QS = 20;
+
+  const settings = { ops: new Set(["add", "sub"]), level: "medium", mode: "sprint" };
+  try {
+    const s = JSON.parse(localStorage.getItem("ns-settings") || "null");
+    if (s) { settings.ops = new Set(s.ops.length ? s.ops : ["add"]); settings.level = s.level; settings.mode = s.mode; }
+  } catch (e) {}
+
+  const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  function makeQuestion(prev) {
+    const L = LEVELS[settings.level];
+    const ops = [...settings.ops];
+    let q;
+    do {
+      const op = ops[rnd(0, ops.length - 1)];
+      let a, b, ans;
+      if (op === "add") { a = rnd(1, L.max); b = rnd(1, L.max); ans = a + b; }
+      else if (op === "sub") { a = rnd(2, L.max); b = rnd(1, a); ans = a - b; }
+      else if (op === "mul") { a = rnd(2, L.tmax); b = rnd(2, L.tmax); ans = a * b; }
+      else { b = rnd(2, L.tmax); ans = rnd(1, L.tmax); a = b * ans; }
+      q = { op, a, b, ans, text: `${a} ${SYM[op]} ${b}` };
+    } while (prev && q.text === prev.text);
+    return q;
+  }
+
+  // ---- best scores (per settings) ----
+  const bestKey = () => `ns-best-${settings.mode}-${settings.level}-${[...settings.ops].sort().join("")}`;
+  const getBest = () => { try { return parseInt(localStorage.getItem(bestKey()) || "0", 10) || 0; } catch (e) { return 0; } };
+  const setBest = (v) => { try { localStorage.setItem(bestKey(), String(v)); } catch (e) {} };
+  const saveSettings = () => { try { localStorage.setItem("ns-settings", JSON.stringify({ ops: [...settings.ops], level: settings.level, mode: settings.mode })); } catch (e) {} };
+
+  // ---- setup UI ----
+  function renderSetup() {
+    document.querySelectorAll("[data-op]").forEach(b => b.setAttribute("aria-pressed", settings.ops.has(b.dataset.op)));
+    document.querySelectorAll("[data-level]").forEach(b => b.setAttribute("aria-pressed", b.dataset.level === settings.level));
+    document.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === settings.mode));
+    $("lvlHint").textContent = LEVELS[settings.level].hint;
+    $("preview").textContent = makeQuestion().text;
+    const best = getBest();
+    $("bestVal").textContent = best ? best : "–";
+  }
+  document.querySelectorAll("[data-op]").forEach(b => b.addEventListener("click", () => {
+    const op = b.dataset.op;
+    if (settings.ops.has(op)) { if (settings.ops.size > 1) settings.ops.delete(op); }
+    else settings.ops.add(op);
+    saveSettings(); renderSetup();
+  }));
+  document.querySelectorAll("[data-level]").forEach(b => b.addEventListener("click", () => { settings.level = b.dataset.level; saveSettings(); renderSetup(); }));
+  document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => { settings.mode = b.dataset.mode; saveSettings(); renderSetup(); }));
+
+  // ---- game state ----
+  let g = null, timer = null;
+  function show(id) { ["setup", "play", "results"].forEach(s => $(s).hidden = s !== id); }
+
+  function start() {
+    g = { score: 0, streak: 0, bestStreak: 0, correct: 0, wrong: 0, skipped: 0, asked: 0,
+          input: "", q: null, misses: [], times: [], qStart: 0, endsAt: 0, locked: false };
+    show("play");
+    $("timeLabel").textContent = settings.mode === "sprint" ? "Time" : "Question";
+    nextQuestion();
+    updateHud();
+    clearInterval(timer);
+    if (settings.mode === "sprint") {
+      g.endsAt = performance.now() + SPRINT_SECS * 1000;
+      timer = setInterval(tick, 200);
+    }
+    $("feedback").textContent = ""; $("feedback").className = "feedback";
+  }
+
+  function tick() {
+    const left = Math.max(0, (g.endsAt - performance.now()) / 1000);
+    $("time").textContent = Math.ceil(left);
+    $("time").classList.toggle("low", left <= 10);
+    $("barFill").style.transform = `scaleX(${left / SPRINT_SECS})`;
+    if (left <= 0) finish();
+  }
+
+  function nextQuestion() {
+    if (settings.mode === "practice" && g.asked >= PRACTICE_QS) return finish();
+    g.q = makeQuestion(g.q);
+    g.asked++;
+    g.input = ""; g.locked = false; g.qStart = performance.now();
+    const qe = $("question");
+    qe.textContent = g.q.text + " =";
+    qe.classList.remove("new"); void qe.offsetWidth; qe.classList.add("new");
+    renderAnswer();
+    if (settings.mode === "practice") {
+      $("time").textContent = `${g.asked}/${PRACTICE_QS}`;
+      $("barFill").style.transform = `scaleX(${1 - (g.asked - 1) / PRACTICE_QS})`;
+    }
+  }
+
+  function renderAnswer(state) {
+    const a = $("answer");
+    a.textContent = g.input;
+    a.className = "answer" + (g.input ? "" : " empty") + (state ? " " + state : "");
+  }
+
+  function updateHud() {
+    $("score").textContent = g.score;
+    $("streak").textContent = g.streak;
+  }
+
+  function points() { return 10 + (g.streak >= 5 ? 5 : 0) + (g.streak >= 10 ? 5 : 0); }
+
+  function correct() {
+    g.locked = true;
+    g.streak++; g.bestStreak = Math.max(g.bestStreak, g.streak);
+    const p = points();
+    g.score += p; g.correct++;
+    g.times.push(performance.now() - g.qStart);
+    renderAnswer("good");
+    const fb = $("feedback");
+    fb.className = "feedback good";
+    fb.textContent = g.streak >= 5 ? `+${p} · streak of ${g.streak}` : `+${p}`;
+    updateHud();
+    setTimeout(() => { if (g && !$("play").hidden) nextQuestion(); }, 260);
+  }
+
+  function wrong() {
+    g.wrong++; g.streak = 0;
+    g.misses.push({ text: g.q.text, ans: g.q.ans, you: g.input });
+    renderAnswer("bad");
+    const fb = $("feedback");
+    fb.className = "feedback bad";
+    fb.textContent = "Not quite. Try again or skip.";
+    updateHud();
+    setTimeout(() => { if (g && !g.locked) { g.input = ""; renderAnswer(); } }, 450);
+  }
+
+  function skip() {
+    if (!g || g.locked) return;
+    g.skipped++; g.streak = 0;
+    if (!g.misses.some(m => m.text === g.q.text)) g.misses.push({ text: g.q.text, ans: g.q.ans, you: "" });
+    const fb = $("feedback");
+    fb.className = "feedback";
+    fb.textContent = `${g.q.text} = ${g.q.ans}`;
+    updateHud();
+    nextQuestion();
+  }
+
+  function press(k) {
+    if (!g || g.locked || $("play").hidden) return;
+    if (k === "del") { g.input = g.input.slice(0, -1); renderAnswer(); return; }
+    if (k === "enter") {
+      if (!g.input) return;
+      if (parseInt(g.input, 10) === g.q.ans) correct(); else wrong();
+      return;
+    }
+    if (g.input.length >= 5) return;
+    g.input += k;
+    renderAnswer();
+    const ansStr = String(g.q.ans);
+    if (g.input === ansStr) correct();
+    else if (g.input.length >= ansStr.length && !ansStr.startsWith(g.input)) wrong();
+  }
+
+  function finish() {
+    clearInterval(timer); timer = null;
+    if (!g) return;
+    g.locked = true;
+    show("results");
+    const prevBest = getBest();
+    const isBest = g.score > prevBest && g.score > 0;
+    if (isBest) setBest(g.score);
+    $("finalScore").textContent = g.score;
+    $("newBest").hidden = !isBest;
+    const attempts = g.correct + g.wrong + g.skipped;
+    $("rCorrect").textContent = g.correct;
+    $("rAcc").textContent = attempts ? Math.round((g.correct / attempts) * 100) + "%" : "–";
+    $("rStreak").textContent = g.bestStreak;
+    const avg = g.times.length ? g.times.reduce((a, b) => a + b, 0) / g.times.length / 1000 : 0;
+    $("rAvg").textContent = g.times.length ? avg.toFixed(1) + "s" : "–";
+    const list = $("misses"); list.innerHTML = "";
+    const seen = new Set();
+    g.misses.filter(m => !seen.has(m.text) && seen.add(m.text)).slice(0, 8).forEach(m => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${m.text} = <b>${m.ans}</b></span>` + (m.you ? `<span class="you">${m.you}</span>` : `<span class="hint">skipped</span>`);
+      list.appendChild(li);
+    });
+    $("missGroup").hidden = seen.size === 0;
+    $("bestVal").textContent = Math.max(prevBest, g.score) || "–";
+  }
+
+  // ---- input wiring ----
+  $("keypad").addEventListener("click", (e) => { const b = e.target.closest("[data-k]"); if (b) press(b.dataset.k); });
+  $("skipBtn").addEventListener("click", skip);
+  $("quitBtn").addEventListener("click", finish);
+  $("startBtn").addEventListener("click", start);
+  $("againBtn").addEventListener("click", start);
+  $("setupBtn").addEventListener("click", () => { g = null; show("setup"); renderSetup(); });
+  document.addEventListener("keydown", (e) => {
+    if ($("play").hidden) {
+      if (e.key === "Enter" && !$("setup").hidden && document.activeElement === document.body) start();
+      return;
+    }
+    if (/^[0-9]$/.test(e.key)) { press(e.key); e.preventDefault(); }
+    else if (e.key === "Backspace") { press("del"); e.preventDefault(); }
+    else if (e.key === "Enter") { press("enter"); e.preventDefault(); }
+    else if (e.key === "Escape") { skip(); e.preventDefault(); }
+  });
+
+  renderSetup();
+  setInterval(() => { if (!$("setup").hidden) $("preview").textContent = makeQuestion().text; }, 2500);
+})();
+</script>
