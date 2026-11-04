@@ -41,7 +41,7 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 4. **Brain buster**: an optional harder bonus question.
 5. **Teach Kili**: the child explains what they learned, then rates the level Easy, OK or Tricky.
 
-**Voice language.** Each child chooses Tamil, Hindi or English, and can change it in the parent settings. English and Hindi words inside a sentence are spoken in their own voices. The child-like style raises the pitch of the tablet's Indian voice. The quality depends on the voices installed. On Android, install the Tamil and Hindi voices under Settings › Text-to-speech › Google › Install voice data.
+**Voice language.** Each child chooses Tamil, Hindi or English, and can switch at any time with the speaker button at the top right of every screen. English and Hindi words inside a sentence are spoken in their own voices. Kili uses the most natural voice installed on the tablet, and parents can pick a specific voice in the settings. For the most natural Tamil and Hindi, use Microsoft Edge (free Natural voices) or install Google's voices. On Android, install the Tamil and Hindi voices under Settings › Text-to-speech › Google › Install voice data.
 
 **Microphone.** Listening works in Chrome on Android and in Safari on iPad when the game is opened from GitHub Pages. The Claude artifact viewer blocks the microphone, so there the child taps instead.
 

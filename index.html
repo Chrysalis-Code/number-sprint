@@ -264,7 +264,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .pinpad button:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--line-strong); }
 
 /* ---------- who's playing ---------- */
-.who { text-align: center; gap: 22px; display: flex; flex-direction: column; align-items: center; padding-block: 20px; }
+.who { padding-top: 48px; text-align: center; gap: 22px; display: flex; flex-direction: column; align-items: center; padding-block: 20px; }
 .who h1 { font-size: clamp(2rem, 6vw, 2.8rem); }
 .who h1 span { color: var(--mango); }
 .players { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; width: 100%; max-width: 760px; }
@@ -289,6 +289,15 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 @keyframes pulse { 0%,100% { transform: scale(1) } 50% { transform: scale(1.06) } }
 .heard { font-size: .95rem; color: var(--muted); min-height: 1.3em; }
 .iconbtn[aria-pressed="false"] { opacity: .55; }
+.vofab { position: fixed; z-index: 30; top: calc(env(safe-area-inset-top, 0px) + 10px); right: max(12px, env(safe-area-inset-right, 0px)); display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--teal); background: var(--card); color: var(--teal); border-radius: 999px; padding: 8px 14px; font: 800 1rem var(--font-display); cursor: pointer; box-shadow: 0 3px 0 var(--line-strong); }
+.vofab.off { color: var(--muted); border-color: var(--line-strong); }
+.vofab.off #voWaves { display: none; }
+.vomenu { position: fixed; z-index: 31; top: calc(env(safe-area-inset-top, 0px) + 62px); right: max(12px, env(safe-area-inset-right, 0px)); background: var(--card); border: 2px solid var(--teal); border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 190px; box-shadow: 0 12px 30px -12px rgba(20, 40, 70, .45); }
+.vomenu button { text-align: left; font: 800 1.2rem var(--font-display); border: 2px solid var(--line); background: var(--card); color: var(--ink); border-radius: 14px; padding: 8px 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.vomenu button small { font: 600 .85rem var(--font-body); color: var(--muted); }
+.vomenu button[aria-checked="true"] { border-color: var(--mango); background: var(--sun-soft); }
+.top, .playbar { padding-right: 120px; }
+@media (max-width: 520px) { .top, .playbar { padding-right: 0; padding-top: 44px; } }
 .stepper { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
 .stepper span { font: 700 .78rem var(--font-display); padding: 3px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
 .stepper span.now { background: var(--mango); border-color: var(--mango); color: #fff; }
@@ -299,7 +308,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .kili .kbubble { position: relative; background: var(--card); border: 2px solid var(--teal); border-radius: 18px 18px 18px 4px; padding: 10px 14px; font: 700 1.1rem/1.35 var(--font-display); flex: 1; min-width: 0; }
 .turn { margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: .7rem; letter-spacing: .04em; text-transform: none; background: var(--seq0); color: var(--muted); }
 .turn:empty { display: none; }
-.turn.kili { background: var(--teal-soft); color: var(--teal); }
+.turn.talking { background: var(--teal-soft); color: var(--teal); }
 .turn.you { background: var(--mango); color: #fff; animation: pulse 1.2s ease-in-out infinite; }
 .kili .kbubble b { display: block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
 .kili.small .kbird { font-size: 2.6rem; }
@@ -330,6 +339,17 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 
+<button class="vofab" id="voFab" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Choose Kili's voice">
+  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path id="voWaves" d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+  <span id="voLabel">தமிழ்</span>
+</button>
+<div class="vomenu" id="voMenu" role="menu" hidden>
+  <span class="label">Kili speaks</span>
+  <button type="button" role="menuitemradio" data-volang="ta" aria-checked="false">தமிழ் <small>Tamil</small></button>
+  <button type="button" role="menuitemradio" data-volang="hi" aria-checked="false">हिन्दी <small>Hindi</small></button>
+  <button type="button" role="menuitemradio" data-volang="en" aria-checked="false">English</button>
+  <button type="button" role="menuitemradio" data-volang="off" aria-checked="false">Voice off</button>
+</div>
 <div class="wrap">
   <!-- ============ LOGIN ============ -->
   <section id="vLogin">
@@ -420,9 +440,6 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
           <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg>
         </button>
         <h2><span id="playTitle">Level</span><span class="sub" id="playSub"></span></h2>
-        <button class="iconbtn" id="voiceToggle" type="button" aria-pressed="true" aria-label="Read questions out loud" title="Read questions out loud">
-          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="var(--teal)"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14" stroke="var(--teal)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-        </button>
         <span class="pill"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--sun)" stroke="var(--warn)" stroke-width="2"/></svg><span id="playCoins">0</span></span>
       </div>
       <div class="stepper" id="stepper" aria-label="Lesson steps"></div>
@@ -584,9 +601,14 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
           </div>
           <div class="settings">
             <label for="voiceStyleSel">Voice style
-              <select id="voiceStyleSel"><option value="kid">Child-like (Kili)</option><option value="adult">Grown-up</option></select>
+              <select id="voiceStyleSel"><option value="natural">Natural</option><option value="young">Younger (a little higher)</option></select>
             </label>
             <label for="autoMicChk"><input type="checkbox" id="autoMicChk" checked> Listen automatically after Kili speaks</label>
+          </div>
+          <div class="settings" id="voicePickers">
+            <label for="vpick-ta">Tamil voice <select id="vpick-ta" data-vpick="ta"></select></label>
+            <label for="vpick-hi">Hindi voice <select id="vpick-hi" data-vpick="hi"></select></label>
+            <label for="vpick-en">English voice <select id="vpick-en" data-vpick="en"></select></label>
           </div>
           <p class="note" id="voiceNote"></p>
           <div>
@@ -1592,7 +1614,7 @@ const STICKER_COST = 15;
 
 /* ===================== storage ===================== */
 const AVATARS = ["🦁","🐯","🐼","🐨","🐸","🦊","🐵","🐧","🦄","🐶","🐱","🐰"];
-const DEFAULT_PROFILE = (name = "", avatar = "🦁") => ({ name, avatar, coins: 0, lv: {}, stickers: [], unlockAll: false, goal: 20, sound: true, voice: true, voiceLang: "ta", voiceStyle: "kid", autoMic: true, subject: "maths", createdAt: Date.now() });
+const DEFAULT_PROFILE = (name = "", avatar = "🦁") => ({ name, avatar, coins: 0, lv: {}, stickers: [], unlockAll: false, goal: 20, sound: true, voice: true, voiceLang: "ta", voiceStyle: "natural", autoMic: true, subject: "maths", createdAt: Date.now() });
 const S = { mode: "local", ready: false, daysReady: false, db: null, profiles: {}, pid: null, days: {}, saveErr: false, unsubDays: null };
 Object.defineProperty(S, "profile", { get() { return S.profiles[S.pid] || DEFAULT_PROFILE(); } });
 const LS_PROFILES = "mq-profiles", LS_ACTIVE = "mq-active", LS_DAYS = (id) => "mq-days-" + id;
@@ -1697,20 +1719,31 @@ function tone(freqs, dur = 0.12) {
 const canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
 const VOICES = { ta: null, en: null, hi: null }; let voicesLoaded = false;
 const LANG_TAG = { ta: "ta-IN", en: "en-IN", hi: "hi-IN" };
+// Rank the tablet's voices: neural "Natural"/"Online" voices (Microsoft Edge), Google voices, and
+// enhanced/premium voices (iPad) sound far less robotic than the basic built-in ones.
+const voiceScore = (v) => (/natural|neural/i.test(v.name) ? 8 : 0) + (/online/i.test(v.name) ? 3 : 0) + (/google/i.test(v.name) ? 4 : 0) + (/enhanced|premium|siri/i.test(v.name) ? 5 : 0) + (v.localService === false ? 1 : 0)
+  + (/female|woman|pallavi|swara|ananya|kajal|neerja|lekha|vani|veena|shruti|aditi|heera|kalpana/i.test(v.name) ? 1 : 0);
+let ALL_VOICES = [];
+const LANG_RE = { ta: /^ta([-_]|$)/i, hi: /^hi([-_]|$)/i, en: /^en/i };
+function voicesFor(l) {
+  const vs = ALL_VOICES.filter(v => LANG_RE[l].test(v.lang));
+  if (l === "en") vs.sort((a, b) => (/IN/i.test(b.lang) - /IN/i.test(a.lang)) || voiceScore(b) - voiceScore(a));
+  else vs.sort((a, b) => voiceScore(b) - voiceScore(a));
+  return vs;
+}
 function pickVoice() {
   if (!canSpeak) return;
   try {
-    const vs = speechSynthesis.getVoices(); voicesLoaded = vs.length > 0;
-    // Prefer natural/neural voices, and female voices, which sound closer to a child when the pitch is raised.
-    const score = (v) => (/natural|neural|online|enhanced|premium/i.test(v.name) ? 4 : 0) + (/google/i.test(v.name) ? 2 : 0) + (/female|woman|pallavi|swara|heera|kalpana|lekha|vani|neerja|aditi|veena|raveena|kajal|shruti/i.test(v.name) ? 2 : 0);
-    const best = (re) => vs.filter(v => re.test(v.lang)).sort((a, b) => score(b) - score(a))[0] || null;
-    VOICES.ta = best(/^ta([-_]|$)/i); VOICES.hi = best(/^hi([-_]|$)/i);
-    VOICES.en = best(/^en[-_]IN/i) || best(/^en[-_]GB/i) || best(/^en/i);
+    ALL_VOICES = speechSynthesis.getVoices(); voicesLoaded = ALL_VOICES.length > 0;
+    const chosen = (S.pid && S.profile.voiceName) || {};
+    ["ta", "hi", "en"].forEach(l => { const vs = voicesFor(l); VOICES[l] = vs.find(v => v.name === chosen[l]) || vs[0] || null; });
   } catch (e) {}
   if (typeof renderVoiceNote === "function") renderVoiceNote();
 }
 if (canSpeak) { pickVoice(); try { speechSynthesis.addEventListener("voiceschanged", pickVoice); } catch (e) {} setTimeout(pickVoice, 1500); }
-const voiceLang = () => S.profile.voiceLang || "ta";
+let guestVoice = (() => { try { return localStorage.getItem("mq-guest-voice") || "ta"; } catch (e) { return "ta"; } })();
+const voiceLang = () => (S.pid ? S.profile.voiceLang : guestVoice) || "ta";
+const voiceOn = () => S.pid ? S.profile.voice !== false : guestVoice !== "off";
 const langOK = (l) => l === "en" || !!VOICES[l] || !voicesLoaded;
 const EMO_G = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}|[️‍⃣])+/gu;
 const SPEAK_WORDS = { ta: ["ரூபாய்", "கழித்தல்", "பெருக்கல்", "கோடிட்ட இடம்"], hi: ["रुपये", "घटा", "गुणा", "खाली जगह"], en: ["rupees", "minus", "times", "blank"] };
@@ -1720,9 +1753,10 @@ function cleanSpeech(t, base) {
     .replace(/−/g, ` ${w[1]} `).replace(/×/g, ` ${w[2]} `)
     .replace(/__+/g, ` ${w[3]} `).replace(/\s+/g, " ").trim();
 }
-function segments(text, base) {
+function segments(text, base, mergeEn) {
   const out = []; let cur = null, buf = "";
   for (const ch of text) {
+    if (mergeEn && /[A-Za-z]/.test(ch)) { if (!cur) cur = base; buf += ch; continue; }
     const l = /[஀-௿]/.test(ch) ? "ta" : /[ऀ-ॿ]/.test(ch) ? "hi" : /[A-Za-z]/.test(ch) ? "en" : null;
     if (l && cur && l !== cur) { if (buf.trim()) out.push([cur, buf]); buf = ""; }
     if (l) cur = l;
@@ -1736,16 +1770,20 @@ function speakText(text, base, { force = false, onend } = {}) {
   const seq = ++speakSeq;
   let done = false; const finish = () => { if (done || seq !== speakSeq) return; done = true; clearInterval(poll); setTurn(null); if (onend) setTimeout(onend, 250); };
   let poll = null;
-  if (!canSpeak || (!force && S.profile.voice === false) || !text) { setTimeout(finish, 400); return; }
+  if (!canSpeak || (!force && !voiceOn()) || !text) { setTimeout(finish, 400); return; }
   try {
     speechSynthesis.cancel();
-    const kid = S.profile.voiceStyle !== "adult";
-    const parts = segments(cleanSpeech(text, base), base);
+    const young = S.profile.voiceStyle === "young";
+    pickVoice();
+    // Keep English words inside a Tamil or Hindi sentence in the same voice: switching voices mid-sentence
+    // sounds choppy. English is only spoken separately in the English subject, where pronunciation matters.
+    const keepEn = !!(G && G.q && G.q.lv && G.q.lv.subj.id === "english") || base === "en";
+    const parts = segments(cleanSpeech(text, base), base, !keepEn && !!VOICES[base]);
     let started = false; const t0 = Date.now();
     parts.forEach(([l, t], i) => {
       const u = new SpeechSynthesisUtterance(t.trim());
       u.lang = LANG_TAG[l] || "en-IN"; if (VOICES[l]) u.voice = VOICES[l];
-      u.rate = kid ? 0.98 : 0.92; u.pitch = kid ? 1.45 : 1.05;
+      u.rate = l === "en" ? 0.95 : 0.92; u.pitch = young ? 1.15 : 1.0;
       u.onstart = () => { started = true; };
       if (i === parts.length - 1) { u.onend = finish; u.onerror = finish; }
       speechSynthesis.speak(u);
@@ -1764,7 +1802,7 @@ function speakText(text, base, { force = false, onend } = {}) {
 // Whose turn is it? Shown as a badge on Kili's bubble.
 function setTurn(t) {
   const el = document.getElementById("turn"); if (!el) return;
-  if (t === "kili") { el.textContent = "Kili is talking…"; el.className = "turn kili"; }
+  if (t === "kili") { el.textContent = "Kili is talking…"; el.className = "turn talking"; }
   else if (t === "you") { el.textContent = listening ? "Your turn · Kili is listening" : "Your turn"; el.className = "turn you"; }
   else if (t === "think") { el.textContent = "Kili is thinking…"; el.className = "turn"; }
   else if (!listening && G && G.waiting) { el.textContent = "Your turn"; el.className = "turn you"; }
@@ -1861,7 +1899,7 @@ function kidSays(t) { const k = document.getElementById("kidLine"); if (k) { k.h
 
 /* ===================== views ===================== */
 const VIEWS = ["vLogin", "vWho", "vCreate", "vMap", "vPlay", "vResult", "vStickers", "vGate", "vParent"];
-function show(id) { VIEWS.forEach(v => $(v).hidden = v !== id); window.scrollTo(0, 0); }
+function show(id) { VIEWS.forEach(v => $(v).hidden = v !== id); window.scrollTo(0, 0); if (typeof renderVoFab === "function") renderVoFab(); }
 let gateOpen = false;
 const APP_PASSWORD = "2026";
 let authed = false;
@@ -1949,6 +1987,7 @@ function renderMap() {
     </article>`).join("");
 }
 function renderAll() {
+  if (typeof renderVoFab === "function") renderVoFab();
   if (!$("vWho").hidden) renderWho();
   if (S.pid && !S.profiles[S.pid] && S.ready && !S.slow && S.mode === "cloud" && $("vPlay").hidden) { S.pid = null; goHome(); return; }
   if (!$("vMap").hidden) renderMap(); else renderTop();
@@ -2014,7 +2053,6 @@ function startLevel(id) {
   $("playSub").textContent = review ? "Practice from the levels you find hardest" : `${G.lv.subj.name} · ${G.lv.world.name} · Level ${G.lv.li + 1}`;
   $("kidLine").hidden = true; $("progDots").innerHTML = "";
   show("vPlay");
-  $("voiceToggle").setAttribute("aria-pressed", S.profile.voice !== false);
   document.querySelectorAll(".mic").forEach(b => b.hidden = !SR || micBlocked);
   const fresh = !review && (lvStat(id).plays || 0) < 2;
   if (fresh) wonder(); else { setStep(2); kili({ en: `Let's play ${G.review ? "the tricky ones" : G.lv.name}!`, ta: `வா, ${G.review ? "கஷ்டமான கேள்விகளை" : G.lv.name} விளையாடலாம்!`, hi: `चलो, ${G.review ? "मुश्किल सवाल" : G.lv.name} खेलते हैं!` }, { then: () => setTimeout(() => { if (G && G.step === 2 && !G.q) nextQ(); }, 200) }); }
@@ -2383,13 +2421,23 @@ const pct = (f, q) => q ? Math.round(f / q * 100) + "%" : "–";
 const fmtDate = (k, opts = { weekday: "short", day: "numeric", month: "short" }) => parseKey(k).toLocaleDateString("en-IN", opts);
 const lvName = (id) => id === "review" ? "Tricky ones (practice)" : LEVEL[id] ? `${LEVEL[id].subj.name} · ${LEVEL[id].world.name}: ${LEVEL[id].name}` : id;
 const FEEL = { easy: "😀", ok: "🙂", hard: "😕" };
+function renderVoicePickers() {
+  ["ta", "hi", "en"].forEach(l => {
+    const sel = document.getElementById("vpick-" + l); if (!sel) return;
+    const vs = voicesFor(l);
+    sel.innerHTML = vs.length ? vs.map(v => `<option value="${esc(v.name)}" ${VOICES[l] && VOICES[l].name === v.name ? "selected" : ""}>${esc(v.name)}${voiceScore(v) >= 8 ? " ★ natural" : ""}</option>`).join("") : `<option value="">Not installed on this device</option>`;
+    sel.disabled = !vs.length;
+  });
+}
 function renderVoiceNote() {
   const el = document.getElementById("voiceNote"); if (!el) return;
   if (!canSpeak) { el.textContent = "This browser can't read aloud."; return; }
-  const v = [VOICES.ta ? `Tamil: ${VOICES.ta.name}` : "Tamil: not installed", VOICES.en ? `English: ${VOICES.en.name}` : "English: default", VOICES.hi ? `Hindi: ${VOICES.hi.name}` : "Hindi: not installed"];
-  el.textContent = `Voices on this device: ${v.join(" · ")}.` + (!VOICES.ta && voicesLoaded ? " To hear Tamil, add a Tamil voice in the tablet's settings (Android: Settings › Text-to-speech › Google › Install voice data › Tamil). Until then, Kili speaks English." : "") + (!VOICES.hi && voicesLoaded ? " For Hindi, install the Hindi voice the same way." : "") + " The child-like style raises the pitch of the tablet's Indian voice.";
+  const natural = ["ta", "hi"].every(l => VOICES[l] && voiceScore(VOICES[l]) >= 4);
+  el.textContent = (!VOICES.ta && voicesLoaded ? "No Tamil voice is installed, so Kili speaks English instead of Tamil. " : "") + (!VOICES.hi && voicesLoaded ? "No Hindi voice is installed. " : "")
+    + (natural ? "Good: natural-sounding voices are in use." : "For the most natural Tamil and Hindi, open the game in Microsoft Edge (it has free ★ natural voices such as Pallavi and Swara), or on Android install Google's voices: Settings › Text-to-speech › Google › Install voice data › Tamil and Hindi. On iPad: Settings › Accessibility › Spoken Content › Voices › download an Enhanced voice.")
+    + " Pick a voice above and Kili will say a test line.";
+  renderVoicePickers();
 }
-
 function renderParent() {
   const ids = Object.keys(S.profiles).sort((a, b) => (S.profiles[a].createdAt || 0) - (S.profiles[b].createdAt || 0));
   if ((!S.pid || !S.profiles[S.pid]) && ids.length) selectProfile(ids[0]);
@@ -2407,7 +2455,7 @@ function renderParent() {
   ];
   $("todayTiles").innerHTML = tiles.map(([l, v, s]) => `<div class="tile"><span class="label">${l}</span><span class="v">${v}</span><span class="s">${s}</span></div>`).join("");
   renderChart(); renderCal(); renderSkills(); renderMisses(); renderLog(); renderPedagogy(); renderVoiceNote();
-  $("voiceLangSel").value = S.profile.voiceLang || "ta"; $("voiceStyleSel").value = S.profile.voiceStyle || "kid"; $("autoMicChk").checked = S.profile.autoMic !== false;
+  $("voiceLangSel").value = S.profile.voiceLang || "ta"; $("voiceStyleSel").value = S.profile.voiceStyle === "young" ? "young" : "natural"; renderVoicePickers(); $("autoMicChk").checked = S.profile.autoMic !== false;
   renderEdit();
   $("delName").textContent = S.pid ? (S.profile.name || "this child") : "this child"; $("delBtn").disabled = !S.pid;
   $("goalSel").value = String(g); $("unlockChk").checked = !!S.profile.unlockAll; $("soundChk").checked = S.profile.sound !== false; $("voiceChk").checked = S.profile.voice !== false;
@@ -2510,7 +2558,7 @@ document.addEventListener("click", (e) => {
   const sj = e.target.closest("[data-subj]"); if (sj) { S.profile.subject = sj.dataset.subj; saveProfile(); renderMap(); const x = SUBJ[sj.dataset.subj]; say({ en: x.name, ta: x.ta, hi: x.hi }); return; }
   const th = e.target.closest("[data-think]"); if (th) { thinkReply(th.dataset.think); return; }
   const bb = e.target.closest("[data-bb]"); if (bb) { if (bb.dataset.bb === "yes") startBB(); else finishLevel(false); return; }
-  const vl = e.target.closest("[data-vl]"); if (vl) { newVL = vl.dataset.vl; document.querySelectorAll("[data-vl]").forEach(b => b.setAttribute("aria-pressed", String(b === vl))); say({ en: "I'll talk in English.", ta: "நான் தமிழ்ல பேசுவேன்.", hi: "मैं हिंदी में बोलूँगा।" }, { force: true }); return; }
+  const vl = e.target.closest("[data-vl]"); if (vl) { newVL = vl.dataset.vl; guestVoice = newVL; renderVoFab(); document.querySelectorAll("[data-vl]").forEach(b => b.setAttribute("aria-pressed", String(b === vl))); say({ en: "I'll talk in English.", ta: "நான் தமிழ்ல பேசுவேன்.", hi: "मैं हिंदी में बोलूँगा।" }, { force: true }); return; }
   const ea = e.target.closest("[data-eav]"); if (ea && editAv) { editAv.av = ea.dataset.eav; document.querySelectorAll("[data-eav]").forEach(b => b.setAttribute("aria-pressed", String(b === ea))); return; }
   const mc = e.target.closest("[data-mic]"); if (mc) { micTap(mc.dataset.mic); return; }
   const fl = e.target.closest("[data-feel]"); if (fl) { recordFeel(fl.dataset.feel); document.querySelectorAll("[data-feel]").forEach(b => b.setAttribute("aria-pressed", String(b === fl))); return; }
@@ -2531,6 +2579,28 @@ $("teachDone").addEventListener("click", () => taught());
 $("skillSubj").addEventListener("change", renderSkills);
 $("voiceLangSel").addEventListener("change", (e) => { if (!S.pid) return; S.profile.voiceLang = e.target.value; saveProfile(); sayTest(); });
 $("voiceStyleSel").addEventListener("change", (e) => { if (!S.pid) return; S.profile.voiceStyle = e.target.value; saveProfile(); sayTest(); });
+document.querySelectorAll("[data-vpick]").forEach(sel => sel.addEventListener("change", (e) => { if (!S.pid) return; const l = e.target.dataset.vpick;
+  S.profile.voiceName = { ...(S.profile.voiceName || {}), [l]: e.target.value }; saveProfile(); pickVoice();
+  const test = { ta: "வணக்கம்! நான் கிளி. இது என் தமிழ் குரல்.", hi: "नमस्ते! मैं किली हूँ। यह मेरी हिंदी आवाज़ है।", en: "Hello! I'm Kili. This is my English voice." }[l];
+  speakText(test, l, { force: true }); }));
+function renderVoFab() {
+  const l = voiceOn() ? voiceLang() : "off";
+  $("voLabel").textContent = { ta: "தமிழ்", hi: "हिन्दी", en: "English", off: "Off" }[l];
+  $("voFab").classList.toggle("off", l === "off");
+  document.querySelectorAll("[data-volang]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.volang === l)));
+}
+function setVoiceLang(l) {
+  if (S.pid) { if (l === "off") S.profile.voice = false; else { S.profile.voice = true; S.profile.voiceLang = l; } saveProfile(); }
+  else { guestVoice = l; try { localStorage.setItem("mq-guest-voice", l); } catch (e) {} }
+  renderVoFab(); $("voMenu").hidden = true; $("voFab").setAttribute("aria-expanded", "false");
+  if (l === "off") { stopSpeaking(); return; }
+  const L = { en: "I'll talk in English now.", ta: "இனிமே நான் தமிழ்ல பேசுவேன்.", hi: "अब मैं हिंदी में बोलूँगा।" };
+  // Say the change, then repeat whatever Kili was asking, in the new language.
+  say(L, { force: true, onend: () => { if (G && G.q && G.waiting && !G.locked) askQ(true); } });
+}
+$("voFab").addEventListener("click", (e) => { e.stopPropagation(); const open = $("voMenu").hidden; $("voMenu").hidden = !open; $("voFab").setAttribute("aria-expanded", String(open)); renderVoFab(); });
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-volang]"); if (b) { setVoiceLang(b.dataset.volang); return; } if (!$("voMenu").hidden && !e.target.closest("#voMenu")) { $("voMenu").hidden = true; $("voFab").setAttribute("aria-expanded", "false"); } });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("voMenu").hidden) { $("voMenu").hidden = true; $("voFab").setAttribute("aria-expanded", "false"); $("voFab").focus(); } });
 $("autoMicChk").addEventListener("change", (e) => { if (!S.pid) return; S.profile.autoMic = e.target.checked; saveProfile(); });
 const sayTest = () => say({ en: "Hi! I'm Kili. This is how I will sound.", ta: "வணக்கம்! நான் கிளி. நான் இப்படித்தான் பேசுவேன்.", hi: "नमस्ते! मैं किली हूँ। मैं ऐसे बोलूँगा।" }, { force: true });
 function recordFeel(f) {
@@ -2546,7 +2616,7 @@ $("reviewBtn").addEventListener("click", () => startLevel("review"));
 $("nextBtn").addEventListener("click", () => { stopListening(); if (G) { G.i++; nextQ(); } });
 $("quitBtn").addEventListener("click", () => { stopSpeaking(); stopListening(); if (G) { G.locked2 = true; if (G.results.some(r => r !== undefined)) finishLevel(true); else { G = null; show("vMap"); renderMap(); } } });
 $("speakBtn").addEventListener("click", () => { if (G && G.q && G.step >= 2) askQ(true); else if (G && G.demo) sayQ(G.demo, { force: true }); });
-$("voiceToggle").addEventListener("click", () => { S.profile.voice = S.profile.voice === false; saveProfile(); $("voiceToggle").setAttribute("aria-pressed", S.profile.voice); if (!S.profile.voice) stopSpeaking(); else if (G && G.q) askQ(true); });
+
 $("resNext").addEventListener("click", (e) => startLevel(e.currentTarget.dataset.level));
 $("resAgain").addEventListener("click", (e) => startLevel(e.currentTarget.dataset.level));
 $("resMap").addEventListener("click", () => { G = null; stopSpeaking(); show("vMap"); renderMap(); });
@@ -2579,7 +2649,7 @@ $("gateForm").addEventListener("submit", (e) => { e.preventDefault();
 $("goalSel").addEventListener("change", (e) => { if (!S.pid) return; S.profile.goal = +e.target.value; saveProfile(); renderParent(); });
 $("unlockChk").addEventListener("change", (e) => { if (!S.pid) return; S.profile.unlockAll = e.target.checked; saveProfile(); });
 $("soundChk").addEventListener("change", (e) => { if (!S.pid) return; S.profile.sound = e.target.checked; saveProfile(); });
-$("voiceChk").addEventListener("change", (e) => { if (!S.pid) return; S.profile.voice = e.target.checked; saveProfile(); });
+$("voiceChk").addEventListener("change", (e) => { if (!S.pid) return; S.profile.voice = e.target.checked; saveProfile(); renderVoFab(); });
 $("lockBtn").addEventListener("click", () => { authed = false; try { sessionStorage.removeItem("mq-auth"); } catch (e) {} if (S.unsubDays) { S.unsubDays(); S.unsubDays = null; } S.pid = null; pin = ""; location.hash = ""; goHome(); });
 document.addEventListener("keydown", (e) => { if ($("vLogin").hidden) return; if (/^[0-9]$/.test(e.key)) pressPin(e.key); else if (e.key === "Backspace") pressPin("del"); });
 window.addEventListener("hashchange", route);
