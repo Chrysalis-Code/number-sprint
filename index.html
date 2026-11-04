@@ -1,8 +1,9 @@
-<title>Class 2 Math Quest</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Class 2 Learning Quest</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Baloo+Thambi+2:wght@600;800&family=Nunito:wght@400;600;700&display=swap">
 <style>
 /* Layout: a bright single-theme play world. Map = grid of world cards with 5 level stops each;
    Play = one big question card with 2x2 tap targets; Parents = a calm report page from the same tokens. */
@@ -29,10 +30,11 @@
   --dotA: #f57a2a;
   --dotB: #177f91;
   --seq0: #eef3f5; --seq1: #bfe3ea; --seq2: #5fb8c8; --seq3: #177f91;
-  --font-display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --font-display: "Baloo 2", "Baloo Thambi 2", "Trebuchet MS", system-ui, sans-serif;
   --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { min-height: 100%; }
 body {
   background: var(--sky);
@@ -129,6 +131,47 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px s
 }
 .opt small { font: 600 .85rem var(--font-body); color: var(--muted); }
 .opt.wordy { font-size: clamp(1.05rem, 3vw, 1.35rem); }
+.opt .oe { font-size: 2.3rem; line-height: 1.05; }
+.opt .oe.big { font-size: 3.2rem; }
+.opt .ol { font: 700 1.05rem var(--font-display); line-height: 1.15; }
+.pic { font-size: clamp(4.5rem, 16vw, 7rem); line-height: 1.1; }
+.spell { letter-spacing: .12em; }
+.hseq { letter-spacing: .1em; }
+.hword { font: 800 clamp(1.8rem, 6vw, 2.6rem) var(--font-display); color: var(--teal); }
+.hword.sm { font-size: clamp(1.4rem, 4.5vw, 1.9rem); color: var(--ink); }
+.qsub { display: block; font: 600 1rem var(--font-body); color: var(--muted); margin-top: 6px; }
+.readcard { background: var(--sun-soft); border: 2px dashed var(--sun); border-radius: 18px; padding: 14px 18px; font: 600 1.25rem/1.55 var(--font-display); text-align: left; max-width: 34em; }
+.readcard.hi { font-size: 1.35rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.chip-w { background: var(--teal-soft); color: var(--teal); border-radius: 10px; padding: 6px 12px; font: 800 1.3rem var(--font-display); }
+.swatch { width: 130px; height: 90px; border-radius: 18px; border: 3px solid var(--ink); }
+.subjects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 620px) { .subjects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.subj { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 8px; border-radius: 20px; border: 3px solid transparent; background: var(--card); cursor: pointer; box-shadow: 0 4px 0 var(--line-strong); text-align: center; }
+.subj .si { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; font: 800 1.9rem var(--font-display); background: var(--ssoft); color: var(--sdeep); }
+.subj b { font: 800 1.1rem var(--font-display); line-height: 1.1; }
+.subj small { font-size: .8rem; color: var(--muted); font-weight: 700; }
+.subj[aria-selected="true"] { border-color: var(--sdeep); background: var(--ssoft); box-shadow: 0 4px 0 var(--sdeep); }
+.world-story { margin: 4px 0 0; font-size: .85rem; color: var(--wdeep); font-weight: 700; }
+.intro { text-align: center; }
+.intro .goalline { font: 800 1.5rem var(--font-display); }
+.intro ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.intro li { display: flex; gap: 10px; align-items: flex-start; background: var(--good-soft); border-radius: 14px; padding: 10px 14px; font: 700 1.15rem var(--font-display); }
+.intro li::before { content: "★"; color: var(--sun); font-size: 1.3rem; line-height: 1; }
+.feel { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.feel .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.feel button { font: 700 1.05rem var(--font-display); border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 8px 16px; cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 92px; }
+.feel button span { font-size: 2rem; line-height: 1.1; }
+.feel button[aria-pressed="true"] { border-color: var(--good); background: var(--good-soft); }
+details.cur summary { cursor: pointer; font-size: .82rem; color: var(--teal); font-weight: 700; }
+details.cur ul { margin: 6px 0 0; padding-left: 18px; font-size: .85rem; }
+details.cur p { margin: 4px 0; font-size: .82rem; color: var(--muted); }
+.lo { display: block; font-size: .8rem; color: var(--muted); margin-top: 2px; }
+.ped { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.ped div { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.ped b { font-family: var(--font-display); font-size: 1.05rem; display: block; }
+.ped p { margin: 4px 0 0; font-size: .9rem; color: var(--muted); }
+.ped a { color: var(--teal); }
 .opt:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--line-strong); }
 .opt.right { background: var(--good-soft); border-color: var(--good); box-shadow: 0 5px 0 var(--good); color: var(--good); }
 .opt.wrong { background: var(--bad-soft); border-color: var(--bad); box-shadow: none; color: var(--bad); animation: shake .4s; opacity: .7; }
@@ -258,7 +301,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
   <!-- ============ LOGIN ============ -->
   <section id="vLogin">
     <div class="who">
-      <h1>Welcome to <span>Math Quest</span></h1>
+      <h1>Welcome to <span>Learning Quest</span></h1>
       <p class="note" style="font-size:1.05rem">Enter the password to start playing.</p>
       <div class="pinbox" id="pinDots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <p class="note" id="pinErr" role="status" style="min-height:1.4em"></p>
@@ -274,7 +317,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
   <!-- ============ WHO'S PLAYING ============ -->
   <section id="vWho" hidden>
     <div class="who">
-      <h1>Who's playing <span>Math Quest</span>?</h1>
+      <h1>Who's playing <span>Learning Quest</span>?</h1>
       <p class="note" style="font-size:1.05rem">Tap your name. New here? Make your own player.</p>
       <div class="players" id="players"></div>
       <p class="status" id="whoStatus">Loading players…</p>
@@ -309,7 +352,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
         </div>
         <div class="pills">
           <span class="pill" title="Coins"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--sun)" stroke="var(--warn)" stroke-width="2"/><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--warn)">₹</text></svg><span id="coinCount">0</span><span class="sr" style="position:absolute;left:-9999px">coins</span></span>
-          <span class="pill" title="Stars"><span id="starIcon"></span><span id="starCount">0</span>/120</span>
+          <span class="pill" title="Stars"><span id="starIcon"></span><span id="starCount">0</span>/<span id="starMax">300</span></span>
           <span class="pill" title="Days in a row"><svg width="20" height="22" viewBox="0 0 20 24" aria-hidden="true"><path d="M10 1c1 5 7 7 7 14a7 7 0 0 1-14 0c0-4 3-6 3-9 2 1 3 3 3 5 1-3 1-6 1-10z" fill="var(--mango)"/></svg><span id="streakCount">0</span> day streak</span>
           <button class="pill btnish" id="stickersBtn" type="button">Stickers</button>
           <button class="pill btnish" id="parentsBtn" type="button">Parents</button>
@@ -320,6 +363,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
         <div class="bar" aria-hidden="true"><i id="goalFill" style="width:0%"></i></div>
         <b id="goalText">0 / 20 questions</b>
       </div>
+      <div class="subjects" id="subjects" role="tablist" aria-label="Subjects"></div>
       <div class="map-actions" id="mapActions">
         <button class="btn" id="continueBtn" type="button">Continue: Count the dots</button>
         <button class="btn soft" id="reviewBtn" type="button" hidden>Practise tricky ones</button>
@@ -343,7 +387,13 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
         <span class="pill"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--sun)" stroke="var(--warn)" stroke-width="2"/></svg><span id="playCoins">0</span></span>
       </div>
       <div class="dots" id="progDots" aria-hidden="true"></div>
-      <div class="qcard">
+      <div class="qcard intro" id="introCard" hidden>
+        <span class="label">Today's learning goal</span>
+        <div class="goalline" id="introGoal"></div>
+        <ul id="introList"></ul>
+        <button class="btn" id="introGo" type="button">Let's start!</button>
+      </div>
+      <div class="qcard" id="qCard">
         <div class="qtext" id="qText"></div>
         <div class="visual" id="qVisual"></div>
         <div class="voicebar">
@@ -372,6 +422,14 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       <h2 id="resTitle">Well done!</h2>
       <p class="note" id="resText" style="font-size:1.1rem"></p>
       <div class="result-row" id="resPills"></div>
+      <div class="feel" id="feelBox">
+        <span class="label">How did that feel?</span>
+        <div class="row">
+          <button type="button" data-feel="easy" aria-pressed="false"><span aria-hidden="true">😀</span>Easy</button>
+          <button type="button" data-feel="ok" aria-pressed="false"><span aria-hidden="true">🙂</span>OK</button>
+          <button type="button" data-feel="hard" aria-pressed="false"><span aria-hidden="true">😕</span>Tricky</button>
+        </div>
+      </div>
       <div class="result-row">
         <button class="btn" id="resNext" type="button">Next level</button>
         <button class="btn soft" id="resAgain" type="button">Play again</button>
@@ -440,7 +498,10 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       </div>
 
       <div class="panel">
-        <div class="panel-head"><h2>Skills</h2><span class="note">Accuracy is answers right on the first try, across all play.</span></div>
+        <div class="panel-head"><h2>Skills and learning outcomes</h2>
+          <label class="settings" for="skillSubj">Subject <select id="skillSubj"></select></label></div>
+        <p class="note">Accuracy is answers right on the first try. Open a level to see its learning outcome, success criteria and curriculum link.</p>
+        <p class="note" id="skillOverview"></p>
         <div class="tablewrap"><table id="skillTable"></table></div>
       </div>
 
@@ -458,9 +519,21 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
             <label for="unlockChk"><input type="checkbox" id="unlockChk"> Unlock all levels</label>
             <label for="soundChk"><input type="checkbox" id="soundChk" checked> Sounds</label>
             <label for="voiceChk"><input type="checkbox" id="voiceChk" checked> Read questions aloud</label>
+            <label for="voiceLangSel">Voice language
+              <select id="voiceLangSel"><option value="ta">Tamil (தமிழ்)</option><option value="en">English</option></select>
+            </label>
+          </div>
+          <p class="note" id="voiceNote"></p>
+          <div>
           </div>
           <p class="note">These settings apply to the child selected above. By default, the next level unlocks after earning at least one star (7 out of 10 right on the first try).</p>
         </div>
+      </div>
+
+      <div class="panel" id="pedPanel">
+        <div class="panel-head"><h2>How Learning Quest teaches</h2><span class="note">The learning design behind every level</span></div>
+        <div class="ped" id="pedGrid"></div>
+        <p class="note" id="pedSources"></p>
       </div>
 
       <div class="panel">
@@ -804,9 +877,557 @@ const WORLDS = [
       const g = rnd(2, 5), e = rnd(2, 8), n = g * e; return Q({ text: `${n} pencils are shared equally among ${g} children. How many pencils does each child get?`, answer: String(e), options: numOpts(e, { extra: [e + 1, e - 1, n - g, g].filter(x => x > 0 && x !== e), min: 1 }) }); } },
   ] },
 ];
+/* ===================== Tamil voice lines for Maths ===================== */
+// Each maths level gets a Tamil spoken instruction derived from its question, and a Tamil hint.
+// English words that appear on screen (days, months, shapes) stay in English inside the Tamil sentence;
+// the speech engine reads each script in its own voice.
+const TA_ITEMS = { "kite": "பட்டமும்", "pencil box": "பென்சில் பெட்டியும்", "ball": "பந்தும்", "toffees": "மிட்டாயும்", "notebook": "நோட்டுப் புத்தகமும்", "crayons": "கிரையான்ஸும்", "top": "பம்பரமும்", "balloon": "பலூனும்" };
+const TA_THINGS = { "toy car": "பொம்மை கார்", "storybook": "கதைப் புத்தகம்", "lunch box": "டிபன் பாக்ஸ்", "water bottle": "தண்ணீர் பாட்டில்", "puzzle": "புதிர் விளையாட்டு" };
+const TA_SWEETS = { laddoos: "லட்டுகளை", sweets: "இனிப்புகளை", biscuits: "பிஸ்கட்டுகளை" };
+const TA_LEN = { pencil: "பென்சில்", crayon: "கிரையான்", ribbon: "ரிப்பன்" };
+const mt = (re, s) => (strip(s).match(re) || []);
+const MATHS_TA = {
+  w1l1: { ta: () => "எத்தனை புள்ளிகள் இருக்கு?", hint: "ஒரு பெட்டியில 10 புள்ளிகள் இருக்கும். நிறைஞ்ச பெட்டியை 10-ன்னு எடுத்துக்கிட்டு, மீதியை எண்ணிக்கோ." },
+  w1l2: { ta: (q) => { let m; if ((m = mt(/after (\d+)/, q.text))[1]) return `${m[1]}-க்கு அடுத்து வரும் எண் எது?`; if ((m = mt(/before (\d+)/, q.text))[1]) return `${m[1]}-க்கு முன்னால வரும் எண் எது?`; m = mt(/between (\d+) and (\d+)/, q.text); return `${m[1]}-க்கும் ${m[2]}-க்கும் நடுவுல வரும் எண் எது?`; }, hint: "அடுத்து-ன்னா ஒன்னு கூட்டு. முன்னால-ன்னா ஒன்னு குறை." },
+  w1l3: { ta: (q) => { let m = mt(/number is ([a-z-]+)\?/, q.text); if (m[1]) return `${m[1]}. இது எந்த எண்?`; m = mt(/write (\d+) in words/, q.text); return `${m[1]}-ஐ ஆங்கில வார்த்தையில எப்படி எழுதுவோம்?`; }, hint: "முதல் இலக்கம் பத்துகளோட பெயரைச் சொல்லும். ரெண்டாவது இலக்கம் ஒன்றுகளோட பெயரைச் சொல்லும்." },
+  w1l4: { ta: (q) => { const m = mt(/(\d+)\s*\?\s*(\d+)/, q.text); return `${m[1]}, ${m[2]}-ஐ விட சின்னதா, பெரியதா, இல்ல சமமா?`; }, hint: "முதல்ல பத்துகளைப் பாரு. குறியோட திறந்த பக்கம் பெரிய எண்ணைப் பார்க்கும்." },
+  w1l5: { ta: (q) => (q.say || "").replace(/blank/g, "கோடிட்ட இடம்").replace(/What is the missing number\?/, "விடுபட்ட எண் எது?"), hint: "ஒவ்வொரு எண்ணும் எவ்வளவு தாவுதுன்னு பாரு. அதே அளவு தாவு." },
+  w2l1: { ta: () => "இந்தக் கட்டைகள் காட்டும் எண் எது?", hint: "நீளக் கட்டை ஒன்னு 10. சின்னக் கட்டை ஒன்னு 1. பத்து பத்தா எண்ணிட்டு, அப்புறம் சின்னதைச் சேர்த்துக்கோ." },
+  w2l2: { ta: (q) => { let m = mt(/(\d+) tens and (\d+) ones/, q.text); if (m[1]) return `${m[1]} பத்துகளும் ${m[2]} ஒன்றுகளும் சேர்ந்தா எந்த எண்?`; m = mt(/How many tens are in (\d+)/, q.text); if (m[1]) return `${m[1]}-ல எத்தனை பத்துகள் இருக்கு?`; m = mt(/How many ones are in (\d+)/, q.text); return `${m[1]}-ல எத்தனை ஒன்றுகள் இருக்கு?`; }, hint: "பத்துகள் முதல்ல, ஒன்றுகள் அப்புறம். 4 பத்தும் 7 ஒன்றும் சேர்ந்தா 47." },
+  w2l3: { ta: (q) => { let m = mt(/(\d+) equals (\d+) plus what/, q.say); if (m[1]) return `${m[1]} சமம் ${m[2]} கூட்டல் எவ்வளவு?`; m = mt(/(\d+) equals what plus (\d+)/, q.say); return `${m[1]} சமம் எவ்வளவு கூட்டல் ${m[2]}?`; }, hint: "எண்ணை பத்துகளாவும் ஒன்றுகளாவும் பிரி. 68 சமம் 60 கூட்டல் 8." },
+  w2l4: { ta: (q) => { const m = mt(/value of (\d) in (\d+)/, q.text); return `${m[2]}-ல ${m[1]}-ன் இட மதிப்பு என்ன?`; }, hint: "பத்துகள் இடத்துல இருக்கிற இலக்கத்துக்கு அத்தனை பத்துகள் மதிப்பு. 74-ல 7-ன் மதிப்பு 70." },
+  w2l5: { ta: (q) => /biggest/.test(q.text) ? "இதுல மிகப் பெரிய எண்ணைத் தொடு." : "இதுல மிகச் சின்ன எண்ணைத் தொடு.", hint: "முதல்ல பத்துகளை ஒப்பிடு. பத்துகள் சமமா இருந்தா ஒன்றுகளை ஒப்பிடு." },
+  w3l1: { ta: (q) => { const m = mt(/(\d+) \+ (\d+)/, q.text); return `${m[1]} கூட்டல் ${m[2]} எவ்வளவு?`; }, hint: "ஆரஞ்சுப் புள்ளிகளை எண்ணிட்டு, நீலப் புள்ளிகளையும் தொடர்ந்து எண்ணு." },
+  w3l2: { hint: "முதல்ல 10 ஆக்கு. 8 கூட்டல் 5-ல, 8 கூட்டல் 2 சமம் 10, அப்புறம் இன்னும் 3, மொத்தம் 13." },
+  w3l3: { hint: "ஒன்றுகளை மட்டும் கூட்டு. பத்துகள் மாறாது." },
+  w3l4: { hint: "முதல்ல ஒன்றுகளைக் கூட்டு, அப்புறம் பத்துகளைக் கூட்டு." },
+  w3l5: { hint: "ஒன்றுகளைக் கூட்டு. 10 அல்லது அதுக்கு மேல வந்தா, ஒரு பத்தை பத்துகள் பக்கம் கொண்டு போ." },
+  w4l1: { ta: (q) => { const m = mt(/(\d+) − (\d+)/, q.text); return `${m[1]} கழித்தல் ${m[2]} எவ்வளவு?`; }, hint: "அடிக்காத புள்ளிகளை மட்டும் எண்ணு." },
+  w4l2: { hint: "பின்னோக்கி எண்ணு. இல்லன்னா கூட்டலா யோசி: 7 கூட்டல் எவ்வளவு சேர்ந்தா 15?" },
+  w4l3: { hint: "ஒன்றுகள்ல இருந்து மட்டும் கழி. பத்துகள் மாறாது." },
+  w4l4: { hint: "முதல்ல ஒன்றுகளைக் கழி, அப்புறம் பத்துகளைக் கழி." },
+  w4l5: { hint: "மேல இருக்கிற ஒன்றுகள் சின்னதா இருந்தா, ஒரு பத்தைக் கடன் வாங்கு. அது 10 ஒன்றுகளா மாறும்." },
+  w5l1: { ta: () => "இது எவ்வளவு பணம்?", hint: "காசு அல்லது நோட்டு மேல எழுதியிருக்கிற எண்ணைப் படி." },
+  w5l2: { ta: () => "மொத்தம் எவ்வளவு பணம் இருக்கு?", hint: "பெரிய நோட்டுல இருந்து ஆரம்பி, அப்புறம் சின்னதையெல்லாம் சேர்த்து எண்ணு." },
+  w5l3: { ta: (q) => { const m = mt(/^(\w+) buys an? (.+?) and (?:a|some) (.+?)\. /, q.text); return `${m[1]} ${TA_ITEMS[m[2]] || m[2]} ${TA_ITEMS[m[3]] || m[3]} வாங்குறாங்க. மொத்தம் எவ்வளவு ரூபாய்?`; }, hint: "ரெண்டு விலையையும் கூட்டு. முதல்ல ஒன்றுகள், அப்புறம் பத்துகள்." },
+  w5l4: { ta: (q) => { const m = mt(/A (.+?) costs ₹(\d+)\. (\w+) pays with a ₹(\d+) note/, q.text); return `ஒரு ${TA_THINGS[m[1]] || m[1]} ${m[2]} ரூபாய். ${m[3]} ${m[4]} ரூபாய் நோட்டு கொடுக்குறாங்க. மீதி எவ்வளவு கிடைக்கும்?`; }, hint: "மீதி சமம் கொடுத்த பணம் கழித்தல் விலை." },
+  w5l5: { ta: (q) => { const m = mt(/make ₹(\d+)/, q.text); return `${m[1]} ரூபாய் வர எந்தக் காசுகளும் நோட்டுகளும் வேணும்?`; }, hint: "ஒவ்வொரு விடையிலும் இருக்கிற பணத்தைக் கூட்டிப் பாரு. எது சரியா வருது?" },
+  w6l1: { ta: () => "கடிகாரம் என்ன மணி காட்டுது?", hint: "நீள முள் 12-ல இருந்தா, சின்ன முள் காட்டுற எண்தான் மணி." },
+  w6l2: { ta: () => "கடிகாரம் என்ன மணி காட்டுது?", hint: "நீள முள் 6-ல இருந்தா அது அரை மணி. சின்ன முள் அந்த மணியைக் கொஞ்சம் தாண்டி இருக்கும்." },
+  w6l3: { ta: (q) => { let m = mt(/after (\w+)\?/, q.text); if (m[1]) return `${m[1]}-க்கு அடுத்த நாள் எது?`; m = mt(/before (\w+)\?/, q.text); if (m[1]) return `${m[1]}-க்கு முன்னாடி வரும் நாள் எது?`; m = mt(/Today is (\w+)/, q.text); return `இன்னைக்கு ${m[1]}. நாளை மறுநாள் என்ன கிழமை?`; }, hint: "வரிசையா சொல்லு: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday." },
+  w6l4: { ta: (q) => { let m = mt(/after (\w+)\?/, q.text); if (m[1]) return `${m[1]}-க்கு அடுத்த மாதம் எது?`; m = mt(/before (\w+)\?/, q.text); if (m[1]) return `${m[1]}-க்கு முன்னாடி வரும் மாதம் எது?`; m = mt(/the (\d+)\w+ month/, q.text); return `வருஷத்தோட ${m[1]}-வது மாதம் எது?`; }, hint: "January முதல் மாதம், December பன்னிரண்டாவது மாதம். வரிசையா சொல்லிப் பாரு." },
+  w6l5: { ta: (q) => { const m = mt(/(\d) hours? later/, q.text); return `${m[1]} மணி நேரம் கழிச்சு என்ன மணி ஆகும்?`; }, hint: "ஒரு மணி நேரம் கழிச்சு, சின்ன முள் அடுத்த எண்ணுக்குப் போகும். நீள முள் அதே இடத்துல இருக்கும்." },
+  w7l1: { ta: () => "இந்த வடிவத்தோட பெயர் என்ன?", hint: "square-க்கு நாலு பக்கமும் சமம். rectangle-க்கு ரெண்டு நீளப் பக்கம், ரெண்டு சின்னப் பக்கம்." },
+  w7l2: { ta: (q) => { const m = mt(/many (corners|sides) does this (\w+)/, q.text); return `இந்த ${m[2]}-க்கு எத்தனை ${m[1] === "corners" ? "மூலைகள்" : "பக்கங்கள்"} இருக்கு?`; }, hint: "ஒவ்வொரு மூலையையும் விரலால தொட்டு எண்ணு. circle-க்கு மூலையே இல்ல." },
+  w7l3: { ta: (q) => `${(q.say || "").replace(/\. Which shape comes next\?/, "")}. அடுத்து எந்த வடிவம் வரும்?`, hint: "திரும்பத் திரும்ப வர்ற பகுதியைக் கண்டுபிடி. சத்தமா சொல்லிப் பாரு." },
+  w7l4: { ta: (q) => { const m = mt(/long is the (\w+)/, q.text); return `இந்த ${TA_LEN[m[1]] || m[1]} எவ்வளவு நீளம்?`; }, hint: "0-ல இருந்து ஆரம்பி. பொருள் முடியிற இடத்துல ஸ்கேல்ல என்ன எண் இருக்குன்னு படி." },
+  w7l5: { ta: (q) => { const m = mt(/Is (\d+)/, q.text); return `${m[1]} ஒற்றைப்படை எண்ணா, இரட்டைப்படை எண்ணா? Odd or even?`; }, hint: "இரட்டைப்படை எண்கள் ஜோடி ஜோடியா பிரியும், ஒன்னும் மிஞ்சாது. 0, 2, 4, 6, 8-ல முடிஞ்சா இரட்டைப்படை." },
+  w8l1: { ta: (q) => { const m = mt(/(\d) rows of (\d)/, q.text); return `${m[1]} வரிசைகள், ஒவ்வொரு வரிசையிலும் ${m[2]} பந்துகள். மொத்தம் எத்தனை பந்துகள்?`; }, hint: "அதே எண்ணைத் திரும்பத் திரும்பக் கூட்டு: 4-ன் 3 வரிசைன்னா 4 கூட்டல் 4 கூட்டல் 4." },
+  w8l2: { ta: (q) => { const m = mt(/(\d+) × (\d+)/, q.text); return `${m[1]} பெருக்கல் ${m[2]} எவ்வளவு?`; }, hint: "தாவித் தாவி எண்ணு: 2, 4, 6, 8. இல்லன்னா 3, 6, 9, 12." },
+  w8l3: { ta: (q) => { const m = mt(/(\d+) × (\d+)/, q.text); return `${m[1]} பெருக்கல் ${m[2]} எவ்வளவு?`; }, hint: "5-ன் வாய்ப்பாடு 5 அல்லது 0-ல முடியும். 10-ன் வாய்ப்பாடு 0-ல முடியும்." },
+  w8l4: { ta: (q) => { const m = mt(/(\d+) (\w+) are shared equally by (\d+)/, q.text); return `${m[1]} ${TA_SWEETS[m[2]] || m[2]} ${m[3]} நண்பர்களுக்கு சமமா பிரிச்சுக் கொடுத்தா, ஒவ்வொருத்தருக்கும் எத்தனை கிடைக்கும்?`; }, hint: "ஒவ்வொரு நண்பருக்கும் ஒன்னொன்னா கொடு, எல்லாம் தீர்ற வரைக்கும்." },
+  w8l5: { ta: (q) => { const t = strip(q.text); let m;
+      if ((m = t.match(/^(\w+) has (\d+) marbles and gets (\d+) more/))) return `${m[1]}-கிட்ட ${m[2]} கோலிகள் இருக்கு. இன்னும் ${m[3]} கோலிகள் கிடைக்குது. இப்போ மொத்தம் எத்தனை கோலிகள்?`;
+      if ((m = t.match(/There were (\d+) birds on a tree\. (\d+) flew away/))) return `ஒரு மரத்துல ${m[1]} பறவைகள் இருந்துச்சு. ${m[2]} பறவைகள் பறந்து போச்சு. இப்போ எத்தனை பறவைகள் இருக்கு?`;
+      if ((m = t.match(/A box has (\d+) rows of mangoes\. Each row has (\d+)/))) return `ஒரு பெட்டியில ${m[1]} வரிசை மாம்பழங்கள் இருக்கு. ஒவ்வொரு வரிசையிலும் ${m[2]} மாம்பழங்கள். மொத்தம் எத்தனை மாம்பழங்கள்?`;
+      if ((m = t.match(/A bus has (\d+) children\. At the next stop, (\d+)/))) return `ஒரு பஸ்ல ${m[1]} குழந்தைகள் இருக்காங்க. அடுத்த நிறுத்தத்துல இன்னும் ${m[2]} பேர் ஏறுறாங்க. இப்போ பஸ்ல எத்தனை பேர் இருக்காங்க?`;
+      if ((m = t.match(/(\d+) pencils are shared equally among (\d+)/))) return `${m[1]} பென்சில்களை ${m[2]} குழந்தைகளுக்கு சமமா பிரிச்சா, ஒவ்வொருத்தருக்கும் எத்தனை பென்சில் கிடைக்கும்?`;
+      return ""; }, hint: "மெதுவா படி. இன்னும், மொத்தம்-ன்னா கூட்டல். மீதி, பறந்து போச்சு-ன்னா கழித்தல்." },
+};
+["w3l2", "w3l3", "w3l4", "w3l5"].forEach(id => MATHS_TA[id].ta = MATHS_TA.w3l1.ta);
+["w4l2", "w4l3", "w4l4", "w4l5"].forEach(id => MATHS_TA[id].ta = MATHS_TA.w4l1.ta);
+
+/* ===================== shared helpers for word subjects ===================== */
+const EMO_RE = /^((?:\p{Extended_Pictographic}|\p{Regional_Indicator}|[0-9]️?⃣)(?:[️‍]|\p{Extended_Pictographic})*)\s*(.*)$/u;
+const pic = (em, label = "") => `<div class="pic" role="img" aria-label="${esc(label || "picture")}">${em}</div>`;
+function optOf(label, say) {
+  const m = String(label).match(EMO_RE);
+  if (m && m[2]) return { v: label, html: `<span class="oe" aria-hidden="true">${m[1]}</span><span class="ol">${esc(m[2])}</span>`, say: say || m[2], wordy: true, emo: true };
+  if (m) return { v: label, html: `<span class="oe big" aria-hidden="true">${m[1]}</span>`, say: say || "", emo: true };
+  return { v: label, html: esc(label), say, wordy: String(label).length > 3 };
+}
+function mcq(o) {
+  const opts = shuffle([o.answer, ...shuffle([...new Set(o.wrong)].filter(w => w !== o.answer)).slice(0, (o.n || 4) - 1)]);
+  return { ...o, options: opts.map(x => optOf(x, o.sayMap && o.sayMap[x])) };
+}
+function cycler(items) { let q = []; return () => { if (!q.length) q = shuffle(items.map((_, i) => i)); return items[q.pop()]; }; }
+const card = (html, cls = "") => `<div class="readcard ${cls}">${html}</div>`;
+const chips = (words) => `<div class="chips">${words.map(w => `<span class="chip-w">${esc(w)}</span>`).join("")}</div>`;
+// A bank level: items are [questionEn, questionTa, answer, [wrong...], pictureEmoji?]
+function bankLevel(items, extra = {}) {
+  const next = cycler(items);
+  return () => { const [q, ta, ans, wrong, em] = next(); return mcq({ text: q, ta, answer: ans, wrong, visual: em ? pic(em) : "", desc: em || undefined, ...extra }); };
+}
+
+/* ===================== ENGLISH ===================== */
+const PICS = { cat: "🐱", dog: "🐶", bat: "🦇", hat: "🎩", sun: "☀️", bus: "🚌", pen: "🖊️", hen: "🐔", pig: "🐷", fish: "🐟", ball: "⚽", book: "📖", cake: "🎂", duck: "🦆", egg: "🥚", goat: "🐐", house: "🏠", kite: "🪁", lion: "🦁", moon: "🌙", nest: "🪺", parrot: "🦜", rabbit: "🐰", tree: "🌳", van: "🚐", watch: "⌚", box: "📦", zebra: "🦓", frog: "🐸", bed: "🛏️", cup: "☕", bag: "👜", mango: "🥭", apple: "🍎", leaf: "🍃", rat: "🐀", sock: "🧦", bell: "🔔", drum: "🥁", nut: "🥜", web: "🕸️", fox: "🦊", milk: "🥛", cow: "🐄", ship: "🚢", shoe: "👟", shell: "🐚", sheep: "🐑", chair: "🪑", cheese: "🧀", chick: "🐤", three: "3️⃣", thumb: "👍", teeth: "🦷", bath: "🛁", tent: "⛺", leg: "🦵", gift: "🎁", ring: "💍", king: "🤴", lips: "👄", hand: "✋", map: "🗺️", log: "🪵", juice: "🧃", owl: "🦉", star: "⭐", jam: "🍯", ten: "🔟", bun: "🍞", mop: "🧹", wig: "💇", top: "🔝" };
+const BEGIN = ["cat", "dog", "bat", "hat", "sun", "bus", "pen", "hen", "pig", "fish", "ball", "book", "cake", "duck", "goat", "house", "kite", "lion", "moon", "nest", "parrot", "rabbit", "tree", "van", "watch", "zebra", "frog", "bed", "cup", "bag", "mango", "leaf", "rat", "sock", "bell", "drum", "nut", "web", "fox", "milk", "cow", "tent", "leg", "gift", "ring", "king", "lips", "hand", "map", "juice"];
+const CVC = ["cat", "bat", "hat", "rat", "bag", "map", "jam", "pen", "hen", "bed", "web", "leg", "ten", "pig", "lips", "gift", "dog", "fox", "log", "box", "sock", "sun", "bus", "cup", "nut", "bun", "drum"];
+const LETTERS = "bdfghjlmnprstvwz".split("");
+const VOWELS = ["a", "e", "i", "o", "u"];
+const sameSound = (a, b) => a === b || (["c", "k"].includes(a) && ["c", "k"].includes(b));
+const DIGRAPH = [["ship", "sh", 0], ["shoe", "sh", 0], ["shell", "sh", 0], ["sheep", "sh", 0], ["fish", "sh", 1], ["chair", "ch", 0], ["cheese", "ch", 0], ["chick", "ch", 0], ["watch", "ch", 1], ["three", "th", 0], ["thumb", "th", 0], ["teeth", "th", 1], ["bath", "th", 1]];
+const RHYME = [["cat", "hat", "bat", "mat", "rat", "sat"], ["pen", "hen", "ten", "men", "den"], ["pig", "big", "dig", "wig", "fig"], ["sun", "bun", "fun", "run", "nun"], ["top", "hop", "mop", "stop", "pop"], ["bug", "mug", "rug", "jug", "hug"], ["cake", "lake", "make", "snake", "bake"], ["king", "ring", "sing", "wing", "swing"], ["bell", "shell", "well", "tell", "sell"], ["box", "fox", "socks", "rocks"], ["night", "light", "kite", "white"], ["tree", "bee", "three", "see", "free"]];
+const SIGHT = [["the", "they", "then", "them", "there"], ["was", "saw", "wash", "wish"], ["where", "were", "when", "what"], ["come", "some", "came", "home"], ["could", "would", "cloud", "should"], ["from", "form", "farm", "frog"], ["said", "sad", "sand", "sail"], ["have", "has", "had", "hive"], ["many", "money", "mine", "man"], ["goes", "does", "gone", "done"], ["want", "went", "what", "wait"], ["here", "there", "where", "hear"], ["play", "plate", "plan", "pray"], ["every", "very", "ever", "even"]];
+const OPP = [["big", "small"], ["hot", "cold"], ["up", "down"], ["happy", "sad"], ["fast", "slow"], ["day", "night"], ["open", "closed"], ["tall", "short"], ["full", "empty"], ["old", "new"], ["wet", "dry"], ["in", "out"], ["push", "pull"], ["hard", "soft"], ["clean", "dirty"], ["top", "bottom"], ["come", "go"], ["light", "heavy"], ["laugh", "cry"], ["near", "far"]];
+const PLURAL = [["cat", "cats"], ["dog", "dogs"], ["pen", "pens"], ["book", "books"], ["tree", "trees"], ["kite", "kites"], ["ball", "balls"], ["cup", "cups"], ["box", "boxes"], ["bus", "buses"], ["fox", "foxes"], ["dish", "dishes"], ["watch", "watches"], ["bench", "benches"], ["glass", "glasses"], ["brush", "brushes"]];
+const NOUNS = [["The dog runs fast.", "dog"], ["A bird can fly.", "bird"], ["The sun is hot.", "sun"], ["My ball is red.", "ball"], ["The baby is sleeping.", "baby"], ["Riya reads every day.", "Riya"], ["The fish swims.", "fish"], ["The cake is sweet.", "cake"], ["Our school is big.", "school"], ["The kite flies high.", "kite"], ["Kabir jumps up.", "Kabir"], ["The flower is pretty.", "flower"], ["My teacher is kind.", "teacher"]];
+const VERBS = [["Riya jumps high.", "jumps"], ["The baby cries.", "cries"], ["Birds fly in the sky.", "fly"], ["We sing a song.", "sing"], ["The cat drinks milk.", "drinks"], ["Arjun kicks the ball.", "kicks"], ["Fish swim in water.", "swim"], ["I eat an apple.", "eat"], ["The dog barks loudly.", "barks"], ["Mother cooks food.", "cooks"], ["Diya draws a tree.", "draws"], ["They run fast.", "run"], ["Grandpa reads the paper.", "reads"]];
+const ADJS = [["I have a big bag.", "big"], ["The tea is hot.", "hot"], ["She has long hair.", "long"], ["The elephant is heavy.", "heavy"], ["I like sweet mangoes.", "sweet"], ["The tall tree has birds.", "tall"], ["It is a sunny day.", "sunny"], ["The kitten is soft.", "soft"], ["He wears a blue shirt.", "blue"], ["The old man sits.", "old"], ["The room is clean.", "clean"], ["My pencil is short.", "short"], ["We saw a little mouse.", "little"]];
+const AAN = [["apple", "an"], ["egg", "an"], ["owl", "an"], ["umbrella", "an"], ["orange", "an"], ["ant", "an"], ["elephant", "an"], ["onion", "an"], ["ice cream", "an"], ["ink pot", "an"], ["cat", "a"], ["ball", "a"], ["kite", "a"], ["dog", "a"], ["banana", "a"], ["tree", "a"], ["pen", "a"], ["bus", "a"], ["house", "a"], ["mango", "a"]];
+const AAN_PIC = { apple: "🍎", egg: "🥚", owl: "🦉", umbrella: "☂️", orange: "🍊", ant: "🐜", elephant: "🐘", onion: "🧅", "ice cream": "🍦", "ink pot": "🖋️", cat: "🐱", ball: "⚽", kite: "🪁", dog: "🐶", banana: "🍌", tree: "🌳", pen: "🖊️", bus: "🚌", house: "🏠", mango: "🥭" };
+const PRON = [["Arjun has a new bat. ___ plays cricket.", "He"], ["Kabir is my brother. ___ is seven.", "He"], ["Grandpa likes tea. ___ drinks it hot.", "He"], ["Riya is my friend. ___ sings well.", "She"], ["Meera has a red bag. ___ goes to school.", "She"], ["My mother is a doctor. ___ helps sick people.", "She"], ["The kite is red. ___ flies high.", "It"], ["The cat is hungry. ___ wants milk.", "It"], ["The bus is late. ___ is coming now.", "It"], ["Riya and Kabir are friends. ___ play together.", "They"], ["The birds are singing. ___ are happy.", "They"], ["My shoes are new. ___ are black.", "They"]];
+const RIDDLE = [["It gives us milk.", "🐄", "cow"], ["I wear these on my feet.", "👟", "shoes"], ["It shines in the sky at night.", "🌙", "moon"], ["We read it.", "📖", "book"], ["It has a long trunk.", "🐘", "elephant"], ["It flies high on a string.", "🪁", "kite"], ["It is yellow and we peel it.", "🍌", "banana"], ["It has two wheels. We ride it.", "🚲", "bicycle"], ["It keeps us dry in the rain.", "☂️", "umbrella"], ["It says quack, quack.", "🦆", "duck"], ["It tells us the time.", "⌚", "watch"], ["We sit on it.", "🪑", "chair"], ["It is hot and gives us light in the day.", "☀️", "sun"], ["It lives in water and swims.", "🐟", "fish"]];
+const ORDER = ["The sun is hot.", "I like to play.", "We go to school.", "The cat is black.", "Birds can fly.", "I have a red pen.", "The dog is barking.", "She is my sister.", "We eat rice.", "He can run fast.", "The baby is sleeping.", "My bag is blue."];
+const CAPS = [["My name is Riya.", "Riya"], ["I live in Chennai.", "Chennai"], ["We go to school on Monday.", "Monday"], ["Kabir has a red kite.", "Kabir"], ["Diya likes mangoes.", "Diya"], ["Today is Friday.", "Friday"], ["Arjun lives in Madurai.", "Madurai"], ["My friend is Sara.", "Sara"], ["Meera and Anaya are sisters.", "Meera"], ["We saw Ravi at the park.", "Ravi"]];
+const QWORDS = [["___ is your name?", "What"], ["___ do you live?", "Where"], ["___ is your teacher?", "Who"], ["___ is your birthday?", "When"], ["___ is in the box?", "What"], ["___ is the park?", "Where"], ["___ is singing?", "Who"], ["___ do you go to bed?", "When"], ["___ colour is the sky?", "What"], ["___ are my shoes?", "Where"], ["___ made this cake?", "Who"], ["___ does the bus come?", "When"]];
+const STORIES = [
+  { s: "Tara has a little cat. The cat is white. It likes to drink milk. It sleeps on a soft mat.", q: [["What colour is the cat?", "White", ["Black", "Brown", "Grey"]], ["What does the cat like to drink?", "Milk", ["Water", "Juice", "Tea"]], ["Where does the cat sleep?", "On a mat", ["On a tree", "In a box", "On a chair"]]] },
+  { s: "Ravi goes to the park with his father. He plays on the swing. He sees a big tree with many birds. Ravi is happy.", q: [["Who goes to the park with Ravi?", "His father", ["His sister", "His teacher", "His friend"]], ["What does Ravi play on?", "The swing", ["The slide", "The see-saw", "The sand"]], ["How does Ravi feel?", "Happy", ["Sad", "Angry", "Sleepy"]]] },
+  { s: "It is raining. Meena takes her red umbrella. She jumps in the puddles. Her shoes get wet.", q: [["What is the weather like?", "Rainy", ["Sunny", "Windy", "Snowy"]], ["What colour is the umbrella?", "Red", ["Blue", "Green", "Yellow"]], ["What gets wet?", "Her shoes", ["Her book", "Her hat", "Her bag"]]] },
+  { s: "Grandma makes idlis in the morning. Arjun helps her. They eat the idlis with coconut chutney. Yum!", q: [["Who makes the idlis?", "Grandma", ["Arjun", "Mother", "Father"]], ["When does she make them?", "In the morning", ["At night", "In the evening", "At noon"]], ["What do they eat with the idlis?", "Coconut chutney", ["Jam", "Curd", "Ketchup"]]] },
+  { s: "A small ant finds a grain of rice. It is too heavy. Five ants come to help. Together they carry it home.", q: [["What does the ant find?", "A grain of rice", ["A leaf", "A seed", "A sweet"]], ["How many ants come to help?", "Five", ["Two", "Ten", "Three"]], ["What does this story teach us?", "Working together helps", ["Ants are big", "Rice is light", "Ants can fly"]]] },
+];
+function misspell(w) {
+  const out = new Set(); let g = 0;
+  while (out.size < 3 && g++ < 60) {
+    const a = w.split(""), k = rnd(0, 2);
+    if (k === 0 && a.length > 2) { const i = rnd(0, a.length - 2); if (a[i] !== a[i + 1]) [a[i], a[i + 1]] = [a[i + 1], a[i]]; }
+    else if (k === 1) { const vi = a.map((c, i) => VOWELS.includes(c) ? i : -1).filter(i => i >= 0); if (vi.length) { const i = pick(vi); a[i] = pick(VOWELS.filter(v => v !== a[i])); } }
+    else { const i = rnd(1, a.length - 1); a.splice(i, 0, a[i - 1]); }
+    const s = a.join(""); if (s !== w) out.add(s);
+  }
+  return [...out];
+}
+const nBlank = (s) => s.replace(/___/g, "blank");
+const EN_WORLDS = [
+  { id: "en1", name: "Sound Safari", topic: "Phonics and sounds", deep: "#b0306a", soft: "#fbe0ee", story: "Follow the animal sounds through the jungle.", levels: [
+    { name: "Beginning sounds", hint: "Say the word slowly. Listen to the very first sound.", hintTa: "வார்த்தையை மெதுவா சொல்லு. முதல் ஒலியைக் கவனி.", gen() {
+      const w = pick(BEGIN), f = w[0]; const wrong = shuffle(LETTERS.filter(l => !sameSound(l, f))).slice(0, 3);
+      return mcq({ text: "Which letter does this picture begin with?", ta: `${w}. இந்தப் படம் எந்த எழுத்துல ஆரம்பிக்குது?`, say: `${w}. Which letter does it begin with?`, visual: pic(PICS[w], w), desc: w, answer: f, wrong }); } },
+    { name: "Ending sounds", hint: "Say the word slowly. Listen to the last sound.", hintTa: "மெதுவா சொல்லு. கடைசி ஒலியைக் கவனி.", gen() {
+      const w = pick(CVC), l = w[w.length - 1]; const wrong = shuffle(LETTERS.filter(x => x !== l && !(l === "s" && x === "z"))).slice(0, 3);
+      return mcq({ text: "Which letter does this word end with?", ta: `${w}. இந்த வார்த்தை எந்த எழுத்துல முடியுது?`, say: `${w}. Which letter does it end with?`, visual: pic(PICS[w], w), desc: w, answer: l, wrong }); } },
+    { name: "Short vowel sounds", hint: "Say the middle sound: a as in ant, e as in egg, i as in ink, o as in ox, u as in up.", hintTa: "நடு ஒலியைச் சொல்லு: ant-ல a, egg-ல e, ink-ல i, ox-ல o, up-ல u.", gen() {
+      const w = pick(CVC.filter(x => x.length === 3)), v = w[1];
+      return mcq({ text: `<span class="spell">${w[0]} _ ${w[2]}</span>`, huge: true, ta: `${w}. விடுபட்ட எழுத்து எது?`, say: `${w}. Which vowel is missing?`, visual: pic(PICS[w], w), desc: w, answer: v, wrong: VOWELS.filter(x => x !== v) }); } },
+    { name: "sh, ch and th", hint: "sh as in ship, ch as in chair, th as in thumb.", hintTa: "ship-ல sh, chair-ல ch, thumb-ல th.", gen() {
+      const [w, d, end] = pick(DIGRAPH); const shown = end ? w.slice(0, w.length - 2) + "__" : "__" + w.slice(2);
+      return mcq({ text: `<span class="spell">${shown}</span>`, huge: true, ta: `${w}. இந்த வார்த்தையில விடுபட்ட ஒலி எது?`, say: `${w}. Which sound is missing?`, visual: pic(PICS[w], w), desc: w, answer: d, wrong: ["sh", "ch", "th", "wh"].filter(x => x !== d) }); } },
+    { name: "Rhyming words", hint: "Rhyming words end with the same sound, like cat and hat.", hintTa: "cat, hat மாதிரி, கடைசி ஒலி ஒரே மாதிரி இருக்கணும்.", gen() {
+      const fam = pick(RHYME), [a, b] = shuffle(fam), wrong = shuffle(RHYME.filter(f => f !== fam)).slice(0, 3).map(f => pick(f));
+      return mcq({ text: `Which word rhymes with <b>${a}</b>?`, ta: `${a} மாதிரியே ஒலிக்கிற வார்த்தை எது?`, answer: b, wrong }); } },
+  ] },
+  { id: "en2", name: "Word Workshop", topic: "Words and spelling", deep: "#1b6fa8", soft: "#dceefa", story: "Build words in the workshop, letter by letter.", levels: [
+    { name: "Picture to word", hint: "Say the name of the picture. Find the word that starts with that sound.", hintTa: "படத்தோட பெயரைச் சொல்லு. அந்த ஒலியில ஆரம்பிக்கிற வார்த்தையைத் தேடு.", gen() {
+      const keys = Object.keys(PICS).filter(k => k.length > 2), w = pick(keys);
+      return mcq({ text: "Which word matches the picture?", ta: "இந்தப் படத்துக்குச் சரியான வார்த்தை எது?", visual: pic(PICS[w], "picture"), desc: `Picture of ${w}`, answer: w, wrong: shuffle(keys.filter(k => k !== w)).slice(0, 3), noOpts: true }); } },
+    { name: "Sight words", hint: "Tap Read again to hear it once more. Look at the first and last letters.", hintTa: "மறுபடியும் கேட்க Read again-ஐத் தொடு. முதல் எழுத்தையும் கடைசி எழுத்தையும் கவனி.", gen() {
+      const g = pick(SIGHT), w = pick(g), listen = canSpeak;
+      return mcq({ text: listen ? "Listen. Tap the word you hear." : `Tap the word <b>${w}</b>.`, ta: `கவனமா கேளு. ${w}. இந்த வார்த்தையைத் தொடு.`, say: `Listen. ${w}. Tap the word ${w}.`, desc: `Word: ${w}`, answer: w, wrong: g, noOpts: true }); } },
+    { name: "Spell it", hint: "Say each sound slowly and match each letter.", hintTa: "ஒவ்வொரு ஒலியையும் மெதுவா சொல்லி, எழுத்தைப் பொருத்து.", gen() {
+      const w = pick(Object.keys(PICS).filter(k => k.length >= 3 && k.length <= 6 && !/\s/.test(k)));
+      return mcq({ text: "Which spelling is correct?", ta: `${w}. சரியான ஸ்பெல்லிங் எது?`, say: `${w}. Which spelling is correct?`, visual: pic(PICS[w], w), desc: w, answer: w, wrong: misspell(w), noOpts: true }); } },
+    { name: "Opposites", hint: "Opposites mean very different things, like hot and cold.", hintTa: "எதிர்ச்சொல்-ன்னா நேர் எதிரான அர்த்தம். hot, cold மாதிரி.", gen() {
+      const p = pick(OPP), rev = Math.random() < 0.5, [a, b] = rev ? [p[1], p[0]] : p;
+      return mcq({ text: `What is the opposite of <b>${a}</b>?`, ta: `${a}-க்கு எதிர்ச்சொல் என்ன?`, answer: b, wrong: shuffle(OPP.filter(x => x !== p).flat()).slice(0, 3) }); } },
+    { name: "One and many", hint: "Most words add s. Words ending in s, x, sh or ch add es.", hintTa: "பெரும்பாலும் s சேர்ப்போம். s, x, sh, ch-ல முடிஞ்சா es சேர்ப்போம்.", gen() {
+      const [one, many] = pick(PLURAL), es = many.endsWith("es");
+      return mcq({ text: `One <b>${one}</b>, two ___`, ta: `ஒன்னு ${one}. ரெண்டு இருந்தா என்ன சொல்லுவோம்?`, say: `One ${one}, two what?`, answer: many, wrong: es ? [one + "s", one, one + "ies"] : [one + "es", one, one + "ies"], noOpts: true }); } },
+  ] },
+  { id: "en3", name: "Grammar Garden", topic: "Naming, action and describing words", deep: "#2a8a3f", soft: "#e0f3e3", story: "Grow sentences in the garden, one word at a time.", levels: [
+    { name: "Naming words", hint: "A naming word names a person, animal, place or thing.", hintTa: "பெயர்ச்சொல் ஒரு ஆள், மிருகம், இடம் அல்லது பொருளோட பெயர்.", gen() {
+      const [s, a] = pick(NOUNS), ws = s.replace(/[.]/g, "").split(" ");
+      return mcq({ text: `Find the <b>naming word</b>:<br>${esc(s)}`, ta: `இந்த வாக்கியத்துல naming word எது? ${s}`, say: `Find the naming word. ${s}`, answer: a, wrong: ws.filter(w => w !== a) }); } },
+    { name: "Action words", hint: "An action word tells what someone does: run, eat, jump.", hintTa: "action word ஒருத்தர் என்ன செய்யறாங்கன்னு சொல்லும்: run, eat, jump.", gen() {
+      const [s, a] = pick(VERBS), ws = s.replace(/[.]/g, "").split(" ");
+      return mcq({ text: `Find the <b>action word</b>:<br>${esc(s)}`, ta: `இந்த வாக்கியத்துல action word எது? ${s}`, say: `Find the action word. ${s}`, answer: a, wrong: ws.filter(w => w !== a) }); } },
+    { name: "Describing words", hint: "A describing word tells how something looks or feels: big, red, soft.", hintTa: "describing word ஒரு பொருள் எப்படி இருக்குன்னு சொல்லும்: big, red, soft.", gen() {
+      const [s, a] = pick(ADJS), ws = s.replace(/[.]/g, "").split(" ");
+      return mcq({ text: `Find the <b>describing word</b>:<br>${esc(s)}`, ta: `இந்த வாக்கியத்துல describing word எது? ${s}`, say: `Find the describing word. ${s}`, answer: a, wrong: ws.filter(w => w !== a) }); } },
+    { name: "a or an", hint: "Use an before the sounds a, e, i, o, u: an apple. Use a for others: a ball.", hintTa: "a, e, i, o, u ஒலிக்கு முன்னாடி an: an apple. மத்ததுக்கு a: a ball.", gen() {
+      const [w, a] = pick(AAN);
+      return mcq({ text: `___ <b>${w}</b>`, huge: true, ta: `${w}-க்கு முன்னாடி a வருமா, an வருமா?`, say: `A or an? ${w}`, visual: pic(AAN_PIC[w], w), answer: a, wrong: [a === "a" ? "an" : "a"], n: 2, cols: 2 }); } },
+    { name: "He, she, it, they", hint: "He for a boy or man, she for a girl or woman, it for an animal or thing, they for many.", hintTa: "பையனுக்கு he, பொண்ணுக்கு she, மிருகம் அல்லது பொருளுக்கு it, நிறைய பேருக்கு they.", gen() {
+      const [s, a] = pick(PRON);
+      return mcq({ text: esc(s), ta: `கோடிட்ட இடத்துல எந்த வார்த்தை வரும்? ${nBlank(s)}`, say: nBlank(s), answer: a, wrong: ["He", "She", "It", "They"] }); } },
+  ] },
+  { id: "en4", name: "Story Corner", topic: "Reading sentences and stories", deep: "#9a6a00", soft: "#fdf0cf", story: "Curl up in the story corner and read with Kili the parrot.", levels: [
+    { name: "Read and match", hint: "Read each word. Which picture shows all of it?", hintTa: "ஒவ்வொரு வார்த்தையையும் படி. எந்தப் படம் அதைக் காட்டுது?", gen() {
+      const it = pick(RIDDLE), others = shuffle(RIDDLE.filter(r => r !== it)).slice(0, 3);
+      const sayMap = Object.fromEntries(RIDDLE.map(r => [r[1], r[2]]));
+      return mcq({ text: `${esc(it[0])}<br><span class="qsub">Tap the picture.</span>`, ta: `இந்த வாக்கியத்தைப் படி: ${it[0]} சரியான படத்தைத் தொடு.`, say: `${it[0]} Tap the picture.`, answer: it[1], wrong: others.map(o => o[1]), sayMap, noOpts: true }); } },
+    { name: "Make a sentence", hint: "A sentence starts with who or what, then tells what happens.", hintTa: "வாக்கியம் யார் அல்லது எதுன்னு ஆரம்பிச்சு, என்ன நடக்குதுன்னு சொல்லும்.", gen() {
+      const s = pick(ORDER), words = s.replace(".", "").split(" "), lw = words.map((w, i) => i === 0 && w !== "I" ? w.toLowerCase() : w);
+      const mk = (arr) => { const t = arr.join(" "); return t[0].toUpperCase() + t.slice(1) + "."; };
+      const wrong = new Set(); let g = 0; while (wrong.size < 3 && g++ < 50) { const t = mk(shuffle(lw)); if (t !== s) wrong.add(t); }
+      return mcq({ text: "Put the words in order. Which sentence is right?", ta: "இந்த வார்த்தைகளைச் சரியான வரிசையில அடுக்கினா எந்த வாக்கியம் வரும்?", visual: chips(shuffle(lw)), desc: s, answer: s, wrong: [...wrong], noOpts: true }); } },
+    { name: "Capitals and full stops", hint: "A sentence starts with a capital letter and ends with a full stop. Names start with capitals too.", hintTa: "வாக்கியம் பெரிய எழுத்துல ஆரம்பிச்சு, முற்றுப்புள்ளியில முடியும். பெயர்களும் பெரிய எழுத்துலதான் ஆரம்பிக்கும்.", gen() {
+      const [s, name] = pick(CAPS);
+      const w1 = s[0].toLowerCase() + s.slice(1), w2 = s.replace(name, name.toLowerCase()), w3 = s.replace(/\.$/, "");
+      return mcq({ text: "Which sentence is written correctly?", ta: "எந்த வாக்கியம் சரியா எழுதியிருக்கு? பெரிய எழுத்தையும் முற்றுப்புள்ளியையும் கவனி.", answer: s, wrong: [w1, w2, w3].filter(x => x !== s), noOpts: true }); } },
+    { name: "Question words", hint: "Who asks about a person, what about a thing, where about a place, when about a time.", hintTa: "who ஆளைப் பத்தி, what பொருளைப் பத்தி, where இடத்தைப் பத்தி, when நேரத்தைப் பத்திக் கேட்கும்.", gen() {
+      const [s, a] = pick(QWORDS);
+      return mcq({ text: esc(s), ta: `கோடிட்ட இடத்துல எந்தக் கேள்விச் சொல் வரும்? ${nBlank(s)}`, say: nBlank(s), answer: a, wrong: ["Who", "What", "Where", "When"] }); } },
+    { name: "Read a short story", hint: "Read the story again and find the words from the question.", hintTa: "கதையை மறுபடியும் படி. கேள்வியில இருக்கிற வார்த்தைகளைக் கதையில தேடு.", gen() {
+      const st = pick(STORIES), [qq, a, wrong] = pick(st.q);
+      return mcq({ text: esc(qq), ta: `கதையைக் கேளு. ${st.s} இப்போ கேள்வி: ${qq}`, say: `${st.s} ${qq}`, visual: card(esc(st.s)), desc: st.s.slice(0, 40) + "…", answer: a, wrong }); } },
+  ] },
+];
+
+/* ===================== HINDI ===================== */
+const SWAR = ["अ", "आ", "इ", "ई", "उ", "ऊ", "ए", "ऐ", "ओ", "औ"];
+const SWAR_WORD = { "अ": "अनार", "आ": "आम", "इ": "इमली", "ई": "ईख", "उ": "उल्लू", "ऊ": "ऊन", "ए": "एड़ी", "ऐ": "ऐनक", "ओ": "ओखली", "औ": "औरत" };
+const VYAN = ["क", "ख", "ग", "घ", "च", "छ", "ज", "झ", "ट", "ठ", "ड", "ढ", "त", "थ", "द", "ध", "न", "प", "फ", "ब", "भ", "म", "य", "र", "ल", "व", "श", "स", "ह"];
+const VYAN_WORD = { "क": "कबूतर", "ख": "खरगोश", "ग": "गमला", "घ": "घड़ी", "च": "चम्मच", "छ": "छतरी", "ज": "जहाज़", "झ": "झंडा", "ट": "टमाटर", "ठ": "ठेला", "ड": "डमरू", "ढ": "ढोल", "त": "तरबूज़", "थ": "थैला", "द": "दवात", "ध": "धनुष", "न": "नल", "प": "पतंग", "फ": "फूल", "ब": "बकरी", "भ": "भालू", "म": "मछली", "य": "यान", "र": "रथ", "ल": "लट्टू", "व": "वन", "श": "शेर", "स": "सेब", "ह": "हाथी" };
+const HPIC = [["कबूतर", "🕊️"], ["खरगोश", "🐰"], ["गमला", "🪴"], ["घड़ी", "⌚"], ["चम्मच", "🥄"], ["छतरी", "☂️"], ["जहाज़", "🚢"], ["झंडा", "🚩"], ["टमाटर", "🍅"], ["ढोल", "🥁"], ["तरबूज़", "🍉"], ["थैला", "👜"], ["धनुष", "🏹"], ["नल", "🚰"], ["पतंग", "🪁"], ["फूल", "🌸"], ["बकरी", "🐐"], ["भालू", "🐻"], ["मछली", "🐟"], ["सेब", "🍎"], ["हाथी", "🐘"], ["शेर", "🦁"], ["आम", "🥭"], ["उल्लू", "🦉"], ["ऊन", "🧶"], ["ऐनक", "👓"], ["केला", "🍌"], ["गाय", "🐄"], ["घर", "🏠"], ["चाँद", "🌙"], ["तारा", "⭐"], ["दूध", "🥛"], ["नाव", "⛵"], ["पेड़", "🌳"], ["मोर", "🦚"], ["सूरज", "☀️"], ["हिरन", "🦌"], ["कुत्ता", "🐶"], ["बिल्ली", "🐱"], ["किताब", "📖"], ["घोड़ा", "🐴"], ["ऊँट", "🐪"], ["जूता", "👟"], ["गुब्बारा", "🎈"]];
+const LOOKALIKE = [["ब", "व", "क", "र"], ["घ", "ध", "छ", "थ"], ["म", "भ", "य", "स"], ["प", "ष", "फ", "य"], ["ड", "ड़", "ङ", "द"], ["ख", "र", "व", "स"], ["थ", "य", "घ", "ध"]];
+const LOOK_WORDS = [["बकरी", "ब"], ["बतख", "ब"], ["वन", "व"], ["घर", "घ"], ["घड़ी", "घ"], ["धनुष", "ध"], ["मछली", "म"], ["मोर", "म"], ["भालू", "भ"], ["पतंग", "प"], ["खरगोश", "ख"], ["थैला", "थ"], ["डमरू", "ड"], ["यान", "य"]];
+const HROWS = [SWAR, ["क", "ख", "ग", "घ", "ङ"], ["च", "छ", "ज", "झ", "ञ"], ["ट", "ठ", "ड", "ढ", "ण"], ["त", "थ", "द", "ध", "न"], ["प", "फ", "ब", "भ", "म"], ["य", "र", "ल", "व"], ["श", "ष", "स", "ह"]];
+const MATRA_ALT = ["", "ा", "ि", "ी", "ु", "ू", "े", "ै", "ो", "ौ"];
+const MATRA = {
+  aa: { m: ["ा"], w: [["नाक", "👃"], ["कान", "👂"], ["गाय", "🐄"], ["चाय", "☕"], ["ताला", "🔒"], ["माला", "📿"], ["हाथी", "🐘"], ["बादल", "☁️"], ["घास", "🌿"], ["बाघ", "🐅"]] },
+  i: { m: ["ि", "ी"], w: [["किताब", "📖"], ["तितली", "🦋"], ["बिल्ली", "🐱"], ["दिल", "❤️"], ["खीरा", "🥒"], ["चींटी", "🐜"], ["पानी", "💧"], ["हीरा", "💎"], ["मछली", "🐟"], ["मिर्च", "🌶️"]] },
+  u: { m: ["ु", "ू"], w: [["फूल", "🌸"], ["सूरज", "☀️"], ["कुत्ता", "🐶"], ["जूता", "👟"], ["गुब्बारा", "🎈"], ["चूहा", "🐭"], ["भालू", "🐻"], ["आलू", "🥔"], ["झूला", "🛝"], ["कछुआ", "🐢"]] },
+  e: { m: ["े", "ै"], w: [["सेब", "🍎"], ["केला", "🍌"], ["पेड़", "🌳"], ["रेल", "🚂"], ["बैल", "🐂"], ["पैसा", "💰"], ["थैला", "👜"], ["पैर", "🦶"], ["मेंढक", "🐸"], ["शेर", "🦁"]] },
+  o: { m: ["ो", "ौ"], w: [["मोर", "🦚"], ["घोड़ा", "🐴"], ["तोता", "🦜"], ["गोभी", "🥦"], ["कौआ", "🐦‍⬛"], ["मोती", "🦪"], ["नौ", "9️⃣"], ["रोटी", "🫓"], ["बोतल", "🍼"], ["कोयल", "🐦"]] },
+};
+function matraQ(key) {
+  const g = MATRA[key], [w, em] = pick(g.w);
+  const idx = [...w].findIndex(c => g.m.includes(c)), chars = [...w], orig = chars[idx];
+  const wrong = shuffle(MATRA_ALT.filter(m => m !== orig)).map(m => { const c = chars.slice(); c[idx] = m; return c.join(""); }).filter(x => x !== w).slice(0, 3);
+  return mcq({ text: "Which word has the right matra?", ta: `${w}. சரியான மாத்திரை உள்ள வார்த்தை எது?`, say: w, visual: pic(em, w), desc: w, answer: w, wrong, noOpts: true });
+}
+const VILOM = [["बड़ा", "छोटा"], ["दिन", "रात"], ["ऊपर", "नीचे"], ["गरम", "ठंडा"], ["अंदर", "बाहर"], ["आना", "जाना"], ["सुबह", "शाम"], ["मोटा", "पतला"], ["खुश", "दुखी"], ["सच", "झूठ"], ["आगे", "पीछे"], ["नया", "पुराना"], ["हँसना", "रोना"], ["काला", "सफ़ेद"], ["खट्टा", "मीठा"], ["दूर", "पास"], ["जीत", "हार"]];
+const VACHAN = [["कुत्ता", "कुत्ते"], ["केला", "केले"], ["लड़का", "लड़के"], ["कमरा", "कमरे"], ["घोड़ा", "घोड़े"], ["बच्चा", "बच्चे"], ["गुब्बारा", "गुब्बारे"], ["किताब", "किताबें"], ["रात", "रातें"], ["बात", "बातें"], ["लड़की", "लड़कियाँ"], ["नदी", "नदियाँ"], ["चिड़िया", "चिड़ियाँ"], ["गुड़िया", "गुड़ियाँ"], ["रोटी", "रोटियाँ"], ["टोपी", "टोपियाँ"]];
+function vachanWrong(one, many) {
+  const c = new Set([one, one + "ें", one.replace(/ा$/, "े"), one.replace(/ी$/, "ियाँ"), one.replace(/ा$/, "ों"), one + "ों", one.replace(/ी$/, "ीयें"), one + "े"]);
+  c.delete(many); return [...c];
+}
+const NOMATRA = [["कमल", "🪷"], ["घर", "🏠"], ["बस", "🚌"], ["मटर", "🫛"], ["नल", "🚰"], ["कलम", "🖊️"], ["जल", "💧"], ["महल", "🏰"], ["शहर", "🏙️"], ["बतख", "🦆"], ["मगर", "🐊"], ["रथ", "🛕"], ["फल", "🍇"], ["सड़क", "🛣️"]];
+const HSENT = [["मोर नाच रहा है।", "🦚"], ["बिल्ली दूध पी रही है।", "🐱"], ["बच्चे खेल रहे हैं।", "⚽"], ["आसमान में चाँद है।", "🌙"], ["पेड़ पर तोता है।", "🦜"], ["माँ खाना बना रही है।", "🍲"], ["बारिश हो रही है।", "🌧️"], ["मछली पानी में है।", "🐟"], ["यह मेरा घर है।", "🏠"], ["कुत्ता भौंक रहा है।", "🐶"]];
+const HFILL = [["आसमान में ___ चमक रहा है।", "सूरज", ["मछली", "किताब", "कुर्सी"]], ["गाय हमें ___ देती है।", "दूध", ["पानी", "पतंग", "जूता"]], ["मैं ___ से लिखता हूँ।", "कलम", ["केला", "थाली", "गेंद"]], ["हम ___ से देखते हैं।", "आँखों", ["कानों", "हाथों", "पैरों"]], ["बंदर ___ खाता है।", "केला", ["पत्थर", "जूता", "किताब"]], ["रात को ___ निकलता है।", "चाँद", ["सूरज", "बादल", "पेड़"]], ["मछली ___ में रहती है।", "पानी", ["पेड़", "घर", "आग"]], ["हम ___ से सुनते हैं।", "कानों", ["आँखों", "नाक", "दाँतों"]], ["चिड़िया ___ में रहती है।", "घोंसले", ["पानी", "बस्ते", "जूते"]], ["बारिश में हम ___ लेते हैं।", "छाता", ["पतंग", "चश्मा", "गेंद"]]];
+const HNUM = ["एक", "दो", "तीन", "चार", "पाँच", "छह", "सात", "आठ", "नौ", "दस", "ग्यारह", "बारह", "तेरह", "चौदह", "पंद्रह", "सोलह", "सत्रह", "अठारह", "उन्नीस", "बीस"];
+const HCOL = [["लाल", "#e0303a"], ["हरा", "#2a9a45"], ["पीला", "#f5c400"], ["नीला", "#2a64d8"], ["काला", "#1c1c1c"], ["सफ़ेद", "#ffffff"], ["नारंगी", "#f57a2a"], ["गुलाबी", "#f27bb5"], ["भूरा", "#8a5a2b"], ["बैंगनी", "#7c3fc4"]];
+const HDAYS = ["सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार", "रविवार"];
+const HSTORY = [
+  { s: "मीना के पास एक तोता है। तोता हरा है। वह मिर्च खाता है। तोता 'मीना, मीना' बोलता है।", q: [["तोता किसका है?", "मीना का", ["राजू का", "माँ का", "दादी का"]], ["तोता किस रंग का है?", "हरा", ["लाल", "पीला", "नीला"]], ["तोता क्या खाता है?", "मिर्च", ["रोटी", "केला", "चावल"]]] },
+  { s: "राजू बाग में गया। वहाँ बहुत फूल थे। उसने एक लाल गुलाब देखा। राजू खुश हुआ।", q: [["राजू कहाँ गया?", "बाग में", ["स्कूल में", "घर में", "बाज़ार में"]], ["राजू ने कौन-सा फूल देखा?", "गुलाब", ["कमल", "गेंदा", "सूरजमुखी"]], ["राजू कैसा हुआ?", "खुश", ["दुखी", "नाराज़", "थका"]]] },
+  { s: "आज बारिश हो रही है। सोनू छाता लेकर स्कूल जाता है। रास्ते में मेंढक टर्र-टर्र करते हैं।", q: [["आज क्या हो रहा है?", "बारिश", ["धूप", "ठंड", "आँधी"]], ["सोनू क्या लेकर जाता है?", "छाता", ["गेंद", "पतंग", "किताब"]], ["टर्र-टर्र कौन करता है?", "मेंढक", ["कुत्ता", "गाय", "मोर"]]] },
+];
+const HI_WORLDS = [
+  { id: "hi1", name: "Akshar Mela", topic: "वर्णमाला · Letters", deep: "#c4561a", soft: "#fde6d6", story: "Visit the letter fair and meet every akshar.", levels: [
+    { name: "स्वर पहचानो", hint: "Tap Read again and listen once more. Say the sound with it.", hintTa: "Read again தொட்டு மறுபடியும் கேளு. கூடவே நீயும் சொல்லு.", gen() {
+      const l = pick(SWAR), w = SWAR_WORD[l];
+      return mcq({ text: canSpeak ? "Listen. Which letter do you hear?" : `Which letter does <b>${w}</b> start with?`, ta: `கேளு. ${l} से ${w}. நீ கேட்ட எழுத்து எது?`, say: `${l} से ${w}`, desc: `${l} से ${w}`, answer: l, wrong: SWAR.filter(x => x !== l), noOpts: true }); } },
+    { name: "व्यंजन पहचानो", hint: "Each letter has its own sound: क, ख, ग, घ are all different.", hintTa: "ஒவ்வொரு எழுத்தோட ஒலியையும் கவனமா கேளு. क, ख, ग, घ ஒவ்வொன்னும் வேற வேற.", gen() {
+      const l = pick(VYAN), w = VYAN_WORD[l], row = HROWS.find(r => r.includes(l)) || VYAN;
+      return mcq({ text: canSpeak ? "Listen. Which letter do you hear?" : `Which letter does <b>${w}</b> start with?`, ta: `கேளு. ${l} से ${w}. நீ கேட்ட எழுத்து எது?`, say: `${l} से ${w}`, desc: `${l} से ${w}`, answer: l, wrong: shuffle(row.filter(x => x !== l && VYAN.includes(x))).concat(shuffle(VYAN)).filter(x => x !== l), noOpts: true }); } },
+    { name: "अक्षर से चित्र", hint: "Say the picture's name in Hindi. Listen to the first sound.", hintTa: "படத்தோட ஹிந்திப் பெயரைச் சொல்லு. முதல் ஒலியைக் கவனி.", gen() {
+      const [w, em] = pick(HPIC), f = [...w][0], all = [...SWAR, ...VYAN];
+      return mcq({ text: "Which letter does this picture start with?", ta: `${w}. இந்தப் படம் எந்த ஹிந்தி எழுத்துல ஆரம்பிக்குது?`, say: w, visual: pic(em, w), desc: w, answer: f, wrong: shuffle(all.filter(x => x !== f)), noOpts: true }); } },
+    { name: "छूटा अक्षर", hint: "Say the letters in order: क ख ग घ ङ.", hintTa: "எழுத்துகளை வரிசையா சொல்லு: क ख ग घ ङ.", gen() {
+      const row = pick(HROWS), start = rnd(0, Math.max(0, row.length - 4)), seq = row.slice(start, start + 4), pos = rnd(1, seq.length - 1), ans = seq[pos];
+      return mcq({ text: `<span class="hseq">${seq.map((c, i) => i === pos ? "__" : c).join("  ")}</span>`, huge: true, ta: "விடுபட்ட ஹிந்தி எழுத்து எது?", say: "Which letter is missing?", desc: seq.join(" "), answer: ans, wrong: shuffle([...row, ...VYAN].filter(x => x !== ans && !seq.includes(x))), noOpts: true }); } },
+    { name: "मिलते-जुलते अक्षर", hint: "Look closely. ब has a line inside, व does not. घ and ध look alike too.", hintTa: "கவனமா பாரு. ब-க்குள்ள ஒரு கோடு இருக்கும், व-ல இருக்காது. घ, ध-வும் ஒரே மாதிரி தெரியும்.", gen() {
+      const [w, f] = pick(LOOK_WORDS), grp = LOOKALIKE.find(g => g.includes(f)) || [f, ...shuffle(VYAN)];
+      const em = (HPIC.find(p => p[0] === w) || [])[1] || "";
+      return mcq({ text: `<span class="hseq">__${esc([...w].slice(1).join(""))}</span>`, huge: true, ta: `${w}. இந்த வார்த்தையோட முதல் எழுத்து எது? ஒரே மாதிரி இருக்கிற எழுத்துகளைக் கவனமா பாரு.`, say: w, visual: em ? pic(em, w) : "", desc: w, answer: f, wrong: grp.filter(x => x !== f), noOpts: true }); } },
+  ] },
+  { id: "hi2", name: "Matra Magic", topic: "मात्राएँ · Vowel signs", deep: "#6b4bb8", soft: "#ebe4fa", story: "Each matra is a magic mark that changes a letter's sound.", levels: [
+    { name: "आ की मात्रा (ा)", hint: "The आ matra is a standing line: क + ा = का.", hintTa: "आ மாத்திரை ஒரு நிற்கிற கோடு: क கூட ा சேர்ந்தா का.", gen: () => matraQ("aa") },
+    { name: "इ, ई की मात्रा (ि ी)", hint: "Short इ (ि) comes before the letter. Long ई (ी) comes after it.", hintTa: "சின்ன इ (ि) எழுத்துக்கு முன்னாடி வரும். பெரிய ई (ी) பின்னாடி வரும்.", gen: () => matraQ("i") },
+    { name: "उ, ऊ की मात्रा (ु ू)", hint: "उ (ु) and ऊ (ू) sit under the letter. ऊ is the longer sound.", hintTa: "उ (ु), ऊ (ू) எழுத்துக்குக் கீழ வரும். ऊ நீளமான ஒலி.", gen: () => matraQ("u") },
+    { name: "ए, ऐ की मात्रा (े ै)", hint: "ए (े) has one stroke on top. ऐ (ै) has two.", hintTa: "ए (े)-க்கு மேல ஒரு கோடு. ऐ (ै)-க்கு ரெண்டு கோடு.", gen: () => matraQ("e") },
+    { name: "ओ, औ की मात्रा (ो ौ)", hint: "ओ (ो) is the आ line with one stroke on top. औ (ौ) has two.", hintTa: "ओ (ो) ஒரு நிற்கிற கோடும் மேல ஒரு கோடும். औ (ौ)-க்கு மேல ரெண்டு கோடு.", gen: () => matraQ("o") },
+  ] },
+  { id: "hi3", name: "Shabd Bagicha", topic: "शब्द · Words", deep: "#1f8a52", soft: "#dff3e6", story: "Pick words like flowers in the word garden.", levels: [
+    { name: "चित्र से शब्द", hint: "Say the picture's name in Hindi, then find that word.", hintTa: "படத்தோட ஹிந்திப் பெயரைச் சொல்லிட்டு, அந்த வார்த்தையைத் தேடு.", gen() {
+      const [w, em] = pick(HPIC);
+      return mcq({ text: "Which Hindi word matches the picture?", ta: "இந்தப் படத்துக்குச் சரியான ஹிந்தி வார்த்தை எது?", visual: pic(em, "picture"), desc: `Picture of ${w}`, answer: w, wrong: shuffle(HPIC.filter(p => p[0] !== w)).map(p => p[0]), noOpts: true }); } },
+    { name: "सुनो और चुनो", hint: "Listen for the first sound, then check the matras.", hintTa: "முதல் ஒலியைக் கேளு, அப்புறம் மாத்திரைகளைச் சரிபாரு.", gen() {
+      const [w, em] = pick(HPIC), f = [...w][0], near = HPIC.filter(p => p[0] !== w && [...p[0]][0] === f).map(p => p[0]);
+      return mcq({ text: canSpeak ? "Listen. Tap the word you hear." : "Which word matches the picture?", ta: `கேளு. ${w}. இந்த வார்த்தையைத் தொடு.`, say: w, visual: canSpeak ? "" : pic(em), desc: w, answer: w, wrong: [...near, ...shuffle(HPIC.map(p => p[0]))].filter(x => x !== w), noOpts: true }); } },
+    { name: "बिना मात्रा वाले शब्द", hint: "Read each letter: क-म-ल makes कमल.", hintTa: "ஒவ்வொரு எழுத்தா படி: क-म-ल சேர்ந்தா कमल.", gen() {
+      const [w, em] = pick(NOMATRA), sayMap = {};
+      return mcq({ text: `Read the word. Tap its picture.<br><span class="hword">${w}</span>`, ta: "இந்த ஹிந்தி வார்த்தையைப் படி. சரியான படத்தைத் தொடு.", say: "Read the word. Tap its picture.", desc: w, answer: em, wrong: shuffle(NOMATRA.filter(p => p[0] !== w)).map(p => p[1]), sayMap, noOpts: true }); } },
+    { name: "उलटे अर्थ वाले शब्द", hint: "उलटा means the opposite, like दिन and रात.", hintTa: "உல்டா-ன்னா எதிர்ச்சொல். दिन, रात மாதிரி.", gen() {
+      const p = pick(VILOM), [a, b] = Math.random() < 0.5 ? p : [p[1], p[0]];
+      return mcq({ text: `What is the opposite of <span class="hword">${a}</span>?`, ta: `${a}-க்கு எதிர்ச்சொல் என்ன?`, say: `${a} का उलटा क्या है?`, answer: b, wrong: shuffle(VILOM.filter(x => x !== p).flat()) }); } },
+    { name: "एक और अनेक", hint: "Words ending in ा usually change to े: केला becomes केले.", hintTa: "ा-ல முடியிற வார்த்தை பெரும்பாலும் े ஆகும்: केला, केले.", gen() {
+      const [one, many] = pick(VACHAN);
+      return mcq({ text: `एक <span class="hword">${one}</span>, अनेक ___`, ta: `ஒன்னு ${one}. நிறைய இருந்தா என்ன சொல்லுவோம்?`, say: `एक ${one}, अनेक?`, answer: many, wrong: vachanWrong(one, many), noOpts: true }); } },
+  ] },
+  { id: "hi4", name: "Vakya Ghar", topic: "वाक्य · Sentences", deep: "#b0304a", soft: "#fbe1e6", story: "Read and listen in the sentence house.", levels: [
+    { name: "सुनो और वाक्य चुनो", hint: "Listen to the whole sentence. Which one matches every word?", hintTa: "முழு வாக்கியத்தையும் கேளு. எல்லா வார்த்தையும் பொருந்துற வாக்கியம் எது?", gen() {
+      const [s, em] = pick(HSENT);
+      return mcq({ text: canSpeak ? "Listen. Tap the sentence you hear." : "Which sentence matches the picture?", ta: `கேளு. ${s} நீ கேட்ட வாக்கியத்தைத் தொடு.`, say: s, visual: canSpeak ? "" : pic(em), desc: s, answer: s, wrong: shuffle(HSENT.filter(x => x[0] !== s)).map(x => x[0]), noOpts: true }); } },
+    { name: "खाली जगह भरो", hint: "Read the sentence with each word. Which one makes sense?", hintTa: "ஒவ்வொரு வார்த்தையையும் போட்டுப் படிச்சுப் பாரு. எது அர்த்தமா இருக்கு?", gen() {
+      const [s, a, wrong] = pick(HFILL);
+      return mcq({ text: `<span class="hword sm">${s}</span>`, ta: `கோடிட்ட இடத்துல எந்த வார்த்தை வரும்? ${s.replace("___", "...")}`, say: s.replace("___", "..."), answer: a, wrong }); } },
+    { name: "गिनती", hint: "Count in Hindi: एक, दो, तीन, चार, पाँच…", hintTa: "ஹிந்தியில எண்ணு: एक, दो, तीन, चार, पाँच…", gen() {
+      const n = rnd(1, 20), w = HNUM[n - 1];
+      if (Math.random() < 0.5) return mcq({ text: `How do we say <b>${n}</b> in Hindi?`, ta: `${n}-ஐ ஹிந்தியில எப்படி சொல்லுவோம்?`, answer: w, wrong: shuffle(HNUM.filter((x, i) => x !== w && Math.abs(i + 1 - n) <= 4)) });
+      return mcq({ text: `Which number is <span class="hword">${w}</span>?`, ta: `${w}. இது எந்த எண்?`, say: w, answer: String(n), wrong: shuffle([n - 1, n + 1, n + 2, n - 2, n + 10].filter(x => x >= 1 && x <= 30).map(String)) }); } },
+    { name: "रंग और दिन", hint: "Say the days in order: सोमवार, मंगलवार, बुधवार…", hintTa: "நாட்களை வரிசையா சொல்லு: सोमवार, मंगलवार, बुधवार…", gen() {
+      if (Math.random() < 0.5) { const [c, hex] = pick(HCOL); return mcq({ text: "What is this colour called in Hindi?", ta: "இந்த நிறத்துக்கு ஹிந்தியில என்ன பெயர்?", visual: `<div class="swatch" style="background:${hex}" role="img" aria-label="a colour"></div>`, desc: `Colour ${c}`, answer: c, wrong: shuffle(HCOL.map(x => x[0]).filter(x => x !== c)), noOpts: true }); }
+      const i = rnd(0, 6), a = HDAYS[(i + 1) % 7];
+      return mcq({ text: `<span class="hword sm">${HDAYS[i]} के बाद कौन-सा दिन आता है?</span>`, ta: `${HDAYS[i]}-க்கு அடுத்த நாள் எது?`, say: `${HDAYS[i]} के बाद कौन-सा दिन आता है?`, answer: a, wrong: [HDAYS[(i + 6) % 7], HDAYS[(i + 2) % 7], HDAYS[(i + 3) % 7]] }); } },
+    { name: "छोटी कहानी", hint: "Read the story again and look for the words in the question.", hintTa: "கதையை மறுபடியும் படி. கேள்வியில இருக்கிற வார்த்தைகளைக் கதையில தேடு.", gen() {
+      const st = pick(HSTORY), [qq, a, wrong] = pick(st.q);
+      return mcq({ text: `<span class="hword sm">${qq}</span>`, ta: `கதையைக் கேளு. ${st.s} கேள்வி: ${qq}`, say: `${st.s} ${qq}`, visual: card(st.s, "hi"), desc: st.s.slice(0, 30) + "…", answer: a, wrong }); } },
+  ] },
+];
+
+/* ===================== WORLD AROUND US (EVS) ===================== */
+const EV_WORLDS = [
+  { id: "ev1", name: "My Body and Health", topic: "Body, habits, food and safety", deep: "#d03a5c", soft: "#fde3e9", story: "Help Kili stay healthy, clean and safe.", levels: [
+    { name: "Body parts and senses", hint: "Point to each part of your body as you think.", hintTa: "யோசிக்கும்போது உன் உடம்புல அந்தப் பகுதியைத் தொட்டுப் பாரு.", gen: bankLevel([
+      ["We see with our…", "நாம எதால பார்க்கிறோம்?", "👁️ Eyes", ["👂 Ears", "👃 Nose", "👅 Tongue"]],
+      ["We hear with our…", "நாம எதால கேட்கிறோம்?", "👂 Ears", ["👁️ Eyes", "👃 Nose", "✋ Hands"]],
+      ["We smell with our…", "நாம எதால வாசனை பிடிக்கிறோம்?", "👃 Nose", ["👂 Ears", "👅 Tongue", "🦶 Feet"]],
+      ["We taste food with our…", "சாப்பாட்டோட சுவையை எதால தெரிஞ்சுக்கிறோம்?", "👅 Tongue", ["👃 Nose", "👁️ Eyes", "✋ Hands"]],
+      ["We chew food with our…", "சாப்பாட்டை எதால மெல்லுறோம்?", "🦷 Teeth", ["👂 Ears", "👃 Nose", "🦵 Legs"]],
+      ["We walk with our…", "நாம எதால நடக்கிறோம்?", "🦵 Legs", ["✋ Hands", "👁️ Eyes", "👂 Ears"]],
+      ["How many fingers are on one hand?", "ஒரு கையில எத்தனை விரல்கள் இருக்கு?", "5", ["4", "6", "10"], "✋"],
+      ["Which part helps us feel hot and cold?", "சூடு, குளிர் எல்லாம் எதால உணர்றோம்?", "✋ Skin", ["👁️ Eyes", "👂 Ears", "🦷 Teeth"]],
+      ["How many eyes do we have?", "நமக்கு எத்தனை கண்கள்?", "2", ["1", "3", "4"], "👀"],
+      ["We hold a pencil with our…", "பென்சிலை எதால பிடிக்கிறோம்?", "✋ Hand", ["🦶 Foot", "👃 Nose", "👂 Ear"]],
+      ["Which sense do we use to enjoy music?", "பாட்டை ரசிக்க எந்தப் புலனைப் பயன்படுத்துறோம்?", "👂 Hearing", ["👅 Taste", "👃 Smell", "👁️ Sight"], "🎵"],
+    ]) },
+    { name: "Good habits", hint: "Think: what keeps us healthy and kind?", hintTa: "யோசி: எது நம்மை ஆரோக்கியமாவும் நல்லவங்களாவும் வச்சிருக்கும்?", gen: bankLevel([
+      ["When should we wash our hands?", "எப்போ கை கழுவணும்?", "Before eating", ["Only on Sunday", "Never", "Only at night"], "🧼"],
+      ["How many times a day should we brush our teeth?", "ஒரு நாளைக்கு எத்தனை தடவை பல் துலக்கணும்?", "Two times", ["Once a week", "Never", "Ten times"], "🪥"],
+      ["What should we do when we sneeze?", "தும்மும்போது என்ன செய்யணும்?", "Cover nose and mouth", ["Sneeze on a friend", "Shout loudly", "Run away"], "🤧"],
+      ["Which is a good habit?", "இதுல எது நல்ல பழக்கம்?", "Sleeping early", ["Throwing litter", "Biting nails", "Skipping breakfast"]],
+      ["What do we say when someone helps us?", "யாராவது உதவி செஞ்சா என்ன சொல்லணும்?", "Thank you", ["Go away", "Nothing", "Hurry up"], "🙏"],
+      ["What do we say when we make a mistake?", "தப்பு செஞ்சா என்ன சொல்லணும்?", "Sorry", ["Thank you", "Hello", "Bye"]],
+      ["Which is a good habit at school?", "ஸ்கூல்ல இதுல எது நல்ல பழக்கம்?", "Sharing with friends", ["Pushing in line", "Tearing books", "Shouting in class"]],
+      ["How much should a child your age sleep?", "உன் வயசுக் குழந்தை எவ்வளவு நேரம் தூங்கணும்?", "About 10 hours", ["2 hours", "Not at all", "All day"], "😴"],
+      ["Which helps keep our body strong?", "நம்ம உடம்பை எது பலமா வச்சிருக்கும்?", "Playing outside", ["Watching TV all day", "Eating only sweets", "Sleeping late"], "🏃"],
+      ["When should we cut our nails?", "நகத்தை எப்போ வெட்டணும்?", "When they grow long", ["Never", "Every hour", "Only in the dark"], "💅"],
+    ]) },
+    { name: "Healthy food", hint: "Healthy food comes from plants, milk and grains. Sweets are only for sometimes.", hintTa: "ஆரோக்கியமான சாப்பாடு செடி, பால், தானியத்துல இருந்து வரும். இனிப்பு எப்பவாவதுதான்.", gen: bankLevel([
+      ["Which food is healthy?", "இதுல எது ஆரோக்கியமான சாப்பாடு?", "🍎 Apple", ["🍟 Chips", "🍭 Lollipop", "🥤 Cold drink"]],
+      ["What should we drink a lot of every day?", "தினமும் நிறைய எதைக் குடிக்கணும்?", "💧 Water", ["🥤 Cold drink", "☕ Coffee", "🧋 Milkshake"]],
+      ["Which gives us milk?", "நமக்குப் பால் எதுல இருந்து கிடைக்குது?", "🐄 Cow", ["🐕 Dog", "🐈 Cat", "🐓 Hen"]],
+      ["Which is a vegetable?", "இதுல எது காய்கறி?", "🥕 Carrot", ["🍌 Banana", "🍪 Biscuit", "🍫 Chocolate"]],
+      ["Which is a fruit?", "இதுல எது பழம்?", "🍌 Banana", ["🥕 Carrot", "🥔 Potato", "🧅 Onion"]],
+      ["Which is a healthy breakfast?", "இதுல எது ஆரோக்கியமான காலை உணவு?", "Idli and sambar", ["Chips and cola", "Only sweets", "Nothing"], "🍽️"],
+      ["Milk helps make our… strong.", "பால் நம்ம எதை பலமாக்கும்?", "🦴 Bones", ["💇 Hair", "👕 Clothes", "👟 Shoes"], "🥛"],
+      ["What should we do before eating fruit?", "பழம் சாப்பிடுறதுக்கு முன்னாடி என்ன செய்யணும்?", "Wash it", ["Drop it", "Hide it", "Throw it"], "🍇"],
+      ["Which food comes from a plant?", "இதுல எது செடியில இருந்து கிடைக்குது?", "🍚 Rice", ["🥚 Egg", "🥛 Milk", "🧀 Cheese"]],
+      ["Too many sweets can hurt our…", "நிறைய இனிப்பு சாப்பிட்டா எது கெட்டுப் போகும்?", "🦷 Teeth", ["👂 Ears", "👁️ Eyes", "💇 Hair"], "🍬"],
+    ]) },
+    { name: "Staying safe", hint: "Safety first: stop, look and ask a grown-up.", hintTa: "முதல்ல பாதுகாப்பு: நில்லு, பாரு, பெரியவங்ககிட்ட கேளு.", gen: bankLevel([
+      ["Which traffic light means STOP?", "எந்த சிக்னல் லைட் நில்லுன்னு சொல்லும்?", "🔴 Red", ["🟢 Green", "🟡 Yellow", "🔵 Blue"], "🚦"],
+      ["Which traffic light means GO?", "எந்த சிக்னல் லைட் போகலாம்னு சொல்லும்?", "🟢 Green", ["🔴 Red", "🟡 Yellow", "⚪ White"], "🚦"],
+      ["Where should we cross the road?", "ரோட்டை எங்க கடக்கணும்?", "At the zebra crossing", ["Anywhere", "Between cars", "Running fast"], "🚸"],
+      ["What should we wear on a two-wheeler?", "டூ வீலர்ல போகும்போது என்ன போடணும்?", "⛑️ Helmet", ["🎩 Hat", "🕶️ Sunglasses", "🧣 Scarf"], "🛵"],
+      ["Should we touch a switch with wet hands?", "ஈரக் கையால சுவிட்சைத் தொடலாமா?", "No, never", ["Yes, always", "Only at night", "Only with one finger"], "🔌"],
+      ["A stranger offers you sweets. What do you do?", "தெரியாதவங்க இனிப்பு கொடுத்தா என்ன செய்யணும்?", "Say no and tell a grown-up", ["Take them", "Go with them", "Keep it a secret"], "🍬"],
+      ["Which number do we call for an ambulance?", "ஆம்புலன்ஸுக்கு எந்த நம்பருக்கு போன் பண்ணணும்?", "108", ["101", "123", "500"], "🚑"],
+      ["Which is safe to play with?", "இதுல எதோட விளையாடலாம்?", "⚽ Ball", ["🔪 Knife", "🔥 Fire", "💊 Medicine"]],
+      ["Where should we play?", "எங்க விளையாடணும்?", "In a park or playground", ["On the road", "Near a well", "On the terrace edge"], "🛝"],
+      ["What should we wear in a car?", "கார்ல போகும்போது என்ன போடணும்?", "Seat belt", ["Helmet", "Raincoat", "Gloves"], "🚗"],
+    ]) },
+    { name: "Keeping clean", hint: "Clean body, clean home, clean school.", hintTa: "சுத்தமான உடம்பு, சுத்தமான வீடு, சுத்தமான ஸ்கூல்.", gen: bankLevel([
+      ["Where should we throw garbage?", "குப்பையை எங்க போடணும்?", "🗑️ In a dustbin", ["On the road", "In the river", "Under the desk"]],
+      ["How often should we take a bath?", "எவ்வளவு அடிக்கடி குளிக்கணும்?", "Every day", ["Once a month", "Never", "Once a year"], "🛁"],
+      ["What do we use to wash our hands?", "கை கழுவ எதைப் பயன்படுத்துறோம்?", "🧼 Soap and water", ["🧃 Juice", "🥛 Milk", "🍯 Honey"]],
+      ["We should wear… clothes.", "நாம எப்படிப்பட்ட துணி போடணும்?", "Clean", ["Dirty", "Torn", "Wet"], "👕"],
+      ["What should we use to clean our teeth?", "பல்லைச் சுத்தம் பண்ண எதைப் பயன்படுத்துறோம்?", "🪥 Toothbrush", ["🖍️ Crayon", "🥄 Spoon", "🖊️ Pen"]],
+      ["After using the toilet, we should…", "டாய்லெட் போயிட்டு வந்தப்புறம் என்ன செய்யணும்?", "Wash our hands", ["Eat at once", "Touch our face", "Run away"], "🚽"],
+      ["What should we use to wipe our nose?", "மூக்கைத் துடைக்க எதைப் பயன்படுத்தணும்?", "A handkerchief", ["Our sleeve", "A book", "Our friend's shirt"], "🤧"],
+      ["Who should keep our classroom clean?", "நம்ம வகுப்பறையை யாரு சுத்தமா வச்சிருக்கணும்?", "All of us", ["Nobody", "Only the teacher", "Only one child"], "🏫"],
+      ["Flies sit on uncovered food. What should we do?", "மூடாத சாப்பாட்டு மேல ஈ உட்காரும். என்ன செய்யணும்?", "Cover the food", ["Eat it fast", "Leave it open", "Feed the flies"], "🪰"],
+      ["Which keeps our hair clean?", "நம்ம முடியை எது சுத்தமா வச்சிருக்கும்?", "Washing and combing", ["Never washing", "Putting mud", "Cutting with scissors"], "💇"],
+    ]) },
+  ] },
+  { id: "ev2", name: "Plants and Animals", topic: "Living things around us", deep: "#2a8a3f", soft: "#e0f3e3", story: "Explore the forest and meet plants and animals.", levels: [
+    { name: "Parts of a plant", hint: "Roots under the soil, stem holds it up, leaves make food.", hintTa: "வேர் மண்ணுக்குக் கீழ, தண்டு செடியைத் தாங்கும், இலை சாப்பாடு செய்யும்.", gen: bankLevel([
+      ["Which part of a plant is under the soil?", "செடியோட எந்தப் பகுதி மண்ணுக்குக் கீழ இருக்கு?", "Root", ["Leaf", "Flower", "Fruit"], "🌱"],
+      ["Which part of a plant makes food?", "செடியோட எந்தப் பகுதி சாப்பாடு செய்யுது?", "🍃 Leaf", ["Root", "Stem", "Seed"]],
+      ["Which part holds the plant up?", "செடியை நிமிர்ந்து நிற்க வைக்கிறது எந்தப் பகுதி?", "Stem", ["Leaf", "Flower", "Root"], "🌿"],
+      ["A flower grows into a…", "பூ என்னவா மாறும்?", "🍎 Fruit", ["🍃 Leaf", "🪵 Stem", "🪨 Stone"], "🌸"],
+      ["A seed grows into a…", "விதை என்னவா வளரும்?", "🌱 Plant", ["🪨 Stone", "🐛 Insect", "☁️ Cloud"]],
+      ["What does a plant need to grow?", "செடி வளர என்ன வேணும்?", "Water and sunlight", ["Only sweets", "Darkness", "Plastic"], "🪴"],
+      ["Which part of the plant takes in water from the soil?", "மண்ணுல இருந்து தண்ணீரை எடுக்கிறது எந்தப் பகுதி?", "Root", ["Flower", "Fruit", "Leaf"], "💧"],
+      ["What colour are most leaves?", "பெரும்பாலான இலைகள் என்ன நிறம்?", "Green", ["Blue", "Black", "Purple"], "🍃"],
+      ["Which of these is a big plant?", "இதுல எது பெரிய செடி, அதாவது மரம்?", "🌳 Mango tree", ["🌿 Grass", "🌱 Tulsi", "🍀 Clover"]],
+      ["Carrot is which part of a plant?", "கேரட் செடியோட எந்தப் பகுதி?", "Root", ["Leaf", "Flower", "Seed"], "🥕"],
+    ]) },
+    { name: "Animal homes", hint: "Think: where would this animal be safe and cosy?", hintTa: "யோசி: இந்த மிருகம் எங்க பாதுகாப்பா இருக்கும்?", gen: bankLevel([
+      ["Where does a bird live?", "பறவை எங்க வாழுது?", "🪺 Nest", ["Kennel", "Stable", "Den"], "🐦"],
+      ["Where does a dog live?", "நாய் எங்க இருக்கும்?", "Kennel", ["Nest", "Hive", "Web"], "🐶"],
+      ["Where does a horse live?", "குதிரை எங்க இருக்கும்?", "Stable", ["Nest", "Hive", "Burrow"], "🐴"],
+      ["Where does a cow live?", "மாடு எங்க இருக்கும்?", "Shed", ["Nest", "Web", "Hive"], "🐄"],
+      ["Where does a lion live?", "சிங்கம் எங்க வாழுது?", "Den", ["Nest", "Kennel", "Shed"], "🦁"],
+      ["Where do bees live?", "தேனீ எங்க வாழுது?", "Hive", ["Kennel", "Stable", "Den"], "🐝"],
+      ["What does a spider live in?", "சிலந்தி எதுல வாழுது?", "🕸️ Web", ["Hive", "Stable", "Shed"], "🕷️"],
+      ["Where does a rabbit live?", "முயல் எங்க வாழுது?", "Burrow", ["Nest", "Hive", "Stable"], "🐰"],
+      ["Where does a fish live?", "மீன் எங்க வாழுது?", "💧 Water", ["Tree", "Nest", "Desert"], "🐟"],
+      ["Where does a hen live?", "கோழி எங்க இருக்கும்?", "Coop", ["Den", "Web", "Hive"], "🐔"],
+    ]) },
+    { name: "Animals and their young", hint: "Baby animals have special names, like a puppy for a dog.", hintTa: "குட்டி மிருகங்களுக்குத் தனிப் பெயர் இருக்கு. நாய்க்குட்டியை puppy-ன்னு சொல்லுவோம்.", gen: bankLevel([
+      ["A baby cat is called a…", "பூனைக்குட்டியை என்னன்னு சொல்லுவோம்?", "Kitten", ["Puppy", "Calf", "Chick"], "🐱"],
+      ["A baby dog is called a…", "நாய்க்குட்டியை என்னன்னு சொல்லுவோம்?", "Puppy", ["Kitten", "Lamb", "Foal"], "🐶"],
+      ["A baby cow is called a…", "கன்னுக்குட்டியை என்னன்னு சொல்லுவோம்?", "Calf", ["Cub", "Kid", "Chick"], "🐄"],
+      ["A baby hen is called a…", "கோழிக்குஞ்சை என்னன்னு சொல்லுவோம்?", "Chick", ["Calf", "Puppy", "Cub"], "🐔"],
+      ["A baby goat is called a…", "ஆட்டுக்குட்டியை என்னன்னு சொல்லுவோம்?", "Kid", ["Foal", "Lamb", "Kitten"], "🐐"],
+      ["A baby horse is called a…", "குதிரைக்குட்டியை என்னன்னு சொல்லுவோம்?", "Foal", ["Calf", "Cub", "Duckling"], "🐴"],
+      ["A baby sheep is called a…", "செம்மறி ஆட்டுக்குட்டியை என்னன்னு சொல்லுவோம்?", "Lamb", ["Kid", "Calf", "Puppy"], "🐑"],
+      ["A baby duck is called a…", "வாத்துக்குஞ்சை என்னன்னு சொல்லுவோம்?", "Duckling", ["Chick", "Cub", "Kitten"], "🦆"],
+      ["A baby frog is called a…", "தவளைக்குஞ்சை என்னன்னு சொல்லுவோம்?", "Tadpole", ["Puppy", "Foal", "Lamb"], "🐸"],
+      ["A baby lion is called a…", "சிங்கக்குட்டியை என்னன்னு சொல்லுவோம்?", "Cub", ["Calf", "Kid", "Duckling"], "🦁"],
+    ]) },
+    { name: "What animals eat", hint: "Think about what you have seen this animal eat.", hintTa: "இந்த மிருகம் என்ன சாப்பிடுறதை நீ பார்த்திருக்கேன்னு யோசி.", gen: bankLevel([
+      ["What does a cow eat?", "மாடு என்ன சாப்பிடும்?", "🌿 Grass", ["🍖 Meat", "🐟 Fish", "🍬 Sweets"], "🐄"],
+      ["What does a lion eat?", "சிங்கம் என்ன சாப்பிடும்?", "🍖 Meat", ["🌿 Grass", "🍌 Bananas", "🌻 Seeds"], "🦁"],
+      ["What does a monkey love to eat?", "குரங்குக்கு என்ன ரொம்பப் பிடிக்கும்?", "🍌 Bananas", ["🍖 Meat", "🌿 Only grass", "🪨 Stones"], "🐒"],
+      ["What does a rabbit like to eat?", "முயலுக்கு என்ன சாப்பிடப் பிடிக்கும்?", "🥕 Carrots", ["🍖 Meat", "🐟 Fish", "🍕 Pizza"], "🐰"],
+      ["What does a hen eat?", "கோழி என்ன சாப்பிடும்?", "🌾 Grains", ["🍖 Meat", "🍌 Bananas", "🧀 Cheese"], "🐔"],
+      ["What does a bee collect from flowers?", "தேனீ பூவுல இருந்து என்ன எடுக்கும்?", "Nectar", ["Milk", "Meat", "Sand"], "🐝"],
+      ["What does a cat like to eat?", "பூனைக்கு என்ன சாப்பிடப் பிடிக்கும்?", "🐟 Fish", ["🌿 Grass", "🪨 Stones", "🥕 Carrots"], "🐱"],
+      ["What does a goat eat?", "ஆடு என்ன சாப்பிடும்?", "🍃 Leaves", ["🍖 Meat", "🐟 Fish", "🍬 Sweets"], "🐐"],
+      ["What does a parrot eat?", "கிளி என்ன சாப்பிடும்?", "Fruits and seeds", ["Meat", "Grass only", "Stones"], "🦜"],
+      ["What does a tiger eat?", "புலி என்ன சாப்பிடும்?", "🍖 Meat", ["🌾 Grains", "🍌 Bananas", "🌿 Grass"], "🐅"],
+    ]) },
+    { name: "Pet, farm or wild", hint: "Pets live with us, farm animals help on farms, wild animals live in forests.", hintTa: "செல்லப்பிராணி நம்மகூட வீட்டுல இருக்கும், பண்ணை மிருகம் பண்ணையில இருக்கும், காட்டு மிருகம் காட்டுல இருக்கும்.", gen: (() => { const items = [["dog", "🐶", "Pet"], ["cat", "🐱", "Pet"], ["fish in a bowl", "🐠", "Pet"], ["cow", "🐄", "Farm"], ["goat", "🐐", "Farm"], ["hen", "🐔", "Farm"], ["buffalo", "🐃", "Farm"], ["lion", "🦁", "Wild"], ["tiger", "🐅", "Wild"], ["bear", "🐻", "Wild"], ["deer", "🦌", "Wild"], ["zebra", "🦓", "Wild"]]; const next = cycler(items);
+      const TA = { Pet: "செல்லப்பிராணியா", Farm: "பண்ணை மிருகமா", Wild: "காட்டு மிருகமா" };
+      return () => { const [n, em, a] = next(); return mcq({ text: `Is a <b>${n}</b> a pet, a farm animal or a wild animal?`, ta: `${n}. இது செல்லப்பிராணியா, பண்ணை மிருகமா, காட்டு மிருகமா?`, visual: pic(em, n), answer: a, wrong: ["Pet", "Farm", "Wild"], n: 3, cols: 3 }); }; })() },
+  ] },
+  { id: "ev3", name: "Family and Community", topic: "People, homes and festivals", deep: "#1b6fa8", soft: "#dceefa", story: "Walk through the neighbourhood and say vanakkam to everyone.", levels: [
+    { name: "My family", hint: "Think about your own family. Who is who?", hintTa: "உன் குடும்பத்தைப் பத்தி யோசி. யாரு யாருக்கு என்ன உறவு?", gen: bankLevel([
+      ["Your father's mother is your…", "அப்பாவோட அம்மா உனக்கு யாரு?", "Grandmother (Paati)", ["Aunt", "Sister", "Cousin"], "👵"],
+      ["Your father's father is your…", "அப்பாவோட அப்பா உனக்கு யாரு?", "Grandfather (Thatha)", ["Uncle", "Brother", "Cousin"], "👴"],
+      ["Your mother's brother is your…", "அம்மாவோட தம்பி அல்லது அண்ணன் உனக்கு யாரு?", "Uncle (Mama)", ["Grandfather", "Cousin", "Brother"], "👨"],
+      ["Your parents' son is your…", "உன் அப்பா அம்மாவோட மகன் உனக்கு யாரு?", "Brother", ["Uncle", "Cousin", "Grandfather"], "👦"],
+      ["Your parents' daughter is your…", "உன் அப்பா அம்மாவோட மகள் உனக்கு யாரு?", "Sister", ["Aunt", "Grandmother", "Cousin"], "👧"],
+      ["Your uncle's child is your…", "உன் மாமாவோட குழந்தை உனக்கு யாரு?", "Cousin", ["Sister", "Aunt", "Grandmother"], "🧒"],
+      ["A family with grandparents, parents and children living together is a…", "தாத்தா பாட்டி, அப்பா அம்மா, குழந்தைகள் எல்லாரும் ஒன்னா வாழ்ந்தா அது என்ன குடும்பம்?", "Joint family", ["Small family", "No family", "School family"], "👨‍👩‍👧‍👦"],
+      ["How should we treat our grandparents?", "தாத்தா பாட்டியை எப்படி நடத்தணும்?", "With love and respect", ["By shouting", "By ignoring them", "By teasing them"], "❤️"],
+      ["Which is a good way to help at home?", "வீட்டுல உதவ இதுல எது நல்ல வழி?", "Putting toys away", ["Throwing clothes", "Spilling water", "Breaking things"], "🧸"],
+      ["Your mother's sister is your…", "அம்மாவோட அக்கா அல்லது தங்கை உனக்கு யாரு?", "Aunt (Chithi or Periyamma)", ["Cousin", "Sister", "Grandmother"], "👩"],
+    ]) },
+    { name: "People who help us", hint: "Think about what each helper does every day.", hintTa: "ஒவ்வொரு உதவியாளரும் தினமும் என்ன செய்யறாங்கன்னு யோசி.", gen: bankLevel([
+      ["Who helps us when we are sick?", "உடம்பு சரியில்லாதப்போ யாரு உதவுவாங்க?", "🧑‍⚕️ Doctor", ["🧑‍🌾 Farmer", "🧑‍🍳 Cook", "🧑‍🎨 Painter"]],
+      ["Who grows food for us?", "நமக்காக சாப்பாட்டை யாரு விளைவிக்கிறாங்க?", "🧑‍🌾 Farmer", ["🧑‍⚕️ Doctor", "👮 Police officer", "🧑‍✈️ Pilot"]],
+      ["Who brings letters to our home?", "வீட்டுக்குக் கடிதம் யாரு கொண்டு வருவாங்க?", "Postman", ["Tailor", "Cobbler", "Carpenter"], "✉️"],
+      ["Who teaches us at school?", "ஸ்கூல்ல நமக்கு யாரு பாடம் சொல்லித் தருவாங்க?", "🧑‍🏫 Teacher", ["🧑‍🍳 Cook", "🧑‍🚒 Firefighter", "🧑‍🔧 Mechanic"]],
+      ["Who puts out fires?", "நெருப்பை யாரு அணைப்பாங்க?", "🧑‍🚒 Firefighter", ["🧑‍🏫 Teacher", "🧑‍🌾 Farmer", "🧑‍🍳 Cook"]],
+      ["Who stitches our clothes?", "நம்ம துணியை யாரு தைப்பாங்க?", "Tailor", ["Cobbler", "Postman", "Pilot"], "🧵"],
+      ["Who mends our shoes?", "நம்ம செருப்பை யாரு சரி பண்ணுவாங்க?", "Cobbler", ["Tailor", "Farmer", "Doctor"], "👞"],
+      ["Who makes tables and chairs from wood?", "மரத்துல மேஜை, நாற்காலி யாரு செய்வாங்க?", "Carpenter", ["Tailor", "Postman", "Teacher"], "🪚"],
+      ["Who keeps us safe and helps find lost things?", "நம்மைப் பாதுகாக்கிறது யாரு?", "👮 Police officer", ["🧑‍🍳 Cook", "🧑‍🎨 Painter", "🧑‍🌾 Farmer"]],
+      ["Who keeps our streets clean?", "நம்ம தெருவை யாரு சுத்தமா வச்சிருக்காங்க?", "Sanitation worker", ["Pilot", "Tailor", "Doctor"], "🧹"],
+    ]) },
+    { name: "Houses", hint: "Houses are built to suit the weather and the place.", hintTa: "வீடுகள் அந்த இடத்தோட காலநிலைக்கு ஏத்த மாதிரி கட்டப்படுது.", gen: bankLevel([
+      ["Which house is made of ice?", "பனிக்கட்டியால செஞ்ச வீடு எது?", "Igloo", ["Hut", "Houseboat", "Tent"], "🧊"],
+      ["Which house floats on water?", "தண்ணி மேல மிதக்கிற வீடு எது?", "Houseboat", ["Igloo", "Hut", "Flat"], "🛶"],
+      ["Which house is made of mud and straw?", "மண்ணும் வைக்கோலும் வச்சுக் கட்டின வீடு எது?", "Hut", ["Igloo", "Houseboat", "Tent"], "🛖"],
+      ["Which home can we fold and carry?", "மடிச்சு எடுத்துட்டுப் போகக்கூடிய வீடு எது?", "⛺ Tent", ["🛖 Hut", "🏢 Flat", "🧊 Igloo"]],
+      ["A tall building where many families live is a…", "நிறைய குடும்பங்கள் வாழுற உயரமான கட்டிடம் எது?", "🏢 Block of flats", ["🛖 Hut", "⛺ Tent", "🧊 Igloo"]],
+      ["Houses on poles in places with floods are…", "வெள்ளம் வர்ற இடத்துல கம்பம் மேல கட்டின வீடு எது?", "Stilt houses", ["Igloos", "Tents", "Caravans"], "🌊"],
+      ["Why do we need a house?", "நமக்கு ஏன் வீடு வேணும்?", "To stay safe from sun, rain and cold", ["To keep it empty", "Only to paint it", "To hide toys only"], "🏠"],
+      ["What is a house made of bricks called?", "செங்கல்லால கட்டின வீட்டை என்னன்னு சொல்லுவோம்?", "Pucca house", ["Igloo", "Tent", "Kutcha house"], "🧱"],
+      ["Which home moves on wheels?", "சக்கரத்துல நகர்ற வீடு எது?", "Caravan", ["Igloo", "Hut", "Flat"], "🚐"],
+      ["Who builds houses?", "வீடுகளை யாரு கட்டுவாங்க?", "Mason", ["Tailor", "Cobbler", "Postman"], "👷"],
+    ]) },
+    { name: "Festivals of India", hint: "Remember how your family celebrates each festival.", hintTa: "ஒவ்வொரு பண்டிகையையும் உன் வீட்டுல எப்படிக் கொண்டாடுறோம்னு நினைச்சுப் பாரு.", gen: bankLevel([
+      ["Which harvest festival do we celebrate in Tamil Nadu with sugarcane and kolam?", "கரும்பும் கோலமும் வச்சு தமிழ்நாட்டுல கொண்டாடுற அறுவடைத் திருநாள் எது?", "Pongal", ["Holi", "Christmas", "Onam"], "🌾"],
+      ["Which festival do we celebrate with diyas (lamps)?", "தீபம் ஏத்திக் கொண்டாடுற பண்டிகை எது?", "Diwali", ["Holi", "Eid", "Onam"], "🪔"],
+      ["Which festival do we celebrate with colours?", "கலர் பொடி பூசிக் கொண்டாடுற பண்டிகை எது?", "Holi", ["Diwali", "Pongal", "Christmas"], "🎨"],
+      ["Which festival has a Christmas tree?", "கிறிஸ்துமஸ் மரம் வைக்கிற பண்டிகை எது?", "Christmas", ["Eid", "Pongal", "Holi"], "🎄"],
+      ["On which festival do people share sheer khurma and say Eid Mubarak?", "ஷீர் குர்மா பகிர்ந்து, ஈத் முபாரக் சொல்லுற பண்டிகை எது?", "Eid", ["Diwali", "Holi", "Onam"], "🌙"],
+      ["Which festival of Kerala has a flower carpet called pookalam?", "பூக்கோலம் போடுற கேரளாவோட பண்டிகை எது?", "Onam", ["Holi", "Christmas", "Eid"], "🌼"],
+      ["On which festival does a sister tie a rakhi?", "அக்கா தங்கை ராக்கி கட்டுற பண்டிகை எது?", "Raksha Bandhan", ["Pongal", "Christmas", "Onam"], "🧵"],
+      ["What do we celebrate on 15 August?", "ஆகஸ்ட் 15 அன்னைக்கு என்ன கொண்டாடுறோம்?", "Independence Day", ["Children's Day", "Diwali", "New Year"], "🇮🇳"],
+      ["Children's Day in India is on…", "இந்தியாவுல குழந்தைகள் தினம் எப்போ?", "14 November", ["15 August", "25 December", "1 January"], "🎈"],
+      ["During festivals, what is a kind thing to do?", "பண்டிகை நாள்ல எது நல்ல விஷயம்?", "Share sweets with neighbours", ["Waste food", "Burst crackers near animals", "Fight with friends"], "🍬"],
+    ]) },
+    { name: "Land, water and air transport", hint: "Does it have wheels, does it float, or does it fly?", hintTa: "இதுக்குச் சக்கரம் இருக்கா, தண்ணி மேல மிதக்குமா, இல்ல பறக்குமா?", gen: (() => { const items = [["boat", "⛵", "Water"], ["ship", "🚢", "Water"], ["canoe", "🛶", "Water"], ["aeroplane", "✈️", "Air"], ["helicopter", "🚁", "Air"], ["hot-air balloon", "🎈", "Air"], ["train", "🚂", "Land"], ["bus", "🚌", "Land"], ["bicycle", "🚲", "Land"], ["auto rickshaw", "🛺", "Land"], ["car", "🚗", "Land"], ["bullock cart", "🐂", "Land"]]; const next = cycler(items);
+      return () => { const [n, em, a] = next(); return mcq({ text: `Does a <b>${n}</b> travel on land, on water or in the air?`, ta: `${n}. இது நிலத்துல போகுமா, தண்ணியில போகுமா, இல்ல வானத்துல பறக்குமா?`, visual: pic(em, n), answer: a, wrong: ["Land", "Water", "Air"], n: 3, cols: 3 }); }; })() },
+  ] },
+  { id: "ev4", name: "Our Earth", topic: "Water, weather, sky and nature", deep: "#0f7a8a", soft: "#d6eff2", story: "Look after our beautiful Earth with Kili.", levels: [
+    { name: "Water", hint: "Every drop counts. Think about how to save it.", hintTa: "ஒவ்வொரு சொட்டும் முக்கியம். அதை எப்படி சேமிக்கலாம்னு யோசி.", gen: bankLevel([
+      ["What should we do while brushing our teeth?", "பல் துலக்கும்போது என்ன செய்யணும்?", "Close the tap", ["Keep the tap open", "Splash water", "Fill a bucket"], "🚰"],
+      ["Which is a source of water?", "இதுல எது தண்ணீர் கிடைக்கிற இடம்?", "River", ["Desert", "Road", "Stone"], "🏞️"],
+      ["We should drink water that is…", "நாம எப்படிப்பட்ட தண்ணியைக் குடிக்கணும்?", "Clean", ["Dirty", "Muddy", "Smelly"], "💧"],
+      ["Which uses water?", "இதுல எதுக்குத் தண்ணீர் தேவை?", "Bathing", ["Reading", "Sleeping", "Singing"], "🛁"],
+      ["Water falls from clouds as…", "மேகத்துல இருந்து தண்ணீர் எப்படி விழும்?", "🌧️ Rain", ["☀️ Sunshine", "🌬️ Wind", "🌈 Rainbow"]],
+      ["What should we do with a leaking tap?", "சொட்டுற குழாயை என்ன செய்யணும்?", "Tell a grown-up to fix it", ["Leave it", "Open it more", "Play with it"], "🔧"],
+      ["Collecting rainwater to use later is called…", "மழைத் தண்ணியைச் சேமிச்சு வைக்கிறதை என்னன்னு சொல்லுவோம்?", "Rainwater harvesting", ["Water wasting", "Water painting", "Rain dancing"], "🌧️"],
+      ["Which animal lives in water?", "இதுல எது தண்ணியில வாழுது?", "🐟 Fish", ["🐄 Cow", "🐐 Goat", "🐓 Hen"]],
+      ["Plants need water to…", "செடிக்குத் தண்ணீர் ஏன் வேணும்?", "Grow", ["Sleep", "Sing", "Walk"], "🪴"],
+      ["Where do we store water at home?", "வீட்டுல தண்ணியை எதுல சேமிக்கிறோம்?", "In a tank or pot", ["In a bag", "In a book", "In a shoe"], "🏺"],
+    ]) },
+    { name: "Seasons and clothes", hint: "Hot days need light clothes, cold days need warm clothes, rainy days need cover.", hintTa: "வெயில் நாள்ல மெல்லிய துணி, குளிர் நாள்ல கம்பளித் துணி, மழை நாள்ல குடை.", gen: bankLevel([
+      ["What do we wear in summer?", "வெயில் காலத்துல என்ன துணி போடுவோம்?", "Cotton clothes", ["Woollen sweater", "Raincoat", "Thick coat"], "☀️"],
+      ["What do we wear in winter?", "குளிர் காலத்துல என்ன போடுவோம்?", "🧥 Woollen sweater", ["🩳 Shorts only", "👙 Swimsuit", "🧢 Cap only"], "❄️"],
+      ["What do we use in the rainy season?", "மழைக் காலத்துல என்ன பயன்படுத்துவோம்?", "☂️ Umbrella", ["🕶️ Sunglasses", "🧣 Muffler only", "🪭 Hand fan"], "🌧️"],
+      ["Which is the hottest season?", "எந்தக் காலம் ரொம்ப சூடா இருக்கும்?", "Summer", ["Winter", "Rainy", "Spring"], "🥵"],
+      ["Which season is the coldest?", "எந்தக் காலம் ரொம்பக் குளிரா இருக்கும்?", "Winter", ["Summer", "Rainy", "Spring"], "🥶"],
+      ["Which drink keeps us cool in summer?", "வெயில் காலத்துல எந்த பானம் நம்மைக் குளுமையா வச்சிருக்கும்?", "Buttermilk (mor)", ["Hot soup", "Hot coffee", "Hot milk"], "🥛"],
+      ["What colour clothes keep us cooler in summer?", "வெயில்ல எந்த நிறத் துணி குளுமையா இருக்கும்?", "Light colours", ["Black", "Dark brown", "Dark blue"], "👕"],
+      ["In the rainy season, what do we wear to stay dry?", "மழையில நனையாம இருக்க என்ன போடுவோம்?", "Raincoat", ["Woollen cap", "Sunglasses", "Gloves"], "🧥"],
+      ["When do we see a rainbow?", "வானவில் எப்போ தெரியும்?", "When the sun shines after rain", ["At midnight", "Inside a cupboard", "Only in winter night"], "🌈"],
+      ["Which season brings lots of rain to Tamil Nadu in October to December?", "அக்டோபர் முதல் டிசம்பர் வரை தமிழ்நாட்டுக்கு நிறைய மழை தர்றது எது?", "Northeast monsoon", ["Summer", "Snowfall", "Spring"], "🌧️"],
+    ]) },
+    { name: "Day, night and the sky", hint: "Look up at the sky in the morning and at night. What do you see?", hintTa: "காலையிலயும் ராத்திரியிலயும் வானத்தைப் பாரு. என்ன தெரியுது?", gen: bankLevel([
+      ["What gives us light and heat in the day?", "பகல்ல நமக்கு வெளிச்சமும் சூடும் தர்றது எது?", "☀️ Sun", ["🌙 Moon", "⭐ Stars", "☁️ Clouds"]],
+      ["When do we see the moon and stars?", "நிலாவும் நட்சத்திரமும் எப்போ தெரியும்?", "At night", ["At noon", "Never", "Only in rain"], "🌙"],
+      ["The sun rises in the…", "சூரியன் எந்தத் திசையில உதிக்கும்?", "East", ["West", "North", "South"], "🌅"],
+      ["Which is not seen in the sky?", "இதுல எது வானத்துல தெரியாது?", "🐟 Fish", ["☁️ Clouds", "🌙 Moon", "⭐ Stars"]],
+      ["When do we sleep?", "நாம எப்போ தூங்குவோம்?", "At night", ["In the morning class", "At lunch", "While walking"], "😴"],
+      ["What do we see in the sky on a rainy day?", "மழை நாள்ல வானத்துல என்ன தெரியும்?", "☁️ Dark clouds", ["⭐ Many stars", "🌙 Full moon at noon", "🌈 Nothing"]],
+      ["The moon changes shape. A full round moon is called…", "முழு வட்டமா இருக்கிற நிலாவை என்னன்னு சொல்லுவோம்?", "Full moon", ["Half sun", "Star moon", "Cloud moon"], "🌕"],
+      ["What do we call the time when the sun goes down?", "சூரியன் மறையுற நேரத்தை என்னன்னு சொல்லுவோம்?", "Sunset", ["Sunrise", "Noon", "Midnight"], "🌇"],
+      ["Which helps us see at night at home?", "ராத்திரி வீட்டுல பார்க்க எது உதவும்?", "💡 A lamp or light", ["☀️ The sun", "🌈 A rainbow", "🪞 A mirror"]],
+      ["Which flies in the sky?", "இதுல எது வானத்துல பறக்கும்?", "🐦 Bird", ["🐄 Cow", "🐟 Fish", "🐢 Turtle"]],
+    ]) },
+    { name: "Weather", hint: "Look at the picture. Is it sunny, rainy, cloudy or windy?", hintTa: "படத்தைப் பாரு. வெயிலா, மழையா, மேகமூட்டமா, காத்தா?", gen: bankLevel([
+      ["What is the weather in this picture?", "இந்தப் படத்துல வானிலை எப்படி இருக்கு?", "Sunny", ["Rainy", "Snowy", "Stormy"], "☀️"],
+      ["What is the weather in this picture?", "இந்தப் படத்துல வானிலை எப்படி இருக்கு?", "Rainy", ["Sunny", "Snowy", "Windy"], "🌧️"],
+      ["What is the weather in this picture?", "இந்தப் படத்துல வானிலை எப்படி இருக்கு?", "Cloudy", ["Sunny", "Snowy", "Hot"], "☁️"],
+      ["What is the weather in this picture?", "இந்தப் படத்துல வானிலை எப்படி இருக்கு?", "Windy", ["Sunny", "Snowy", "Rainy"], "🌬️"],
+      ["What is the weather in this picture?", "இந்தப் படத்துல வானிலை எப்படி இருக்கு?", "Stormy", ["Sunny", "Calm", "Snowy"], "⛈️"],
+      ["Which weather is best for flying a kite?", "பட்டம் விட எந்த வானிலை நல்லது?", "Windy", ["Rainy", "Stormy", "Foggy"], "🪁"],
+      ["What should we do in a thunderstorm?", "இடி மின்னல் வரும்போது என்ன செய்யணும்?", "Stay indoors", ["Stand under a tree", "Swim in a pond", "Fly a kite"], "⛈️"],
+      ["What do we drink more of on a hot day?", "வெயில் நாள்ல எதை நிறைய குடிக்கணும்?", "💧 Water", ["☕ Hot tea", "🥤 Cola", "Nothing"], "🥵"],
+      ["What makes clothes dry fast?", "துணியை சீக்கிரம் காய வைக்கிறது எது?", "Sun and wind", ["Rain", "Darkness", "Fog"], "👕"],
+      ["On a foggy morning we cannot see far because of…", "பனிமூட்டமான காலையில தூரம் தெரியாது. ஏன்?", "Fog", ["Sunshine", "Rainbow", "Stars"], "🌫️"],
+    ]) },
+    { name: "Caring for nature", hint: "Reduce, reuse and put waste in the right bin.", hintTa: "குறைவா பயன்படுத்து, திரும்பப் பயன்படுத்து, குப்பையைச் சரியான தொட்டியில போடு.", gen: bankLevel([
+      ["A banana peel is wet waste or dry waste?", "வாழைப்பழத் தோல் ஈரக் குப்பையா, காய்ந்த குப்பையா?", "Wet waste", ["Dry waste"], "🍌"],
+      ["A plastic bottle is wet waste or dry waste?", "பிளாஸ்டிக் பாட்டில் ஈரக் குப்பையா, காய்ந்த குப்பையா?", "Dry waste", ["Wet waste"], "🧴"],
+      ["Old newspaper is wet waste or dry waste?", "பழைய பேப்பர் ஈரக் குப்பையா, காய்ந்த குப்பையா?", "Dry waste", ["Wet waste"], "📰"],
+      ["Leftover food is wet waste or dry waste?", "மீதமான சாப்பாடு ஈரக் குப்பையா, காய்ந்த குப்பையா?", "Wet waste", ["Dry waste"], "🍛"],
+      ["What should we carry for shopping?", "கடைக்குப் போகும்போது என்ன எடுத்துட்டுப் போகணும்?", "A cloth bag", ["Many plastic bags", "Nothing", "A paper plate"], "🛍️"],
+      ["What should we do when we leave a room?", "ரூமை விட்டு வெளிய போகும்போது என்ன செய்யணும்?", "Switch off the lights and fan", ["Leave them on", "Open the tap", "Turn on the TV"], "💡"],
+      ["Which helps keep the air clean?", "காத்தை எது சுத்தமா வச்சிருக்கும்?", "🌳 Planting trees", ["🔥 Burning garbage", "🚗 More cars", "💨 Smoke"]],
+      ["What should we do with an old notebook that has empty pages?", "காலி பக்கம் இருக்கிற பழைய நோட்டை என்ன செய்யணும்?", "Reuse the pages", ["Throw it in the river", "Burn it", "Tear it"], "📓"],
+      ["How should we treat animals and birds?", "மிருகங்களையும் பறவைகளையும் எப்படி நடத்தணும்?", "Be kind and gentle", ["Throw stones", "Pull their tails", "Shout at them"], "🐦"],
+      ["Wet waste can be turned into…", "ஈரக் குப்பையை என்னவா மாத்தலாம்?", "Compost for plants", ["Plastic", "Glass", "Metal"], "🪱"],
+    ], { n: 4 }) },
+  ] },
+];
+
+/* ===================== subjects ===================== */
+const SUBJECTS = [
+  { id: "maths", name: "Maths", ta: "கணக்கு", icon: "123", deep: "#c4561a", soft: "#fde6d6", worlds: WORLDS, rec: "en-IN" },
+  { id: "english", name: "English", ta: "ஆங்கிலம்", icon: "Aa", deep: "#b0306a", soft: "#fbe0ee", worlds: EN_WORLDS, rec: "en-IN" },
+  { id: "hindi", name: "Hindi", ta: "ஹிந்தி", icon: "अ", deep: "#6b4bb8", soft: "#ebe4fa", worlds: HI_WORLDS, rec: "hi-IN" },
+  { id: "evs", name: "World Around Us", ta: "நம்மைச் சுற்றியுள்ள உலகம்", icon: "🌏", deep: "#1f8a52", soft: "#dff3e6", worlds: EV_WORLDS, rec: "en-IN" },
+];
 const LEVELS = [];
-WORLDS.forEach((w, wi) => w.levels.forEach((lv, li) => { lv.id = `${w.id}l${li + 1}`; lv.world = w; lv.wi = wi; lv.li = li; lv.idx = LEVELS.length; LEVELS.push(lv); }));
+SUBJECTS.forEach(sb => { sb.levels = []; sb.worlds.forEach((w, wi) => { w.subj = sb; w.levels.forEach((lv, li) => { lv.id = `${w.id}l${li + 1}`; lv.world = w; lv.subj = sb; lv.wi = wi; lv.li = li; lv.idx = LEVELS.length; lv.sidx = sb.levels.length; sb.levels.push(lv); LEVELS.push(lv); }); }); });
 const LEVEL = Object.fromEntries(LEVELS.map(l => [l.id, l]));
+const SUBJ = Object.fromEntries(SUBJECTS.map(x => [x.id, x]));
+WORLDS.forEach(w => w.levels.forEach(l => { const t = MATHS_TA[l.id]; if (!t) return; l.hintTa = t.hint;
+  if (t.ta) { const g = l.gen; l.gen = () => { const q = g(); try { q.ta = t.ta(q) || ""; } catch (e) { q.ta = ""; } return q; }; } }));
+const CURRICULUM = {"levels": {"w1l1": {"lo": "Counts objects up to 20 and recognises the quantity using ten-frames.", "sc": ["I can count dots up to 20.", "I can see 10 and some more on ten-frames."], "comp": "C-8.3: Counts up to 99 both forwards and backwards and in groups of 10s and 20s (Ages 3-8 table, milestone C: 'Says/sings number names in correct sequence up to 20...'; ten-frames themselves are not named in NCF-FS)", "ncert": "", "book": "", "confidence": "medium", "note": "BELOW Class 2: counting to 20 is an earlier NCF-FS milestone and the NIPUN Class I target ('Counts objects up to 20'). Keep it as a warm-up, or extend it to tens-frames up to 99.", "tag": "Warm-up (below Class 2)"}, "w1l2": {"lo": "Says the number just before, just after and between given numbers up to 99.", "sc": ["I can say the number just before.", "I can find the number in between."], "comp": "C-8.3: Counts up to 99 both forwards and backwards and in groups of 10s and 20s (milestone D: 'Counts forward and backward from a specific number (between 0 and 99)')", "ncert": "reads and writes numerals for numbers up to 99", "book": "Joyful Mathematics 2, Ch 3 'Fun with Numbers' (Numbers 1 to 100)", "confidence": "high", "note": "", "tag": ""}, "w1l3": {"lo": "Reads and matches number names (words) to numerals up to 99.", "sc": ["I can read number words like 'forty-six'.", "I can match a number word to its numeral."], "comp": "C-8.5: Recognises and uses numerals to represent quantities up to 99 with the understanding of decimal place value system (milestone E: 'Recognises, reads, writes number names and numerals up to 99 using place value concept')", "ncert": "reads and writes numerals for numbers up to 99", "book": "Joyful Mathematics 2, Ch 3 'Fun with Numbers' (Numbers 1 to 100)", "confidence": "medium", "note": "", "tag": ""}, "w1l4": {"lo": "Compares two numbers up to 99 using <, > and =.", "sc": ["I can tell which number is bigger.", "I can choose <, > or = correctly."], "comp": "C-8.5: Recognises and uses numerals to represent quantities up to 99 with the understanding of decimal place value system (milestone D: 'Compares two numbers up to 20 and uses vocabulary like bigger than or smaller than'; the symbols <, > are not named in NCF-FS)", "ncert": "uses place value in writing and comparing two digit numbers.", "book": "Joyful Mathematics 2, Ch 1 'A Day at the Beach' (Counting in Groups)", "confidence": "medium", "note": "The < and > symbols are not named in NCF-FS, NCERT LO 2017 Class II or the Joyful Mathematics 2 text, which compares with words. Using them is reasonable, but they go slightly beyond the documents.", "tag": ""}, "w1l5": {"lo": "Skip counts forwards in 2s, 3s, 5s and 10s.", "sc": ["I can count in 2s, 5s and 10s.", "I can find the next number when skip counting."], "comp": "C-8.3: Counts up to 99 both forwards and backwards and in groups of 10s and 20s (milestone E: 'Demonstrates skip counting in 2s or 3s on a number line (graduated) or blocks / pictures')", "ncert": "", "book": "Joyful Mathematics 2, Ch 3 'Fun with Numbers' (Numbers 1 to 100) (skip counting in twos, threes, fives and tens on the number chart)", "confidence": "high", "note": "", "tag": ""}, "w2l1": {"lo": "Counts tens rods and ones cubes to find a two-digit number.", "sc": ["I can count tens and ones blocks.", "I can say the number the blocks show."], "comp": "C-8.5: Recognises and uses numerals to represent quantities up to 99 with the understanding of decimal place value system", "ncert": "uses place value in writing and comparing two digit numbers.", "book": "Joyful Mathematics 2, Ch 1 'A Day at the Beach' (Counting in Groups) (tens strips and unit cards)", "confidence": "high", "note": "", "tag": ""}, "w2l2": {"lo": "Tells how many tens and ones are in a two-digit number.", "sc": ["I can say 46 is 4 tens and 6 ones.", "I can build a number from tens and ones."], "comp": "C-8.5: Recognises and uses numerals to represent quantities up to 99 with the understanding of decimal place value system", "ncert": "uses place value in writing and comparing two digit numbers.", "book": "Joyful Mathematics 2, Ch 1 'A Day at the Beach' (Counting in Groups)", "confidence": "high", "note": "", "tag": ""}, "w2l3": {"lo": "Writes a two-digit number in expanded form (68 = 60 + 8).", "sc": ["I can write 68 as 60 + 8.", "I can join tens and ones to make a number."], "comp": "C-8.5: Recognises and uses numerals to represent quantities up to 99 with the understanding of decimal place value system (C-8.6 milestone E: 'composing (add together) and decomposing numbers')", "ncert": "uses place value in writing and comparing two digit numbers.", "book": "Joyful Mathematics 2, Ch 1 'A Day at the Beach' (Counting in Groups) (e.g. '73 = 70 + 3')", "confidence": "high", "note": "", "tag": ""}, "w2l4": {"lo": "Tells the value of a digit in the tens or ones place.", "sc": ["I can say the 4 in 47 means 40.", "I can tell tens place from ones place."], "comp": "C-8.5: Recognises and uses numerals to represent quantities up to 99 with the understanding of decimal place value system", "ncert": "uses place value in writing and comparing two digit numbers.", "book": "Joyful Mathematics 2, Ch 1 'A Day at the Beach' (Counting in Groups)", "confidence": "high", "note": "", "tag": ""}, "w2l5": {"lo": "Finds the biggest and smallest of four two-digit numbers and orders them.", "sc": ["I can find the biggest number.", "I can put numbers from smallest to biggest."], "comp": "C-8.4: Arranges numbers up to 99 in ascending and descending order (milestone E: 'Arranges numbers from a given set of numbers in ascending and descending order')", "ncert": "forms the greatest and smallest two digit numbers (with and without repetition of given digits)", "book": "Joyful Mathematics 2, Ch 1 'A Day at the Beach' (Counting in Groups)", "confidence": "medium", "note": "The NCERT 2017 outcome is about forming the greatest and smallest numbers from given digits, not picking them from a list. Add a 'make the biggest number from 4 and 7' variant for an exact match.", "tag": ""}, "w3l1": {"lo": "Adds two numbers with a total up to 10.", "sc": ["I can add numbers to make up to 10.", "I can show adding with objects."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone C: 'Combines two groups up to 9 objects and recounts')", "ncert": "", "book": "", "confidence": "medium", "note": "BELOW Class 2 (NIPUN Class I target: 'Using addition and subtraction of numbers up to 9 in daily life situations'). Treat as a warm-up.", "tag": "Warm-up (below Class 2)"}, "w3l2": {"lo": "Adds within 20 by making a ten first.", "sc": ["I can make 10 to add quickly.", "I can add numbers up to 20."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone D: 'Uses real-world situations and concrete objects to model and solve addition sums up to 18 using addition facts')", "ncert": "", "book": "", "confidence": "medium", "note": "Slightly BELOW Class 2: sums to 18 are milestone D. Make-ten is the 'flexible strategy' NCF-FS asks for, so it is a good bridge to 2-digit work.", "tag": ""}, "w3l3": {"lo": "Adds a one-digit number to a multiple of ten or a two-digit number.", "sc": ["I can add ones to tens.", "I can add 40 + 7 quickly."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition", "ncert": "solves simple daily life problems/ situations based on addition of two digit numbers", "book": "Joyful Mathematics 2, Ch 6 'Decoration for Festival' (Addition and Subtraction)", "confidence": "high", "note": "", "tag": ""}, "w3l4": {"lo": "Adds two two-digit numbers without carrying.", "sc": ["I can add tens with tens, ones with ones.", "I can add two numbers without carrying."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone E: 'Adds two numbers using place value concept (sum not exceeding 99)...')", "ncert": "solves simple daily life problems/ situations based on addition of two digit numbers", "book": "Joyful Mathematics 2, Ch 6 'Decoration for Festival' (Addition and Subtraction)", "confidence": "high", "note": "", "tag": ""}, "w3l5": {"lo": "Adds two two-digit numbers with carrying (regrouping), sum up to 99.", "sc": ["I can change 10 ones into 1 ten.", "I can add with carrying up to 99."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone E: 'Adds two numbers using place value concept (sum not exceeding 99)...')", "ncert": "solves simple daily life problems/ situations based on addition of two digit numbers", "book": "Joyful Mathematics 2, Ch 6 'Decoration for Festival' (Addition and Subtraction) (regrouping, e.g. '5 tens 11 ones')", "confidence": "high", "note": "", "tag": ""}, "w4l1": {"lo": "Takes away within 10.", "sc": ["I can take away objects and count what's left.", "I can subtract numbers up to 10."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone C: 'Takes out up to 9 objects from a collection and recounts')", "ncert": "", "book": "", "confidence": "medium", "note": "BELOW Class 2 (NIPUN Class I level). Treat as a warm-up.", "tag": "Warm-up (below Class 2)"}, "w4l2": {"lo": "Subtracts within 20.", "sc": ["I can subtract numbers up to 20.", "I can use adding to check subtracting."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone D: '...solve subtraction ... problems up through 9 using subtraction facts'; 'Develops relationship between addition and subtraction of numbers')", "ncert": "", "book": "Joyful Mathematics 2, Ch 6 'Decoration for Festival' (Addition and Subtraction) (e.g. 'Take away 9 from 18')", "confidence": "medium", "note": "Slightly BELOW Class 2. Fine as a bridge level.", "tag": ""}, "w4l3": {"lo": "Subtracts ones from a two-digit number.", "sc": ["I can take ones away from a 2-digit number.", "I can say 47 - 5 = 42."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition", "ncert": "solves daily life situations based on subtraction of two digit numbers", "book": "Joyful Mathematics 2, Ch 6 'Decoration for Festival' (Addition and Subtraction)", "confidence": "high", "note": "", "tag": ""}, "w4l4": {"lo": "Subtracts a two-digit number from another without borrowing.", "sc": ["I can subtract tens and ones separately.", "I can subtract 2-digit numbers without borrowing."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone E: 'Subtracts two numbers up to 99 using place value...')", "ncert": "solves daily life situations based on subtraction of two digit numbers", "book": "Joyful Mathematics 2, Ch 6 'Decoration for Festival' (Addition and Subtraction) (e.g. 'Subtract 24 from 37')", "confidence": "high", "note": "", "tag": ""}, "w4l5": {"lo": "Subtracts two-digit numbers with borrowing (regrouping).", "sc": ["I can break 1 ten into 10 ones.", "I can subtract with borrowing."], "comp": "C-8.6: Performs addition and subtraction of 2-digit numbers fluently using flexible strategies of composition and decomposition (milestone E: 'Subtracts two numbers up to 99 using place value...')", "ncert": "solves daily life situations based on subtraction of two digit numbers", "book": "Joyful Mathematics 2, Ch 6 'Decoration for Festival' (Addition and Subtraction) (e.g. '26 − 17', '30 − 18')", "confidence": "high", "note": "", "tag": ""}, "w5l1": {"lo": "Identifies Indian coins and notes from ₹1 to ₹100.", "sc": ["I can name coins and notes.", "I can find the ₹50 note."], "comp": "C-8.11: Performs simple transactions using money up to INR 100 (milestones B-C: 'Identifies Indian currency coins' / 'Identifies Indian currency notes')", "ncert": "", "book": "Joyful Mathematics 2, Ch 10 'Fun at the Fair' (Money)", "confidence": "high", "note": "", "tag": ""}, "w5l2": {"lo": "Counts a mix of coins and notes up to ₹100.", "sc": ["I can add coins and notes together.", "I can count money up to ₹100."], "comp": "C-8.11: Performs simple transactions using money up to INR 100 (milestone E: 'Adds up notes and coins to form amounts up to Rs. 100')", "ncert": "represents an amount up to Rs. 100 using 3-4 notes and coins (of same/ different denominations of play money", "book": "Joyful Mathematics 2, Ch 10 'Fun at the Fair' (Money)", "confidence": "high", "note": "", "tag": ""}, "w5l3": {"lo": "Adds two prices to find the total cost of a purchase.", "sc": ["I can add two prices.", "I can find how much to pay."], "comp": "C-8.11: Performs simple transactions using money up to INR 100", "ncert": "solves simple daily life problems/ situations based on addition of two digit numbers", "book": "Joyful Mathematics 2, Ch 10 'Fun at the Fair' (Money) (e.g. 'A packet of bread costs ₹30 and a chocolate costs ₹60...')", "confidence": "high", "note": "", "tag": ""}, "w5l4": {"lo": "Works out the change or money left after buying something.", "sc": ["I can find the money left over.", "I can check the change is right."], "comp": "C-8.11: Performs simple transactions using money up to INR 100", "ncert": "solves daily life situations based on subtraction of two digit numbers", "book": "Joyful Mathematics 2, Ch 10 'Fun at the Fair' (Money) (e.g. 'Ajay has ₹58 ... spent ₹48 ... How much money is left')", "confidence": "high", "note": "", "tag": ""}, "w5l5": {"lo": "Makes a given amount up to ₹100 using different coins and notes.", "sc": ["I can make ₹75 with notes and coins.", "I can make the same amount another way."], "comp": "C-8.11: Performs simple transactions using money up to INR 100 (milestone E: 'Adds up notes and coins to form amounts up to Rs. 100')", "ncert": "represents an amount up to Rs. 100 using 3-4 notes and coins (of same/ different denominations of play money", "book": "Joyful Mathematics 2, Ch 10 'Fun at the Fair' (Money)", "confidence": "high", "note": "", "tag": ""}, "w6l1": {"lo": "Reads and shows o'clock times on an analogue clock.", "sc": ["I can read the hour hand.", "I can show 3 o'clock on a clock."], "comp": "C-8.10: Performs simple measurements of time in minutes, hours, day, weeks, and months", "ncert": "", "book": "Joyful Mathematics 2, Ch 9 'Which Season is it?' (Measurement of Time) (reading the hour hand, 'O' clock')", "confidence": "high", "note": "", "tag": ""}, "w6l2": {"lo": "Reads and shows half past times on an analogue clock.", "sc": ["I can tell when it is half past.", "I can show half past 4."], "comp": "C-8.10: Performs simple measurements of time in minutes, hours, day, weeks, and months (the Ages 3-8 table has no clock-reading milestone; half hours are not named)", "ncert": "", "book": "", "confidence": "low", "note": "OUTSIDE or ABOVE the Class 2 documents. Joyful Mathematics 2 teaches only o'clock (one '11:30' appears in a story), and NCERT LO 2017 Class II has no clock reading. Keep it as a stretch level after w6l1.", "tag": ""}, "w6l3": {"lo": "Names the days of the week in order.", "sc": ["I can say the days in order.", "I can tell what day comes next."], "comp": "C-8.10: Performs simple measurements of time in minutes, hours, day, weeks, and months (milestone C: 'Knows the names of the days of the week and months of the year')", "ncert": "identifies the days of the week and months of the year", "book": "Joyful Mathematics 2, Ch 9 'Which Season is it?' (Measurement of Time)", "confidence": "high", "note": "", "tag": ""}, "w6l4": {"lo": "Names the months of the year in order and reads a calendar.", "sc": ["I can say the 12 months in order.", "I can find my birthday month."], "comp": "C-8.10: Performs simple measurements of time in minutes, hours, day, weeks, and months (milestone C: 'Knows the names of the days of the week and months of the year')", "ncert": "identifies the days of the week and months of the year", "book": "Joyful Mathematics 2, Ch 9 'Which Season is it?' (Measurement of Time) (calendar, months and number of days)", "confidence": "high", "note": "", "tag": ""}, "w6l5": {"lo": "Works out the time one or two hours later.", "sc": ["I can say the time 2 hours later.", "I can tell how many hours something lasts."], "comp": "C-8.10: Performs simple measurements of time in minutes, hours, day, weeks, and months (milestone E: 'Measures duration of time using standard units -days, hours (e.g., 7 days a week and 24 hours in a day)')", "ncert": "sequences the events occurring according to their duration in terms of hours/days; for example, Does a child remain in school for a longer period than at home?", "book": "Joyful Mathematics 2, Ch 9 'Which Season is it?' (Measurement of Time) ('after 8 hours', train journey hours)", "confidence": "high", "note": "", "tag": ""}, "w7l1": {"lo": "Names basic 2D shapes: circle, triangle, square, rectangle.", "sc": ["I can name a triangle and a rectangle.", "I can find shapes around me."], "comp": "C-8.8: Recognises basic geometric shapes and their observable properties (milestone E: 'Identifies 2D shapes by their names (e.g., square, rectangle, triangle and circle)...')", "ncert": "describes basic 3D and 2D shapes with their observable chracteristics", "book": "Joyful Mathematics 2, Ch 4 'Shadow Story (Togalu)' (2D Shapes)", "confidence": "high", "note": "", "tag": ""}, "w7l2": {"lo": "Counts the sides and corners of 2D shapes.", "sc": ["I can count sides of a shape.", "I can count corners of a shape."], "comp": "C-8.8: Recognises basic geometric shapes and their observable properties (milestone E: '...describes their observable characteristics (e.g., the pages of a book are rectangular and have 4 sides, 4 corners)')", "ncert": "describes basic 3D and 2D shapes with their observable chracteristics", "book": "Joyful Mathematics 2, Ch 4 'Shadow Story (Togalu)' (2D Shapes) (corners, sides, 'Catch the Corner!')", "confidence": "high", "note": "", "tag": ""}, "w7l3": {"lo": "Finds and extends repeating shape patterns.", "sc": ["I can find the repeating part.", "I can choose the shape that comes next."], "comp": "C-8.2: Identifies and extends simple patterns in their surroundings, shapes, and numbers (milestone E: 'Describes the rule of patterns and applies this on abstract patterns such as number, symbol...')", "ncert": "", "book": "Joyful Mathematics 2, Ch 4 'Shadow Story (Togalu)' (2D Shapes) ('Extend the following patterns'); also Ch 3 'Exploring Patterns'", "confidence": "high", "note": "No NCERT 2017 Class II outcome: patterns appear only in its pedagogical processes ('extend patterns created by using shapes...').", "tag": ""}, "w7l4": {"lo": "Measures lengths in centimetres using a ruler.", "sc": ["I can line up the ruler at 0.", "I can read the length in cm."], "comp": "C-8.9: Performs simple measurements of length, weight and volume of objects in their immediate environment (Class 2 milestone E specifies 'uniform (non-standard) units', not cm)", "ncert": "", "book": "", "confidence": "low", "note": "ABOVE Class 2. NCF-FS milestone E, NCERT LO 2017 Class II, NIPUN Class II and Joyful Mathematics 2 Ch 7 all use non-standard uniform units (rod, pencil, hand span). Standard units are a NIPUN Class III target. Fix: measure in pencils or paperclips first, then cm as a bonus. NCERT LO for a non-standard version: 'estimates and measures length/distances and capacities of containers using uniform non-standard units like a rod/pencil, cup/ spoon/bucket etc.' (book match then: Joyful Mathematics 2, Ch 7 'Rani's Gift' (Measurement)).", "tag": "Stretch (above Class 2)"}, "w7l5": {"lo": "Sorts numbers up to 99 into odd and even.", "sc": ["I can tell if a number is odd or even.", "I can pair objects to check."], "comp": "No NCF-FS competency names odd/even. Nearest: C-8.2: Identifies and extends simple patterns in their surroundings, shapes, and numbers, and C-8.3 skip counting in 2s.", "ncert": "", "book": "", "confidence": "low", "note": "WEAK mapping: odd/even does not appear in NCF-FS, NCERT LO 2017 Class II, NIPUN Class II or Joyful Mathematics 2. Recast it as 'skip count in 2s / pairing' or keep it as enrichment.", "tag": ""}, "w8l1": {"lo": "Makes equal groups and arrays and finds the total.", "sc": ["I can make equal groups.", "I can say '3 groups of 4 is 12'."], "comp": "C-8.7: Recognises multiplication as repeated addition and division as equal sharing (milestone C: 'Makes small groups of objects and counts the total number of objects and groups')", "ncert": "", "book": "Joyful Mathematics 2, Ch 8 'Grouping and Sharing' (Multiplication and Division)", "confidence": "high", "note": "NCERT LO 2017 Class II has no multiplication outcome; NCF-FS C-8.7 and NIPUN Class II do include it.", "tag": ""}, "w8l2": {"lo": "Uses the multiplication tables of 2 and 3.", "sc": ["I can say the table of 2.", "I can find 4 × 3 using the table."], "comp": "C-8.7: Recognises multiplication as repeated addition and division as equal sharing (milestone E: 'Uses repeated adding to solve simple multiplication problems up to 99')", "ncert": "", "book": "Joyful Mathematics 2, Ch 8 'Grouping and Sharing' (Multiplication and Division) ('Complete the Table of 2', 'Table of 3')", "confidence": "high", "note": "", "tag": ""}, "w8l3": {"lo": "Uses the multiplication tables of 4, 5 and 10.", "sc": ["I can say the tables of 5 and 10.", "I can use the table of 2 for 4."], "comp": "C-8.7: Recognises multiplication as repeated addition and division as equal sharing", "ncert": "", "book": "Joyful Mathematics 2, Ch 8 'Grouping and Sharing' (Multiplication and Division) (Tables of 5 and 10; table of 4 built from the table of 2)", "confidence": "medium", "note": "Slightly ABOVE Class 2 if memorised. NIPUN Class II names tables 2, 3 and 4, and NCERT LO 2017 puts tables 2, 3, 4, 5, 10 at Class III. Keep the repeated-addition support visible.", "tag": ""}, "w8l4": {"lo": "Shares objects equally and tells how many each gets.", "sc": ["I can share things fairly.", "I can say how many each one gets."], "comp": "C-8.7: Recognises multiplication as repeated addition and division as equal sharing (milestone E: 'Uses repeated subtraction to find out how many groups for solving division problems')", "ncert": "", "book": "Joyful Mathematics 2, Ch 8 'Grouping and Sharing' (Multiplication and Division) (Sharing)", "confidence": "high", "note": "", "tag": ""}, "w8l5": {"lo": "Solves simple word problems by choosing add, subtract, multiply or share.", "sc": ["I can find the maths in a story.", "I can choose +, −, × or share."], "comp": "C-8.13: Formulates and solves simple mathematical problems related to quantities, shapes, space, and measurements (also C-8.12 milestone E: 'Comprehends texts and extracts simple mathematical problems embedded in the text'; C-8.6 E: 'Identifies appropriate operation (addition or subtraction)...')", "ncert": "solves simple daily life problems/ situations based on addition of two digit numbers", "book": "", "confidence": "high", "note": "Reading load: if the child reads English slowly, add read-aloud audio for the problem text.", "tag": ""}, "en1l1": {"lo": "Identifies the first sound in a spoken English word.", "sc": ["I can hear the first sound.", "I can find a picture starting with 'b'."], "comp": "C-11.1: Develops phonological awareness and are able to blend phonemes/syllables into words and segment words into phonemes/syllables (milestone D: 'Identifies the beginning and end syllables in words')", "ncert": "", "book": "", "confidence": "high", "note": "No NCERT 2017 Class II outcome for phonics; its pedagogy column says 'develop phonemic awareness through activities focusing on different sounds'.", "tag": ""}, "en1l2": {"lo": "Identifies the last sound in a spoken English word.", "sc": ["I can hear the last sound.", "I can match words that end the same."], "comp": "C-11.1: Develops phonological awareness and are able to blend phonemes/syllables into words and segment words into phonemes/syllables (milestone D: 'Identifies the beginning and end syllables in words')", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "en1l3": {"lo": "Reads and completes CVC words with short vowel sounds (a, e, i, o, u).", "sc": ["I can hear the middle vowel sound.", "I can fill c_t to make 'cat'."], "comp": "C-11.1: Develops phonological awareness and are able to blend phonemes/syllables into words and segment words into phonemes/syllables (milestone E: 'Combines sounds (vowel and consonant) to form the most familiar words')", "ncert": "", "book": "Mridang 2, vowel-sound pages: 'a' in Unit 1 'My Bicycle', 'e' in 'Picture Reading', 'i' in Unit 2 'It is Fun', 'o' in 'Seeing without Seeing', 'u' in Unit 3 'Come Back Soon'", "confidence": "high", "note": "", "tag": ""}, "en1l4": {"lo": "Recognises and reads the digraphs sh, ch and th in words.", "sc": ["I can hear 'sh', 'ch' and 'th'.", "I can fill the missing sound in a word."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences", "ncert": "", "book": "Mridang 2: 'ch' in Unit 3 'Between Home and School'; 'sh' in 'This is My Town' (no 'th' exercise found)", "confidence": "medium", "note": "", "tag": ""}, "en1l5": {"lo": "Identifies and produces rhyming words.", "sc": ["I can tell if two words rhyme.", "I can say a word that rhymes with 'cat'."], "comp": "C-11.1: Develops phonological awareness and are able to blend phonemes/syllables into words and segment words into phonemes/syllables (milestone E: 'Produces rhyming words and alliterations'); also C-9.2: Creates simple songs and poems on their own", "ncert": "", "book": "Mridang 2, Unit 4 'The Crow' (complete the word that rhymes)", "confidence": "high", "note": "", "tag": ""}, "en2l1": {"lo": "Reads and matches a familiar word to its picture.", "sc": ["I can read the word under a picture.", "I can pick the right word for a picture."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (milestone E: 'Reads simple three to four-syllable words that are familiar'); C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively...", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "en2l2": {"lo": "Recognises common sight words when heard.", "sc": ["I can find a word I hear.", "I can read 'the', 'is', 'and' quickly."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (milestone E: 'Recognizes as sight words commonly used articles, pronouns, and connecting words')", "ncert": "", "book": "Mridang 2: the 'Sight words' box in every lesson", "confidence": "high", "note": "", "tag": ""}, "en2l3": {"lo": "Spells familiar words by filling in missing letters.", "sc": ["I can find the missing letter.", "I can spell short words."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences", "ncert": "composes and writes simple, short sentences with space between words.", "book": "", "confidence": "medium", "note": "The NCERT outcome is about writing sentences, so it only loosely covers spelling single words. NIPUN Class II: 'Makes new words from the letters of a given word'.", "tag": ""}, "en2l4": {"lo": "Matches common words with their opposites.", "sc": ["I can find the opposite of 'big'.", "I can match opposite word pairs."], "comp": "C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively and can guess meaning of new words by using existing vocabulary", "ncert": "", "book": "Mridang 2, Unit 1 'Picture Reading' (story 'OUT! OUT!': 'Write the opposites')", "confidence": "medium", "note": "NCERT LO 2017 lists opposites under Class III ('identifies opposites like 'day/night', 'close-open''), but Mridang 2 already practises them. Fine for Class 2.", "tag": ""}, "en2l5": {"lo": "Changes naming words from one to many by adding s or es.", "sc": ["I can say 'one cat, two cats'.", "I can add 'es' to words like 'box'."], "comp": "No NCF-FS competency names plurals. Nearest: C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively...", "ncert": "", "book": "", "confidence": "low", "note": "WEAK mapping: plurals are not named in NCF-FS, NCERT LO 2017 Class II, NIPUN Class II, or (as a found exercise) Mridang 2. Keep it as enrichment with regular -s/-es only.", "tag": ""}, "en3l1": {"lo": "Identifies naming words (nouns) for people, places, animals and things.", "sc": ["I can find naming words.", "I can sort names of people and things."], "comp": "C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively... (NCF-FS names no grammar categories for nouns); supported by NIPUN Class II: 'Recognizes naming words, action words and punctuation marks.'", "ncert": "", "book": "", "confidence": "medium", "note": "Supported by the NIPUN Bharat Class II target, not by NCERT LO 2017 Class II (which lists nouns at Class III).", "tag": ""}, "en3l2": {"lo": "Identifies action words (verbs) in pictures and sentences.", "sc": ["I can find the action word.", "I can match an action to a picture."], "comp": "C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively... (milestone C: 'Uses expanded vocabulary with intentional use of action words, descriptive words, tenses, etc.'); NIPUN Class II: 'Recognizes naming words, action words and punctuation marks.'", "ncert": "", "book": "Mridang 2, Unit 2 'It is Fun' ('Match the animals to their actions')", "confidence": "high", "note": "", "tag": ""}, "en3l3": {"lo": "Uses describing words for size, shape, colour and texture.", "sc": ["I can find the describing word.", "I can describe a ball: big, round, red."], "comp": "C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively... (milestone C: '...intentional use of action words, descriptive words...')", "ncert": "uses simple adjectives related to size, shape,colour, weight, texture such as ‘big’, ‘small’, ‘round’, ‘pink’ ‘red’ ‘heavy’ ‘light’ ‘soft’ etc.", "book": "", "confidence": "high", "note": "", "tag": ""}, "en3l4": {"lo": "Chooses 'a' or 'an' before a word.", "sc": ["I can say 'an apple', 'a cat'.", "I can hear when a word starts with a vowel."], "comp": "C-11.2: ... uses this knowledge to read and write simple words and sentences (milestone E: 'Recognizes as sight words commonly used articles, pronouns, and connecting words')", "ncert": "", "book": "Mridang 2, vowel-sound pages in Units 1-3 (e.g. 'an ant, an axe, an apple / a rat, a cat'; teacher note: 'Help them notice that the word ‘an’ occurs before the words beginning with ‘a’ in the above table.')", "confidence": "high", "note": "", "tag": ""}, "en3l5": {"lo": "Uses he, she, it and they in place of naming words.", "sc": ["I can use 'he' or 'she' correctly.", "I can use 'they' for many."], "comp": "C-11.2: ... (milestone E: 'Recognizes as sight words commonly used articles, pronouns, and connecting words')", "ncert": "uses pronouns related to gender like ‘his/her/, ‘he/she’, ‘it’ and other pronouns like ‘this/that’, ‘here/there’ ‘these/those’ etc.", "book": "", "confidence": "high", "note": "", "tag": ""}, "en4l1": {"lo": "Reads a short sentence and matches it to the right picture.", "sc": ["I can read a short sentence.", "I can pick the picture it tells about."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences", "ncert": "", "book": "Mridang 2, Unit 1 'Picture Reading'", "confidence": "medium", "note": "", "tag": ""}, "en4l2": {"lo": "Arranges jumbled words to make a correct sentence.", "sc": ["I can put words in the right order.", "I can read my sentence back."], "comp": "C-11.2: ... uses this knowledge to read and write simple words and sentences", "ncert": "composes and writes simple, short sentences with space between words.", "book": "Mridang 2, Unit 5 'Little Drops of Water' ('Rearrange the words to form proper sentences')", "confidence": "high", "note": "", "tag": ""}, "en4l3": {"lo": "Begins sentences with a capital letter and ends them with a full stop.", "sc": ["I can start with a capital letter.", "I can end with a full stop."], "comp": "C-10.2: Understands basic structure/format of a book, idea of words in print and direction in which they are printed, and recognises basic punctuation marks (milestone E: 'Uses simple punctuation marks (full stop, question mark) appropriately'). Note C-10 is the L1 goal; CG-11 has no punctuation competency.", "ncert": "", "book": "Mridang 2, Unit 5 'Little Drops of Water' ('Remember to begin the sentence with a capital letter and end it with a full stop')", "confidence": "medium", "note": "NCERT LO 2017 lists capitals and full stops at Class III, but NIPUN Class II and Mridang 2 include them. Fine for Class 2.", "tag": ""}, "en4l4": {"lo": "Uses who, what, where and when to ask and answer questions.", "sc": ["I can ask a 'where' question.", "I can pick who, what, where or when."], "comp": "C-9.3: Converses fluently and can hold a meaningful conversation (milestone B: '...ask simple questions, using what/when/how/whom, etc')", "ncert": "expresses verbally her or his opinion and asks questions about the characters, storyline, etc., in English or home language.", "book": "", "confidence": "medium", "note": "", "tag": ""}, "en4l5": {"lo": "Reads a short story and answers questions about characters and events.", "sc": ["I can read a short story.", "I can answer who, what and where questions."], "comp": "C-9.5: Comprehends narrated/read-out stories and identifies characters, storyline and what the author wants to say; C-11.2 (reading simple sentences in L2)", "ncert": "responds to comprehension questions related to stories and poems, in home language or English or sign language, orally and in writing (phrases/ short sentences)", "book": "Mridang 2 stories with 'Answer the following questions', e.g. Unit 4 'My Name', 'The Smart Monkey'", "confidence": "high", "note": "NIPUN Class II fluency target: 'approximately 45to 60 words per minute correctly' on 8-10 sentences. Keep stories to about 8-10 short sentences. For an L2 reader, offer audio support.", "tag": ""}, "hi1l1": {"lo": "Hears a Hindi vowel (स्वर) and picks the matching letter.", "sc": ["I can hear a स्वर and find it.", "I can tap the vowel I hear."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (milestone D: 'Begins to visually recognize and connect letters to corresponding sounds')", "ncert": "हिंदी के वर्णमाला के अक्षरों की आकृति और ध्वनि को पहचानते हैं।", "book": "Sarangi 2, इकाई 1: परिवार (the book's teacher note says Unit 1 has 'ध्वनि और अक्षरों पर कार्य')", "confidence": "high", "note": "", "tag": ""}, "hi1l2": {"lo": "Hears a Hindi consonant (व्यंजन) and picks the matching letter.", "sc": ["I can hear a व्यंजन and find it.", "I can tap the consonant I hear."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (milestone E: 'Recognizes all the letters in the alphabet')", "ncert": "हिंदी के वर्णमाला के अक्षरों की आकृति और ध्वनि को पहचानते हैं।", "book": "Sarangi 2, इकाई 1: परिवार (the book's teacher note says Unit 1 has 'ध्वनि और अक्षरों पर कार्य')", "confidence": "high", "note": "", "tag": ""}, "hi1l3": {"lo": "Picks the picture whose name begins with a given Hindi letter.", "sc": ["I can say the first sound of a word.", "I can find a picture that starts with 'क'."], "comp": "C-11.1: Develops phonological awareness and are able to blend phonemes/syllables into words and segment words into phonemes/syllables (milestone D: 'Identifies the beginning and end syllables in words')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "", "confidence": "high", "note": "", "tag": ""}, "hi1l4": {"lo": "Finds the missing letter in a sequence of the Hindi alphabet.", "sc": ["I can say Hindi letters in order.", "I can find the missing letter."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences", "ncert": "हिंदी के वर्णमाला के अक्षरों की आकृति और ध्वनि को पहचानते हैं।", "book": "", "confidence": "medium", "note": "Alphabet order is not stated in NCF-FS or the NCERT Hindi Class II outcomes, which focus on shape and sound. It is useful as recognition practice, but say each letter aloud as well.", "tag": ""}, "hi1l5": {"lo": "Tells apart Hindi letters that look alike (e.g. ब/व, घ/ध, म/भ).", "sc": ["I can spot small differences in letters.", "I can pick the right letter, not the look-alike."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences; also C-2.2: Develops visual memory for symbols and representations", "ncert": "हिंदी के वर्णमाला के अक्षरों की आकृति और ध्वनि को पहचानते हैं।", "book": "", "confidence": "medium", "note": "", "tag": ""}, "hi2l1": {"lo": "Reads and makes words with the आ (ा) matra.", "sc": ["I can spot the ा (आ) matra.", "I can read words like 'काला'."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (NCF-FS C-10.3 milestone B names barakhadi: 'connects letters (Moolaksharas/Bharakadi/Kaguniita) to corresponding sounds')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "Sarangi 2, Ch 8 'तीन दोस्त' (‘आ’ की मात्रा वाले रंग); also Ch 1 'नीमा की दादी' (combine वर्ण and मात्राएँ to make words)", "confidence": "high", "note": "", "tag": ""}, "hi2l2": {"lo": "Reads and tells apart the इ (ि) and ई (ी) matras.", "sc": ["I can hear short इ and long ई.", "I can pick ि or ी for a word."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (NCF-FS C-10.3 milestone B names barakhadi: 'connects letters (Moolaksharas/Bharakadi/Kaguniita) to corresponding sounds')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "", "confidence": "medium", "note": "Matras are covered at Class 2 only indirectly (akshara forms / barakhadi). NIPUN puts 'familiarity with matras' at Class I for the school language. For a Tamil-speaking Hindi learner this level is appropriate.", "tag": ""}, "hi2l3": {"lo": "Reads and tells apart the उ (ु) and ऊ (ू) matras.", "sc": ["I can hear short उ and long ऊ.", "I can pick ु or ू for a word."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (NCF-FS C-10.3 milestone B names barakhadi: 'connects letters (Moolaksharas/Bharakadi/Kaguniita) to corresponding sounds')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "", "confidence": "medium", "note": "Matras are covered at Class 2 only indirectly (akshara forms / barakhadi). NIPUN puts 'familiarity with matras' at Class I for the school language. For a Tamil-speaking Hindi learner this level is appropriate.", "tag": ""}, "hi2l4": {"lo": "Reads and tells apart the ए (े) and ऐ (ै) matras.", "sc": ["I can hear ए and ऐ.", "I can pick े or ै for a word."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (NCF-FS C-10.3 milestone B names barakhadi: 'connects letters (Moolaksharas/Bharakadi/Kaguniita) to corresponding sounds')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "", "confidence": "medium", "note": "Matras are covered at Class 2 only indirectly (akshara forms / barakhadi). NIPUN puts 'familiarity with matras' at Class I for the school language. For a Tamil-speaking Hindi learner this level is appropriate.", "tag": ""}, "hi2l5": {"lo": "Reads and tells apart the ओ (ो) and औ (ौ) matras.", "sc": ["I can hear ओ and औ.", "I can pick ो or ौ for a word."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (NCF-FS C-10.3 milestone B names barakhadi: 'connects letters (Moolaksharas/Bharakadi/Kaguniita) to corresponding sounds')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "", "confidence": "medium", "note": "Matras are covered at Class 2 only indirectly (akshara forms / barakhadi). NIPUN puts 'familiarity with matras' at Class I for the school language. For a Tamil-speaking Hindi learner this level is appropriate.", "tag": ""}, "hi3l1": {"lo": "Reads a simple Hindi word and matches it to its picture.", "sc": ["I can read a short Hindi word.", "I can match the word to its picture."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (milestone E: 'Reads simple three to four-syllable words that are familiar')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "", "confidence": "high", "note": "", "tag": ""}, "hi3l2": {"lo": "Listens to a Hindi word and chooses the matching written word.", "sc": ["I can listen carefully to a word.", "I can find the word I heard."], "comp": "C-11.1: Develops phonological awareness and are able to blend phonemes/syllables into words and segment words into phonemes/syllables; C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively...", "ncert": "कही जा रही बात, कहानी, कविता आदि को ध्यान से सुनकर अपनी भाषा में बताते/सुनाते हैं।", "book": "", "confidence": "medium", "note": "", "tag": ""}, "hi3l3": {"lo": "Reads simple Hindi words with no matra (e.g. कमल, घर).", "sc": ["I can read words without matras.", "I can join letters to read 'कमल'."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences (milestone D: 'Reads simple two-syllable words that are familiar and with known letters')", "ncert": "परिचित/अपरिचित लिखित सामग्री में रुचि दिखाते हैं और अर्थ की खोज में विविध प्रकार की युक्तियों का इस्तेमाल करते हैं, जैसे– चित्रों और प्रिंट की मदद से अनुमान लगाना, अक्षर-ध्वनि संबंध का इस्तेमाल करना, शब्दों को पहचानना, पूर्व अनुभवों और जानकारी का इस्तेमाल करते हुए अनुमान लगाना।", "book": "", "confidence": "high", "note": "BELOW Class 2 for a Hindi-L1 child, but right for a Tamil-speaking Hindi beginner. Put it BEFORE hi2 (matras) in the sequence.", "tag": "Warm-up (below Class 2)"}, "hi3l4": {"lo": "Matches Hindi words with their opposites (विलोम).", "sc": ["I can find a word's opposite in Hindi.", "I can match बड़ा with छोटा."], "comp": "C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively and can guess meaning of new words by using existing vocabulary", "ncert": "", "book": "Sarangi 2, Ch 25 'सबसे बड़ा छाता' (शब्दों का खेल: 'बड़ा और छोटा' – विपरीत अर्थ)", "confidence": "medium", "note": "", "tag": ""}, "hi3l5": {"lo": "Changes Hindi words from one to many (एक–अनेक).", "sc": ["I can say one and many in Hindi.", "I can match लड़का with लड़के."], "comp": "No NCF-FS competency names एक-अनेक (number in grammar). Nearest: C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively...", "ncert": "", "book": "", "confidence": "low", "note": "WEAK mapping: एक-अनेक appears in none of NCF-FS, NCERT LO 2017 Class II Hindi or Sarangi 2 (no exercise found). Hindi plural rules are hard for an L3 learner. Keep it to a few very common words, or move it later.", "tag": ""}, "hi4l1": {"lo": "Listens to a Hindi sentence and chooses the matching sentence or picture.", "sc": ["I can listen to a whole sentence.", "I can pick the sentence I heard."], "comp": "C-9.4: Understands oral instructions for a complex task and gives clear oral instructions for the same to others; C-11.2 (read simple words and sentences)", "ncert": "कही जा रही बात, कहानी, कविता आदि को ध्यान से सुनकर अपनी भाषा में बताते/सुनाते हैं।", "book": "", "confidence": "medium", "note": "", "tag": ""}, "hi4l2": {"lo": "Fills a blank in a Hindi sentence with the right word.", "sc": ["I can read a short Hindi sentence.", "I can choose the word that fits."], "comp": "C-11.2: Recognises most frequently occurring letters of the alphabet (forms of akshara) of the script, and uses this knowledge to read and write simple words and sentences", "ncert": "प्रिंट (लिखा या छपा हुआ) में मौजूद अक्षर, शब्द और वाक्य की इकाइयों की अवधारणा को समझते हैं, जैसे– ‘मेरा नाम विमला है।’ बताओ, इस वाक्य में कितने शब्द हैं?/ ‘नाम’ शब्द में कितने अक्षर हैं या ‘नाम’ शब्द में कौन-कौन से अक्षर हैं?", "book": "Sarangi 2: fill-in-the-blank exercises in every unit (teacher note: 'प्रत्येक इकाई में रिक्त स्थान की पूर्ति...')", "confidence": "medium", "note": "", "tag": ""}, "hi4l3": {"lo": "Says and reads Hindi number words from 1 to 20 (एक से बीस).", "sc": ["I can count to 20 in Hindi.", "I can match 'सात' to 7."], "comp": "C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively... (vocabulary); NCF-FS names no Hindi number-word target", "ncert": "", "book": "", "confidence": "low", "note": "WEAK curriculum mapping. Hindi number words appear in none of NCF-FS, NCERT LO 2017 Class II Hindi or the Sarangi 2 contents. Still useful vocabulary: keep it oral and listening-first.", "tag": ""}, "hi4l4": {"lo": "Names colours and days of the week in Hindi.", "sc": ["I can name colours in Hindi.", "I can say the days in Hindi."], "comp": "C-9.7: Knows and uses enough words to carry out day-to-day interactions effectively and can guess meaning of new words by using existing vocabulary", "ncert": "", "book": "Sarangi 2, इकाई 2: रंग ही रंग (colours; e.g. Ch 9 'दुनिया रंग-बिरंगी'); days of the week not found in Sarangi 2", "confidence": "medium", "note": "", "tag": ""}, "hi4l5": {"lo": "Reads or listens to a short Hindi story and answers simple questions.", "sc": ["I can follow a short Hindi story.", "I can answer who and what questions."], "comp": "C-9.5: Comprehends narrated/read-out stories and identifies characters, storyline and what the author wants to say; C-11.2 (read simple words and sentences)", "ncert": "अपने स्तर और पसंद के अनुसार कहानी, कविता, चित्र, पोस्टर आदि को आनंद के साथ पढ़कर अपनी प्रतिक्रिया व्यक्त करते हैं/प्रश्न पूछते हैं।", "book": "Sarangi 2 'सुनें कहानी' / 'मिलकर पढ़िए' lessons, e.g. Ch 18 'शेर और चूहे की दोस्ती'", "confidence": "medium", "note": "For an L3 learner, listening comprehension (C-9.5) is a fairer Class 2 target than independent reading. Don't apply the NIPUN 45-60 wpm figure to Hindi here.", "tag": ""}, "ev1l1": {"lo": "Names main body parts and matches each sense to its sense organ.", "sc": ["I can name parts of my body.", "I can match eyes to seeing."], "comp": "C-2.6: Begins integrating sensorial perceptions to get a holistic awareness of their experiences (CG-2); also C-7.1: Observes and understands different categories of objects and relationships between them", "ncert": "", "book": "Related English lesson: Mridang 2, Unit 2 'Seeing without Seeing' (using senses other than sight)", "confidence": "medium", "note": "", "tag": ""}, "ev1l2": {"lo": "Chooses good everyday habits such as washing hands and brushing teeth.", "sc": ["I can wash hands before eating.", "I can pick the good habit."], "comp": "C-1.2: Practices basic self-care and hygiene (milestone E: 'Becomes independent in basic self-care and hygiene')", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "ev1l3": {"lo": "Sorts foods into healthy and less healthy choices.", "sc": ["I can pick healthy food.", "I can say why fruit is good for me."], "comp": "C-1.1: Shows a liking for and understanding of nutritious food and does not waste food (milestone B: 'Identifies healthy and unhealthy food items...'; E: 'Recognises ingredients in packaged food...and says whether they are good or bad for health')", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "ev1l4": {"lo": "Identifies safe and unsafe actions on the road and at home.", "sc": ["I can cross the road safely.", "I can spot danger at home."], "comp": "C-1.5: Shows awareness of safety in movements (walking, running, cycling) and acts appropriately (milestone E: 'Follows traffic rules...Recognizes most safety symbols and avoids danger (electric, fire, repair, digging, etc)'); C-1.6: Understands unsafe situations and asks for help", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "ev1l5": {"lo": "Shows how to keep self, home and classroom clean.", "sc": ["I can put waste in the dustbin.", "I can keep my things tidy."], "comp": "C-1.3: Keeps school/classroom hygienic and organised (milestone E: 'Participates in the cleaning of classrooms and playgrounds')", "ncert": "", "book": "Related English lesson: Mridang 2, Unit 4 'The Smart Monkey' (dustbin, keeping places clean)", "confidence": "high", "note": "", "tag": ""}, "ev2l1": {"lo": "Names the parts of a plant: root, stem, leaf, flower, fruit.", "sc": ["I can name parts of a plant.", "I can tell what roots do."], "comp": "C-7.1: Observes and understands different categories of objects and relationships between them; C-6.1: Shows care for and joy in engaging with all life forms", "ncert": "", "book": "", "confidence": "medium", "note": "NCF-FS has no milestone naming plant parts. The mapping fits the competency, but no specific Class 2 statement backs it.", "tag": ""}, "ev2l2": {"lo": "Matches animals to their homes.", "sc": ["I can match a bird to its nest.", "I can say where a lion lives."], "comp": "C-7.1: Observes and understands different categories of objects and relationships between them (milestone C/D: 'Makes connections between objects and their uses'); C-6.1", "ncert": "", "book": "", "confidence": "medium", "note": "", "tag": ""}, "ev2l3": {"lo": "Matches animals with their young ones.", "sc": ["I can match a cow with a calf.", "I can name baby animals."], "comp": "C-7.1: Observes and understands different categories of objects and relationships between them (Ages 3-8 table: 'Recognizes hierarchical relationships within categories (e.g., animals and their younger ones)')", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "ev2l4": {"lo": "Sorts animals by what they eat (plant-eaters, meat-eaters, both).", "sc": ["I can say what a cow eats.", "I can sort plant-eaters and meat-eaters."], "comp": "C-8.1: Sorts objects into groups and sub-groups based on more than one property (milestone D example: '...classify grass-eating and meat-eating animals'); C-7.1", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "ev2l5": {"lo": "Sorts animals into pet, farm and wild.", "sc": ["I can name a pet animal.", "I can sort farm and wild animals."], "comp": "C-8.1: Sorts objects into groups and sub-groups based on more than one property; C-6.1: Shows care for and joy in engaging with all life forms (milestone E: 'Takes responsibility for tending to and caring for animals like kittens, puppies, chicken')", "ncert": "", "book": "", "confidence": "medium", "note": "", "tag": ""}, "ev3l1": {"lo": "Names family members and how they are related.", "sc": ["I can name people in my family.", "I can say how we help each other."], "comp": "C-4.1: Starts recognising ‘self’ as an individual belonging to a family and community", "ncert": "", "book": "Related Hindi unit: Sarangi 2, इकाई 1: परिवार", "confidence": "high", "note": "", "tag": ""}, "ev3l2": {"lo": "Identifies community helpers and the work they do.", "sc": ["I can name people who help us.", "I can say who to call in danger."], "comp": "C-1.6: Understands unsafe situations and asks for help (milestone C: 'Identifies people in the community who would be of help in an emergency – doctor, fire-fighter, etc'); C-7.1 example: 'mechanic is to a garage as a doctor is to hospital'", "ncert": "", "book": "", "confidence": "high", "note": "", "tag": ""}, "ev3l3": {"lo": "Recognises different kinds of houses and why people build them differently.", "sc": ["I can name kinds of houses.", "I can say why houses differ."], "comp": "C-7.1: Observes and understands different categories of objects and relationships between them; C-7.2 (cause and effect, e.g. weather and materials)", "ncert": "", "book": "Related Hindi lesson: Sarangi 2, Ch 2 'घर'", "confidence": "medium", "note": "No NCF-FS milestone names houses. The competency fits only in general terms.", "tag": ""}, "ev3l4": {"lo": "Recognises major festivals celebrated across India and how they are celebrated.", "sc": ["I can name festivals of India.", "I can match a festival to how it's celebrated."], "comp": "C-12.5: Communicates and appreciates a variety of responses while creating and experiencing different forms of art, local culture, and heritage; C-4.1: Starts recognising ‘self’ as an individual belonging to a family and community", "ncert": "", "book": "Related English lesson: Mridang 2, Unit 5 'We are all Indians'", "confidence": "medium", "note": "Include Tamil festivals (e.g. Pongal) alongside pan-Indian ones, in line with NCF-FS's emphasis on local context.", "tag": ""}, "ev3l5": {"lo": "Sorts vehicles into land, water and air transport.", "sc": ["I can sort vehicles by where they move.", "I can name a water vehicle."], "comp": "C-8.1: Sorts objects into groups and sub-groups based on more than one property; C-7.1: Observes and understands different categories of objects and relationships between them", "ncert": "", "book": "Mridang 2, Unit 3 'Come Back Soon' ('Sort out the different means of transport ... depending on the surface they move on')", "confidence": "high", "note": "", "tag": ""}, "ev4l1": {"lo": "Describes uses of water and simple ways to save it.", "sc": ["I can say how we use water.", "I can turn off a dripping tap."], "comp": "C-7.2: Observes and understands cause and effect relationships in nature... (Ages 3-8 table: 'Explains the concept of shared natural resources (e.g., water is used by us, birds, plants)'; 'not turning off a tap wastes water'); C-6.1", "ncert": "", "book": "Mridang 2, Unit 5 'Little Drops of Water' ('We all use water for many things. Discuss...')", "confidence": "high", "note": "", "tag": ""}, "ev4l2": {"lo": "Matches seasons with suitable clothes and food.", "sc": ["I can name summer, winter and monsoon.", "I can pick clothes for each season."], "comp": "C-7.2: Observes and understands cause and effect relationships in nature... (milestone C: 'Explains clothing and food for summer and winter'; D: 'Differentiates among summer, winter, and monsoon seasons'); C-8.10 milestone E: 'Gets a feel for sequence of seasons (varying locally)'", "ncert": "", "book": "Joyful Mathematics 2, Ch 9 'Which Season is it?' (Measurement of Time)", "confidence": "high", "note": "Use Tamil Nadu's local seasons (e.g. NE monsoon Oct-Dec), as NCF-FS notes seasons 'varying locally'.", "tag": ""}, "ev4l3": {"lo": "Tells day from night and names things seen in the sky.", "sc": ["I can tell day from night.", "I can name sun, moon and stars."], "comp": "C-7.2: Observes and understands cause and effect relationships in nature... (milestone A: 'Differentiates between day and night'; B: 'Names objects in the sky (sun, moon, stars, clouds)'; D: 'Indicates where sun and moon rise and set'; E: 'Names the directions (north, south, east, west)')", "ncert": "", "book": "Sarangi 2, इकाई 5: आकाश; Mridang 2, Unit 4 'A Show of Clouds'", "confidence": "medium", "note": "Partly BELOW Class 2: day/night and naming sky objects are early milestones (A-B). Add sunrise/sunset direction or N/S/E/W (milestones D-E) to reach the Class 2 level.", "tag": ""}, "ev4l4": {"lo": "Describes the weather and predicts simple changes from clues.", "sc": ["I can say if it's sunny or rainy.", "I can guess rain from dark clouds."], "comp": "C-7.2: Observes and understands cause and effect relationships in nature by forming simple hypothesis and uses observations to explain their hypothesis (e.g. 'Makes predictions based on causal relationships (e.g., if there are white clouds in the sky it will not rain)')", "ncert": "", "book": "Mridang 2, Unit 4 'A Show of Clouds'", "confidence": "high", "note": "", "tag": ""}, "ev4l5": {"lo": "Sorts waste into wet and dry and cares for plants and animals.", "sc": ["I can put wet and dry waste apart.", "I can help keep nature clean."], "comp": "C-1.3: Keeps school/classroom hygienic and organised (milestone D: 'Begins to segregate waste (wet waste and dry waste)'; E: 'Segregates garbage appropriately'); C-6.1: Shows care for and joy in engaging with all life forms", "ncert": "", "book": "Related English lesson: Mridang 2, Unit 4 'The Smart Monkey'", "confidence": "high", "note": "", "tag": ""}}, "subjects": {"maths": {"overview": "All 40 Maths levels map to NCF-FS CG-8 (competencies C-8.2 to C-8.13). The NCERT 2017 Class II Mathematics outcomes cover two-digit numbers, place value, addition and subtraction, money up to Rs. 100, shapes, non-standard measurement, and days and months. Joyful Mathematics 2 has clear chapters for most worlds. Several levels sit below Class 2 (single-digit facts, counting to 20) and work as warm-ups. Some sit above it or outside it: cm with a ruler, half past, odd/even, and the table of 4 as a standalone table.", "cg": ["CG-8: Children develop mathematical understanding and abilities to recognize the world through quantities, shapes, and measures"]}, "english": {"overview": "For a Tamil-speaking child, English is a second language (L2). Phonics and reading levels therefore map to NCF-FS CG-11 (C-11.1, C-11.2), and oral and vocabulary levels map to CG-9 (C-9.x). NCERT's own 'About the Book' for Mridang 2 maps that book to C-9.1 to C-9.7 and C-11.1. The NCERT 2017 Class II English outcomes match the describing-words, pronoun, sentence-writing and comprehension levels exactly. They say nothing about phonics, plurals or nouns. NIPUN Bharat Class II covers naming words, action words and punctuation.", "cg": ["CG-9: Children develop effective communication skills for day-to-day interactions in two languages", "CG-11: Children begin to read and write in Language 2", "CG-10: Children develop fluency in reading and writing in Language 1 (applies only if English is the child's R1, i.e. the language they first learn to read in)"]}, "hindi": {"overview": "In a Tamil-speaking home, Hindi is the child's L2 or L3, not L1. NCF-FS expects a less familiar language to be at an emergent level by the end of Grade 2 (footnote to CG-9; Section 3.2), so the Hindi levels map mainly to CG-11 (C-11.1, C-11.2) and CG-9 (C-9.x). The NCERT 2017 Class II Hindi outcomes assume Hindi as a school language. The letter and matra levels fit their akshara, sound and print statements. Sarangi 2 matches some levels: aa-matra colour words (ch. 8), opposites (ch. 25) and the colours unit (Unit 2). Note: the NCERT LO PDF's Hindi text layer mis-orders some Devanagari glyphs. The Hindi quotes below were re-typed from it and should be checked once against pp. 7-8 of the printed PDF.", "cg": ["CG-11: Children begin to read and write in Language 2", "CG-9: Children develop effective communication skills for day-to-day interactions in two languages"]}, "evs": {"overview": "World Around Us maps to NCF-FS only. The NCERT 2017 Learning Outcomes start EVS at Class III, and NCERT has no separate EVS textbook for Classes 1-2. Health, hygiene and safety map to CG-1 (C-1.1 to C-1.6). Senses map to CG-2. Plants, animals, family and community map to CG-7 (C-7.1, C-7.2), CG-6 (C-6.1) and CG-4 (C-4.1). Seasons, sky and weather map to the C-7.2 trajectory. Where an English or Maths textbook chapter clearly covers the topic, it is named.", "cg": ["CG-1: Children develop habits that keep them healthy and safe", "CG-2: Children develop sharpness in sensorial perceptions", "CG-4: Children develop emotional intelligence, i.e., the ability to understand and manage their own emotions, and respond positively to social norms", "CG-6: Children develop a positive regard for the natural environment around them", "CG-7: Children make sense of the world around through observation and logical thinking", "CG-12: Children develop abilities and sensibilities in visual and performing arts and express their emotions through art in meaningful and joyful ways"]}}, "pedagogy": [{"name": "Learning goal and success criteria", "what": "Every level opens with today's goal and two 'I can…' statements, so the child knows what success looks like. Chrysalis lesson plans also state learning outcomes and success criteria.", "inGame": "The goal card appears the first two times a level is played. The 10 questions check exactly those criteria."}, {"name": "Chrysalis lesson flow", "what": "Chrysalis describes lessons that move through engagement, concept-building, assessment and reflection.", "inGame": "Engagement: a story world and a spoken goal. Concept-building: pictures such as ten-frames, blocks, coins and clocks, plus hints. Assessment: 10 questions checked against the criteria. Reflection: 'How did that feel?' at the end."}, {"name": "Choice, wonder and joy (NCF-FS 1.4.1)", "what": "Play built on choice, wonder and joy.", "inGame": "The child chooses the subject and level, earns stars, coins and stickers, and hears praise for effort as well as for right answers."}, {"name": "Guided play and scaffolding (NCF-FS 1.4.2)", "what": "The child leads while an adult, here the game, gently scaffolds toward a goal.", "inGame": "A first wrong answer brings a hint with a strategy, not the answer. A second wrong answer shows the answer, then the game moves on."}, {"name": "Try, test and retry", "what": "Learning through trial and error without fear of failing.", "inGame": "There's no timer and no penalty for mistakes. Wrong answers are recycled into the 'Practise tricky ones' round, and the child hears that mistakes help us learn."}, {"name": "Concrete, then pictorial, then abstract", "what": "Ideas are first shown with objects and pictures before symbols.", "inGame": "Early levels in each world use pictures (dots, rods and cubes, coins, clock faces, objects). Later levels use numbers and words alone."}, {"name": "Home language as a bridge (NCF-FS 3.2)", "what": "Using the child's home language and context helps when learning in an unfamiliar language.", "inGame": "Instructions, hints and praise are spoken in Tamil, while English and Hindi words are spoken in their own voices. The contexts are Indian: rupees, Pongal, idli and the auto rickshaw."}, {"name": "Mastery before moving on", "what": "Children move ahead when they show they've learned, not by the clock.", "inGame": "The next level unlocks at 7 of 10 right on the first try. Parents can unlock all levels."}, {"name": "Express and reflect", "what": "Chrysalis: 'Learning is incomplete if students aren't confident to express what they know.'", "inGame": "The child can say answers out loud (where the microphone is allowed), and rates each level Easy, OK or Tricky. Parents see these ratings in the daily log."}, {"name": "Sensible screen time (NCF-FS 5.4.7)", "what": "Screens should support, not replace, real play and conversation.", "inGame": "Short 10-question levels and a daily goal. The dashboard suggests the tricky questions to talk through together, away from the screen."}], "sources": [{"title": "NCF for Foundational Stage 2022 (NCERT)", "url": "https://ncert.nic.in/pdf/NCF_for_Foundational_Stage_20_October_2022.pdf"}, {"title": "NCERT Learning Outcomes at the Elementary Stage (2017)", "url": "https://ncert.nic.in/pdf/publication/otherpublications/tilops101.pdf"}, {"title": "NIPUN Bharat guidelines", "url": "https://dsel.education.gov.in/nipun-bharat"}, {"title": "Chrysalis Thinkers", "url": "https://chrysalis.world/products/thinkers"}, {"title": "Chrysalis ThinkRoom", "url": "https://chrysalis.world/products/thinkroom"}, {"title": "LEGO Foundation: Learning through play (2017)", "url": "https://humanities.uct.ac.za/media/316884"}]};
+const CUR = (typeof CURRICULUM !== "undefined" && CURRICULUM.levels) || {};
 
 const STICKERS = [
   ["🦚","Peacock"],["🐘","Elephant"],["🐅","Tiger"],["🐒","Monkey"],["🦜","Parrot"],["🐄","Cow"],["🐪","Camel"],["🐢","Turtle"],
@@ -817,7 +1438,7 @@ const STICKER_COST = 15;
 
 /* ===================== storage ===================== */
 const AVATARS = ["🦁","🐯","🐼","🐨","🐸","🦊","🐵","🐧","🦄","🐶","🐱","🐰"];
-const DEFAULT_PROFILE = (name = "", avatar = "🦁") => ({ name, avatar, coins: 0, lv: {}, stickers: [], unlockAll: false, goal: 20, sound: true, voice: true, createdAt: Date.now() });
+const DEFAULT_PROFILE = (name = "", avatar = "🦁") => ({ name, avatar, coins: 0, lv: {}, stickers: [], unlockAll: false, goal: 20, sound: true, voice: true, voiceLang: "ta", subject: "maths", createdAt: Date.now() });
 const S = { mode: "local", ready: false, daysReady: false, db: null, profiles: {}, pid: null, days: {}, saveErr: false, unsubDays: null };
 Object.defineProperty(S, "profile", { get() { return S.profiles[S.pid] || DEFAULT_PROFILE(); } });
 const LS_PROFILES = "mq-profiles", LS_ACTIVE = "mq-active", LS_DAYS = (id) => "mq-days-" + id;
@@ -891,10 +1512,12 @@ const lvStat = (id) => lvStatOf(S.profile, id);
 const starsOf = (p) => LEVELS.reduce((a, l) => a + (lvStatOf(p, l.id).stars || 0), 0);
 const totalStars = () => starsOf(S.profile);
 function isUnlocked(l) {
-  if (S.profile.unlockAll || l.idx === 0) return true;
-  return (lvStat(LEVELS[l.idx - 1].id).stars || 0) >= 1;
+  if (S.profile.unlockAll || l.sidx === 0) return true;
+  return (lvStat(l.subj.levels[l.sidx - 1].id).stars || 0) >= 1;
 }
-const nextLevel = () => LEVELS.find(l => isUnlocked(l) && !(lvStat(l.id).stars >= 1)) || LEVELS.find(l => isUnlocked(l) && lvStat(l.id).stars < 3) || LEVELS[0];
+const curSubj = () => SUBJ[S.profile.subject] || SUBJECTS[0];
+const nextLevel = (sb = curSubj()) => sb.levels.find(l => isUnlocked(l) && !(lvStat(l.id).stars >= 1)) || sb.levels.find(l => isUnlocked(l) && lvStat(l.id).stars < 3) || sb.levels[0];
+const subjStars = (sb, p = S.profile) => sb.levels.reduce((a, l) => a + (lvStatOf(p, l.id).stars || 0), 0);
 const worldDone = (w) => w.levels.every(l => lvStat(l.id).stars >= 1);
 function streak() {
   let n = 0; const d = new Date();
@@ -915,24 +1538,60 @@ function tone(freqs, dur = 0.12) {
       g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur * 1.4); o.connect(g).connect(actx.destination); o.start(t); o.stop(t + dur * 1.5); });
   } catch (e) {}
 }
-// Voice output (text to speech)
+// Voice output (text to speech). Instructions are spoken in Tamil (or English); English and Hindi
+// words inside a sentence are spoken by an English or Hindi voice, chosen by script.
 const canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
-let voice = null;
+const VOICES = { ta: null, en: null, hi: null }; let voicesLoaded = false;
+const LANG_TAG = { ta: "ta-IN", en: "en-IN", hi: "hi-IN" };
 function pickVoice() {
   if (!canSpeak) return;
-  try { const vs = speechSynthesis.getVoices(); voice = vs.find(v => v.lang === "en-IN") || vs.find(v => /^en[-_]GB/.test(v.lang)) || vs.find(v => /^en/.test(v.lang)) || null; } catch (e) {}
+  try {
+    const vs = speechSynthesis.getVoices(); voicesLoaded = vs.length > 0;
+    const best = (re) => { const c = vs.filter(v => re.test(v.lang)); return c.find(v => /natural|neural|online|google|enhanced|premium/i.test(v.name)) || c[0] || null; };
+    VOICES.ta = best(/^ta([-_]|$)/i); VOICES.hi = best(/^hi([-_]|$)/i);
+    VOICES.en = best(/^en[-_]IN/i) || best(/^en[-_]GB/i) || best(/^en/i);
+  } catch (e) {}
+  if (typeof renderVoiceNote === "function") renderVoiceNote();
 }
-if (canSpeak) { pickVoice(); try { speechSynthesis.addEventListener("voiceschanged", pickVoice); } catch (e) {} }
-function speak(text, { force = false, onend } = {}) {
-  if (!canSpeak || (!force && S.profile.voice === false)) { if (onend) onend(); return; }
+if (canSpeak) { pickVoice(); try { speechSynthesis.addEventListener("voiceschanged", pickVoice); } catch (e) {} setTimeout(pickVoice, 1500); }
+const wantTamil = () => (S.profile.voiceLang || "ta") === "ta";
+const tamilOK = () => wantTamil() && (!!VOICES.ta || !voicesLoaded);
+const EMO_G = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}|[️‍⃣])+/gu;
+function cleanSpeech(t, base) {
+  const ta = base === "ta";
+  return String(t).replace(EMO_G, " ").replace(/₹\s?(\d+)/g, ta ? "$1 ரூபாய்" : "$1 rupees")
+    .replace(/−/g, ta ? " கழித்தல் " : " minus ").replace(/×/g, ta ? " பெருக்கல் " : " times ")
+    .replace(/__+/g, ta ? " கோடிட்ட இடம் " : " blank ").replace(/\s+/g, " ").trim();
+}
+function segments(text, base) {
+  const out = []; let cur = null, buf = "";
+  for (const ch of text) {
+    const l = /[஀-௿]/.test(ch) ? "ta" : /[ऀ-ॿ]/.test(ch) ? "hi" : /[A-Za-z]/.test(ch) ? "en" : null;
+    if (l && cur && l !== cur) { if (buf.trim()) out.push([cur, buf]); buf = ""; }
+    if (l) cur = l;
+    buf += ch;
+  }
+  if (buf.trim()) out.push([cur || base, buf]);
+  return out;
+}
+function speakText(text, base, { force = false, onend } = {}) {
+  if (!canSpeak || (!force && S.profile.voice === false) || !text) { if (onend) onend(); return; }
   try {
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text.replace(/₹(\d+)/g, "$1 rupees").replace(/−/g, " minus ").replace(/×/g, " times ").replace(/__/g, " blank "));
-    u.rate = 0.92; u.pitch = 1.1; if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = "en-IN";
-    if (onend) { u.onend = onend; u.onerror = onend; }
-    speechSynthesis.speak(u);
+    const parts = segments(cleanSpeech(text, base), base);
+    parts.forEach(([l, t], i) => {
+      const u = new SpeechSynthesisUtterance(t.trim());
+      u.lang = LANG_TAG[l] || "en-IN"; if (VOICES[l]) u.voice = VOICES[l];
+      u.rate = l === "ta" ? 0.95 : 0.9; u.pitch = 1.08;
+      if (onend && i === parts.length - 1) { u.onend = onend; u.onerror = onend; }
+      speechSynthesis.speak(u);
+    });
+    if (!parts.length && onend) onend();
   } catch (e) { if (onend) onend(); }
 }
+// say(english, tamil): speaks Tamil when the player's voice language is Tamil and a Tamil line exists.
+function say(en, ta, opts) { if (ta && tamilOK()) speakText(ta, "ta", opts); else speakText(en, "en", opts); }
+const speak = (text, opts) => speakText(text, "en", opts);
 const stopSpeaking = () => { try { canSpeak && speechSynthesis.cancel(); } catch (e) {} };
 
 // Voice input (speech to text) — works where the browser allows the microphone.
@@ -960,7 +1619,15 @@ function normSpeech(s) {
 const loose = (s) => { const n = normSpeech(s); const solo = { to: "2", too: "2", for: "4", won: "1", ate: "8" }; return solo[n] || n; };
 const numsIn = (s) => (s.match(/\d+/g) || []).join(" ");
 const SYN = { "<": ["less than", "less", "smaller", "small"], ">": ["greater than", "greater", "bigger", "more than", "big"], "=": ["equal", "equals", "same", "equal to"] };
+const DEV = /[\u0900-\u097F]/, devNorm = (x) => String(x).replace(/[\s।,.?!'"-]/g, "");
 function matchOption(alts, q) {
+  for (const raw of alts) {
+    if (!DEV.test(raw)) continue;
+    const h = devNorm(raw);
+    const hits = q.options.filter(o => { const l = devNorm(strip(o.html)); return l && DEV.test(l) && (h === l || h.includes(l)); });
+    if (hits.length === 1) return hits[0];
+    if (hits.length > 1) { const exact = hits.filter(o => devNorm(strip(o.html)) === h); if (exact.length === 1) return exact[0]; }
+  }
   const opts = q.options.map(o => {
     const label = normSpeech(o.say || strip(o.html.replace(/<small>.*?<\/small>/g, "")));
     return { o, label, nums: numsIn(label), syn: (SYN[o.v] || []).concat(o.say ? [normSpeech(o.say)] : []) };
@@ -984,7 +1651,7 @@ function listen() {
   if (listening && rec) { try { rec.stop(); } catch (e) {} return; }
   stopSpeaking();
   try {
-    rec = new SR(); rec.lang = "en-IN"; rec.interimResults = false; rec.maxAlternatives = 5; rec.continuous = false;
+    rec = new SR(); rec.lang = (G.q.lv && G.q.lv.subj && G.q.lv.subj.rec) || "en-IN"; rec.interimResults = false; rec.maxAlternatives = 5; rec.continuous = false;
   } catch (e) { micUnavailable(); return; }
   const qAt = G.q;
   rec.onstart = () => { listening = true; $("micBtn").classList.add("listening"); $("micLabel").textContent = "Listening… speak now"; $("heard").textContent = ""; };
@@ -998,7 +1665,7 @@ function listen() {
     const alts = Array.from(e.results[0] || []).map(a => a.transcript);
     const hit = matchOption(alts, qAt);
     if (hit) { $("heard").textContent = `You said “${alts[0]}”`; const btn = [...document.querySelectorAll(".opt")].find(b => b.dataset.v === hit.v); if (btn && !btn.disabled) answer(btn); }
-    else { $("heard").textContent = `I heard “${alts[0] || "…"}”. Say one of the answers, or tap it.`; speak("Say one of the answers, or tap it."); }
+    else { $("heard").textContent = `I heard “${alts[0] || "…"}”. Say one of the answers, or tap it.`; say("Say one of the answers, or tap it.", "ஏதாவது ஒரு விடையைச் சொல்லு, இல்லன்னா தொடு."); }
   };
   try { rec.start(); } catch (e) { micUnavailable(); }
 }
@@ -1027,7 +1694,7 @@ function pressPin(k) {
   if (pin.length === 4) {
     if (pin === APP_PASSWORD) {
       authed = true; pin = ""; try { sessionStorage.setItem("mq-auth", "1"); } catch (e) {}
-      tone([660, 880]); renderPin(); route(); if (location.hash !== "#parent") { show("vWho"); renderWho(); speak("Who's playing today? Tap your name.", { force: true }); }
+      tone([660, 880]); renderPin(); route(); if (location.hash !== "#parent") { show("vWho"); renderWho(); say("Who's playing today? Tap your name.", "இன்னைக்கு யாரு விளையாடப் போறீங்க? உன் பெயரைத் தொடு.", { force: true }); }
     } else {
       tone([240], 0.18); $("pinErr").textContent = "That password isn't right. Try again."; renderPin(true);
       setTimeout(() => { pin = ""; renderPin(); }, 450);
@@ -1055,7 +1722,7 @@ function openCreate() {
   newAvatar = pick(AVATARS);
   $("nameInput").value = ""; $("createErr").textContent = "";
   renderAvatars(); show("vCreate"); setTimeout(() => $("nameInput").focus(), 50);
-  speak("Type your name and pick your animal.", { force: true });
+  say("Type your name and pick your animal.", "உன் பெயரை டைப் பண்ணு. உனக்குப் பிடிச்ச மிருகத்தைத் தேர்ந்தெடு.", { force: true });
 }
 function renderAvatars() { $("avatars").innerHTML = AVATARS.map(a => `<button type="button" class="av" data-av="${a}" aria-pressed="${a === newAvatar}">${a}</button>`).join(""); }
 
@@ -1072,7 +1739,7 @@ function renderTop() {
   $("helloName").textContent = `Hi ${me()}!`;
   $("coinCount").textContent = S.profile.coins;
   $("starIcon").innerHTML = starSVG(20, true);
-  $("starCount").textContent = totalStars();
+  $("starCount").textContent = totalStars(); $("starMax").textContent = LEVELS.length * 3;
   $("streakCount").textContent = streak();
   const t = today(), g = S.profile.goal || 20, pct = Math.min(100, Math.round(t.questions / g * 100));
   $("goalFill").style.width = pct + "%";
@@ -1082,14 +1749,15 @@ function renderTop() {
 }
 function renderMap() {
   renderTop(); renderStatus();
-  const nl = nextLevel();
+  const sb = curSubj(), nl = nextLevel(sb);
+  $("subjects").innerHTML = SUBJECTS.map(x => `<button type="button" role="tab" class="subj" data-subj="${x.id}" aria-selected="${x === sb}" style="--sdeep:${x.deep};--ssoft:${x.soft}"><span class="si" aria-hidden="true">${x.icon}</span><b>${x.name}</b><small>${subjStars(x)} / ${x.levels.length * 3} stars</small></button>`).join("");
   $("continueBtn").textContent = `Play: ${nl.name}`;
   $("continueBtn").disabled = !S.daysReady;
   $("reviewBtn").hidden = !reviewPool().length;
   $("reviewBtn").disabled = !S.daysReady;
-  $("worlds").innerHTML = WORLDS.map((w, wi) => `
+  $("worlds").innerHTML = sb.worlds.map((w, wi) => `
     <article class="world" style="--wdeep:${w.deep};--wsoft:${w.soft}">
-      <div class="world-head"><div><div class="world-num">World ${wi + 1}</div><h2>${w.name}</h2><p>${w.topic}</p></div>${worldDone(w) ? `<span class="badge-done">Completed</span>` : ""}</div>
+      <div class="world-head"><div><div class="world-num">${sb.name} · World ${wi + 1}</div><h2>${w.name}</h2><p>${w.topic}</p>${w.story ? `<p class="world-story">${esc(w.story)}</p>` : ""}</div>${worldDone(w) ? `<span class="badge-done">Completed</span>` : ""}</div>
       <div class="stops">${w.levels.map((l, li) => { const st = lvStat(l.id), un = isUnlocked(l), isNext = un && l === nl;
         return `<button type="button" class="stop ${un ? "" : "locked"} ${isNext ? "next" : ""}" data-level="${l.id}" ${un ? "" : 'aria-disabled="true"'} aria-label="Level ${li + 1}: ${l.name}${un ? `, ${st.stars || 0} stars` : ", locked"}">
           <span class="disc">${un ? li + 1 : `<svg width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><rect x="2" y="9" width="16" height="12" rx="3" fill="var(--line-strong)"/><path d="M6 9V6a4 4 0 0 1 8 0v3" stroke="var(--line-strong)" stroke-width="2.5" fill="none"/></svg>`}</span>
@@ -1106,9 +1774,9 @@ function renderAll() {
 
 /* ===================== play ===================== */
 let G = null;
-const PRAISE = ["Great job!", "Super!", "Shabash!", "Well done!", "Brilliant!", "You got it!", "Wah!", "Fantastic!"];
-function reviewPool() {
-  return LEVELS.filter(l => { const s = lvStat(l.id); return s.q >= 5 && s.f / s.q < 0.85; }).sort((a, b) => lvStat(a.id).f / lvStat(a.id).q - lvStat(b.id).f / lvStat(b.id).q).slice(0, 4);
+const PRAISE = [["Great job!", "அருமை!"], ["Super!", "சூப்பர்!"], ["Shabash!", "சபாஷ்!"], ["Well done!", "ரொம்ப நல்லது!"], ["Brilliant!", "பிரமாதம்!"], ["You got it!", "கரெக்டா சொல்லிட்ட!"], ["Fantastic!", "கலக்கிட்ட!"]];
+function reviewPool(sb = curSubj()) {
+  return sb.levels.filter(l => { const s = lvStat(l.id); return s.q >= 5 && s.f / s.q < 0.85; }).sort((a, b) => lvStat(a.id).f / lvStat(a.id).q - lvStat(b.id).f / lvStat(b.id).q).slice(0, 4);
 }
 function startLevel(id) {
   if (!S.ready || !S.daysReady || !S.pid) return;
@@ -1116,9 +1784,16 @@ function startLevel(id) {
   if (review && !pool.length) return;
   G = { id, review, pool, lv: review ? null : LEVEL[id], i: 0, n: 10, first: 0, coins: 0, results: [], misses: [], seen: new Set(), ms: 0, lastT: performance.now(), tries: 0, q: null, locked: false };
   $("playTitle").textContent = review ? "Tricky ones" : G.lv.name;
-  $("playSub").textContent = review ? "Practice from the levels you find hardest" : `${G.lv.world.name} · Level ${G.lv.li + 1}`;
+  $("playSub").textContent = review ? "Practice from the levels you find hardest" : `${G.lv.subj.name} · ${G.lv.world.name} · Level ${G.lv.li + 1}`;
   show("vPlay");
-  nextQ();
+  const cur = !review && CUR[id];
+  if (cur && cur.sc && cur.sc.length && (lvStat(id).plays || 0) < 2) showIntro(cur); else { $("introCard").hidden = true; $("qCard").hidden = false; nextQ(); }
+}
+function showIntro(cur) {
+  $("qCard").hidden = true; $("introCard").hidden = false; $("progDots").innerHTML = "";
+  $("introGoal").textContent = G.lv.name;
+  $("introList").innerHTML = cur.sc.map(x => `<li>${esc(x)}</li>`).join("");
+  say(`Today's learning goal: ${G.lv.name}. ${cur.sc.join(". ")}. Let's start!`, `இன்னைக்கு நாம கத்துக்கப் போறது: ${G.lv.name}. ${cur.sc.join(". ")}. ரெடியா? ஆரம்பிக்கலாம்!`);
 }
 function makeQ() {
   const lv = G.review ? pick(G.pool) : G.lv; let q, guard = 0;
@@ -1140,12 +1815,15 @@ function nextQ() {
   $("heard").textContent = micBlocked ? "Tap your answer." : "";
   $("voiceToggle").setAttribute("aria-pressed", S.profile.voice !== false);
   renderDots();
-  speak(questionSpeech(q));
+  sayQ(q);
 }
+const optSpeech = (o) => o.say || ({ "<": "less than", ">": "greater than", "=": "equal to" }[o.v]) || strip(o.html);
 function questionSpeech(q) {
-  const opts = q.options.map(o => o.say || ({ "<": "less than", ">": "greater than", "=": "equal to" }[o.v]) || strip(o.html));
-  return `${q.say || strip(q.text)} Is it ${opts.slice(0, -1).join(", ")}, or ${opts[opts.length - 1]}?`;
+  const opts = q.noOpts ? [] : q.options.map(optSpeech).filter(Boolean);
+  const tail = (or) => opts.length ? ` ${opts.slice(0, -1).join(", ")}, ${or} ${opts[opts.length - 1]}?` : "";
+  return { en: `${q.say || strip(q.text)}${opts.length ? " Is it" + tail("or") : ""}`, ta: q.ta ? `${q.ta}${tail("அல்லது")}` : "" };
 }
+function sayQ(q, opts) { const s = questionSpeech(q); say(s.en, s.ta, opts); }
 function renderDots() {
   $("progDots").innerHTML = Array.from({ length: G.n }, (_, i) => { const r = G.results[i]; return `<i class="${r === 1 ? "ok" : r === 2 ? "ok2" : r === 0 ? "miss" : i === G.i ? "now" : ""}"></i>`; }).join("");
   $("playCoins").textContent = S.profile.coins + G.coins;
@@ -1158,10 +1836,10 @@ function answer(btn) {
     tick(); G.locked = true;
     btn.classList.add("right");
     const first = G.tries === 0; G.results[G.i] = first ? 1 : 2; if (first) G.first++; G.coins += first ? 2 : 1;
-    const pr = pick(PRAISE);
+    const [pr, prTa] = pick(PRAISE), withName = Math.random() < 0.5;
     $("praise").textContent = pr + (first ? " +2 coins" : " +1 coin");
     tone(first ? [660, 880] : [660]);
-    speak(Math.random() < 0.5 ? `${pr} ${me()}!` : pr);
+    say(withName ? `${pr} ${me()}!` : pr, withName ? `${prTa} ${me()}!` : prTa);
     document.querySelectorAll(".opt").forEach(b => b.disabled = true);
     renderDots();
     const g0 = G; setTimeout(() => { if (G === g0 && !G.locked2) { G.i++; nextQ(); } }, 1400);
@@ -1170,21 +1848,21 @@ function answer(btn) {
     if (G.tries === 1) {
       $("praise").className = "praise oops"; $("praise").textContent = "Not quite. Try again!";
       $("hintBox").hidden = false; $("hintBox").innerHTML = `<b>Hint:</b><span>${esc(q.lv.hint)}</span>`;
-      speak(`Not quite. Try again! Here's a hint. ${q.lv.hint}`);
+      say(`Not quite. Try again! Here's a hint. ${q.lv.hint}`, `பரவாயில்லை, மறுபடியும் முயற்சி பண்ணு! ஒரு குறிப்பு. ${q.lv.hintTa || q.lv.hint}`);
     } else {
       tick(); G.locked = true; G.results[G.i] = 0;
       G.misses.push({ t: q.desc ? `${strip(q.text)} (${q.desc})` : strip(q.text), a: strip(q.options.find(o => o.v === q.answer)?.html || q.answer) || q.answer, g: strip(btn.innerHTML) || v, l: q.lv.id });
       document.querySelectorAll(".opt").forEach(b => { b.disabled = true; if (b.dataset.v === q.answer) b.classList.add("right"); });
-      $("praise").className = "praise oops"; $("praise").textContent = "Here is the right answer. You'll get it next time!";
-      const ansO = q.options.find(o => o.v === q.answer);
-      speak(`The answer is ${ansO ? (ansO.say || ({ "<": "less than", ">": "greater than", "=": "equal to" }[ansO.v]) || strip(ansO.html)) : q.answer}. You'll get it next time!`);
+      $("praise").className = "praise oops"; $("praise").textContent = "Here is the right answer. Mistakes help us learn!";
+      const ansO = q.options.find(o => o.v === q.answer), an = ansO ? optSpeech(ansO) : q.answer;
+      say(`The answer is ${an}. Mistakes help us learn. You'll get it next time!`, `சரியான விடை ${an}. தப்பு பண்ணும்போதுதான் நாம கத்துக்கிறோம். அடுத்த தடவை நீ சரியா சொல்லுவ!`);
       $("nextBtn").hidden = false; renderDots();
     }
   }
 }
 function finishLevel(quit) {
   const answered = G.results.filter(r => r !== undefined).length;
-  if (!answered) { G = null; show("vMap"); renderMap(); return; }
+  if (!answered) { G = null; stopSpeaking(); show("vMap"); renderMap(); return; }
   const stars = quit || G.review ? 0 : G.first >= 10 ? 3 : G.first >= 9 ? 2 : G.first >= 7 ? 1 : 0;
   const lid = G.review ? "review" : G.lv.id;
   const prev = G.review ? null : lvStat(lid), newStars = prev ? Math.max(0, stars - (prev.stars || 0)) : 0, bonus = newStars * 5;
@@ -1214,14 +1892,16 @@ function showResult(stars, newStars, bonus) {
     stars >= 1 ? `You got ${r.first} out of 10 right on the first try.${newStars ? ` You earned ${newStars} new star${newStars > 1 ? "s" : ""}!` : ""}` :
     `You got ${r.first} out of 10 on the first try. Get 7 to earn a star and open the next level.`;
   $("resPills").innerHTML = `<span class="pill">+${r.coins + bonus} coins${bonus ? ` (includes ${bonus} star bonus)` : ""}</span>`;
-  const nl = r.review ? null : LEVELS[r.lv.idx + 1];
+  const nl = r.review ? null : r.lv.subj.levels[r.lv.sidx + 1];
   $("resNext").hidden = !nl || !isUnlocked(nl);
   if (nl) $("resNext").textContent = `Next: ${nl.name}`;
   $("resNext").dataset.level = nl ? nl.id : "";
   $("resAgain").dataset.level = r.id;
   show("vResult");
   if (stars) tone([523, 659, 784, 1047], 0.13);
-  setTimeout(() => speak(`${$("resTitle").textContent} ${$("resText").textContent}`), stars ? 700 : 100);
+  document.querySelectorAll("[data-feel]").forEach(b => b.setAttribute("aria-pressed", "false"));
+  const ta = r.review ? `பயிற்சி முடிஞ்சது! ${r.n}-க்கு ${r.first} சரி.` : stars >= 1 ? `சூப்பர் ${me()}! முதல் முயற்சியிலேயே 10-க்கு ${r.first} சரி.${newStars ? ` உனக்கு ${newStars} புது நட்சத்திரம் கிடைச்சிருக்கு!` : ""} இது எப்படி இருந்துச்சு? சொல்லு.` : `நல்ல முயற்சி ${me()}! முதல் முயற்சியில 10-க்கு ${r.first} சரி. நட்சத்திரம் வாங்க 7 சரியா சொல்லணும். மறுபடியும் விளையாடலாம்!`;
+  setTimeout(() => say(`${$("resTitle").textContent} ${$("resText").textContent} How did that feel?`, ta), stars ? 700 : 100);
 }
 
 /* ===================== stickers ===================== */
@@ -1235,11 +1915,11 @@ function renderStickers() {
 }
 function buySticker(i) {
   if (!S.ready || S.profile.stickers.includes(i)) return;
-  if (S.profile.coins < STICKER_COST) { $("stickMsg").className = "praise oops"; $("stickMsg").textContent = `You need ${STICKER_COST - S.profile.coins} more coins. Play a level to earn them!`; speak($("stickMsg").textContent); return; }
+  if (S.profile.coins < STICKER_COST) { $("stickMsg").className = "praise oops"; $("stickMsg").textContent = `You need ${STICKER_COST - S.profile.coins} more coins. Play a level to earn them!`; say($("stickMsg").textContent, `இன்னும் ${STICKER_COST - S.profile.coins} காசு வேணும். ஒரு லெவல் விளையாடி காசு சேர்த்துக்கோ!`); return; }
   S.profile.coins -= STICKER_COST; S.profile.stickers = [...S.profile.stickers, i];
   saveProfile(); tone([784, 1047]);
   $("stickMsg").className = "praise"; $("stickMsg").textContent = `You got the ${STICKERS[i][1]} sticker!`;
-  speak(`Yay! You got the ${STICKERS[i][1]} sticker!`);
+  say(`Yay! You got the ${STICKERS[i][1]} sticker!`, `ஹே! உனக்கு ${STICKERS[i][1]} ஸ்டிக்கர் கிடைச்சிருச்சு!`);
   renderStickers(); renderTop();
 }
 
@@ -1253,7 +1933,14 @@ function openGate() {
 const fmtMin = (ms) => { const m = Math.round(ms / 60000); return m < 1 && ms > 0 ? "<1" : String(m); };
 const pct = (f, q) => q ? Math.round(f / q * 100) + "%" : "–";
 const fmtDate = (k, opts = { weekday: "short", day: "numeric", month: "short" }) => parseKey(k).toLocaleDateString("en-IN", opts);
-const lvName = (id) => id === "review" ? "Tricky ones (practice)" : LEVEL[id] ? `${LEVEL[id].world.name}: ${LEVEL[id].name}` : id;
+const lvName = (id) => id === "review" ? "Tricky ones (practice)" : LEVEL[id] ? `${LEVEL[id].subj.name} · ${LEVEL[id].world.name}: ${LEVEL[id].name}` : id;
+const FEEL = { easy: "😀", ok: "🙂", hard: "😕" };
+function renderVoiceNote() {
+  const el = document.getElementById("voiceNote"); if (!el) return;
+  if (!canSpeak) { el.textContent = "This browser can't read aloud."; return; }
+  const v = [VOICES.ta ? `Tamil: ${VOICES.ta.name}` : "Tamil: not installed", VOICES.en ? `English: ${VOICES.en.name}` : "English: default", VOICES.hi ? `Hindi: ${VOICES.hi.name}` : "Hindi: not installed"];
+  el.textContent = `Voices on this device: ${v.join(" · ")}.` + (!VOICES.ta && voicesLoaded ? " To hear Tamil, add a Tamil voice in the tablet's settings (Android: Settings › Text-to-speech › Google › Install voice data › Tamil). Until then, the game speaks English." : "");
+}
 
 function renderParent() {
   const ids = Object.keys(S.profiles).sort((a, b) => (S.profiles[a].createdAt || 0) - (S.profiles[b].createdAt || 0));
@@ -1271,7 +1958,8 @@ function renderParent() {
     ["Streak", streak() + (streak() === 1 ? " day" : " days"), `${S.profile.coins} coins · ${S.profile.stickers.length} stickers`],
   ];
   $("todayTiles").innerHTML = tiles.map(([l, v, s]) => `<div class="tile"><span class="label">${l}</span><span class="v">${v}</span><span class="s">${s}</span></div>`).join("");
-  renderChart(); renderCal(); renderSkills(); renderMisses(); renderLog();
+  renderChart(); renderCal(); renderSkills(); renderMisses(); renderLog(); renderPedagogy(); renderVoiceNote();
+  $("voiceLangSel").value = S.profile.voiceLang || "ta";
   $("goalSel").value = String(g); $("unlockChk").checked = !!S.profile.unlockAll; $("soundChk").checked = S.profile.sound !== false; $("voiceChk").checked = S.profile.voice !== false;
 }
 function lastDays(n) { const out = []; const d = new Date(); d.setDate(d.getDate() - (n - 1)); for (let i = 0; i < n; i++) { out.push(dayKey(d)); d.setDate(d.getDate() + 1); } return out; }
@@ -1324,13 +2012,24 @@ function skillStatus(s) {
   return ["mid", "Practising"];
 }
 function renderSkills() {
+  const sel = $("skillSubj"), cur = sel.value || "maths";
+  sel.innerHTML = SUBJECTS.map(x => `<option value="${x.id}" ${x.id === cur ? "selected" : ""}>${x.name}</option>`).join("");
+  const sb = SUBJ[sel.value] || SUBJECTS[0];
   let h = `<thead><tr><th>Level</th><th>Stars</th><th class="num">Questions</th><th class="num">Accuracy</th><th>Status</th></tr></thead><tbody>`;
-  WORLDS.forEach((w, wi) => {
-    h += `<tr class="wh"><td colspan="5">World ${wi + 1}: ${w.name} · ${w.topic}</td></tr>`;
-    w.levels.forEach((l, li) => { const s = lvStat(l.id), [c, lab] = skillStatus(s);
-      h += `<tr><td>${li + 1}. ${l.name}</td><td>${starRow(s.stars || 0, 14)}</td><td class="num">${s.q || 0}</td><td class="num">${pct(s.f || 0, s.q || 0)}</td><td><span class="chip ${c}">${lab}</span></td></tr>`; });
+  sb.worlds.forEach((w, wi) => {
+    h += `<tr class="wh"><td colspan="5">World ${wi + 1}: ${esc(w.name)} · ${esc(w.topic)}</td></tr>`;
+    w.levels.forEach((l, li) => { const s = lvStat(l.id), [c, lab] = skillStatus(s), cu = CUR[l.id];
+      const det = cu ? `<span class="lo">${esc(cu.lo || "")}</span><details class="cur"><summary>Success criteria and curriculum link</summary><ul>${(cu.sc || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>${cu.comp ? `<p><b>NCF-FS:</b> ${esc(cu.comp)}</p>` : ""}${cu.ncert ? `<p><b>NCERT learning outcome:</b> ${esc(cu.ncert)}</p>` : ""}${cu.book ? `<p><b>Textbook:</b> ${esc(cu.book)}</p>` : ""}${cu.note ? `<p><b>Note:</b> ${esc(cu.note)}</p>` : ""}</details>${cu.tag ? `<span class="chip ${cu.tag.startsWith("Stretch") ? "mid" : "none"}" style="margin-top:4px">${esc(cu.tag)}</span>` : ""}` : "";
+      h += `<tr><td>${li + 1}. ${esc(l.name)}${det}</td><td>${starRow(s.stars || 0, 14)}</td><td class="num">${s.q || 0}</td><td class="num">${pct(s.f || 0, s.q || 0)}</td><td><span class="chip ${c}">${lab}</span></td></tr>`; });
   });
   $("skillTable").innerHTML = h + "</tbody>";
+  const ov = (CURRICULUM.subjects || {})[sb.id]; $("skillOverview").textContent = ov ? ov.overview : "";
+}
+const PEDAGOGY = (typeof CURRICULUM !== "undefined" && CURRICULUM.pedagogy) || [];
+function renderPedagogy() {
+  $("pedGrid").innerHTML = PEDAGOGY.map(x => `<div><b>${esc(x.name)}</b><p>${esc(x.what)}</p>${x.inGame ? `<p><b style="display:inline;font-size:.85rem">In the game:</b> ${esc(x.inGame)}</p>` : ""}</div>`).join("") || `<div><p>Loading…</p></div>`;
+  const src = (typeof CURRICULUM !== "undefined" && CURRICULUM.sources) || [];
+  $("pedSources").innerHTML = src.length ? "Sources: " + src.map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>`).join(" · ") : "";
 }
 function renderMisses() {
   const agg = new Map();
@@ -1342,7 +2041,8 @@ function renderMisses() {
 function renderLog() {
   const ks = Object.keys(S.days).filter(k => S.days[k].questions > 0).sort().reverse().slice(0, 60);
   $("logTable").innerHTML = ks.length ? `<thead><tr><th>Date</th><th class="num">Minutes</th><th class="num">Questions</th><th class="num">First try</th><th class="num">Stars</th><th>Levels played</th></tr></thead><tbody>${ks.map(k => { const d = S.days[k];
-      const lv = Object.keys(d.levels).map(id => `${esc(lvName(id))} (${d.levels[id].f}/${d.levels[id].q})`).join("<br>");
+      const feel = {}; (d.sessions || []).forEach(x => { if (x.feel) feel[x.l] = FEEL[x.feel]; });
+      const lv = Object.keys(d.levels).map(id => `${esc(lvName(id))} (${d.levels[id].f}/${d.levels[id].q})${feel[id] ? " " + feel[id] : ""}`).join("<br>");
       return `<tr><td style="white-space:nowrap">${fmtDate(k)}</td><td class="num">${fmtMin(d.ms)}</td><td class="num">${d.questions}</td><td class="num">${pct(d.firstTry, d.questions)}</td><td class="num">${d.stars}</td><td>${lv}</td></tr>`; }).join("")}</tbody>`
     : `<tbody><tr><td class="empty">No practice yet. Each day ${esc(me())} plays will appear here with time, questions and accuracy.</td></tr></tbody>`;
 }
@@ -1354,26 +2054,37 @@ document.addEventListener("click", (e) => {
   const st = e.target.closest(".sticker"); if (st) { buySticker(+st.dataset.st); return; }
   const pl = e.target.closest(".player"); if (pl) {
     if (pl.id === "addPlayer") { openCreate(); return; }
-    selectProfile(pl.dataset.pid); show("vMap"); renderMap(); speak(`Welcome back, ${me()}! Pick a level to play.`); return; }
+    selectProfile(pl.dataset.pid); show("vMap"); renderMap(); say(`Welcome back, ${me()}! Pick a subject and a level.`, `வா ${me()}! இன்னைக்கு எதை விளையாடலாம்? ஒரு பாடத்தைத் தொடு.`); return; }
   const av = e.target.closest(".av"); if (av) { newAvatar = av.dataset.av; renderAvatars(); return; }
   const pk = e.target.closest("[data-pin]"); if (pk) { pressPin(pk.dataset.pin); return; }
+  const sj = e.target.closest("[data-subj]"); if (sj) { S.profile.subject = sj.dataset.subj; saveProfile(); renderMap(); const x = SUBJ[sj.dataset.subj]; say(x.name, x.ta); return; }
+  const fl = e.target.closest("[data-feel]"); if (fl) { recordFeel(fl.dataset.feel); document.querySelectorAll("[data-feel]").forEach(b => b.setAttribute("aria-pressed", String(b === fl))); return; }
 });
 $("createForm").addEventListener("submit", (e) => { e.preventDefault();
   const name = $("nameInput").value.trim().replace(/\s+/g, " ").slice(0, 20);
   if (!name) { $("createErr").textContent = "Type your name first."; return; }
   if (Object.values(S.profiles).some(p => (p.name || "").toLowerCase() === name.toLowerCase())) { $("createErr").textContent = `There is already a player called ${name}. Tap Back and choose that player, or use a different name.`; return; }
   const pid = createProfile(name, newAvatar); selectProfile(pid); show("vMap"); renderMap();
-  speak(`Hi ${name}! Welcome to Math Quest. Tap the bouncing level to start.`, { force: true });
+  say(`Hi ${name}! Welcome to Learning Quest. Tap the bouncing level to start.`, `வணக்கம் ${name}! வா, சேர்ந்து கத்துக்கலாம். குதிக்கிற லெவலைத் தொட்டு ஆரம்பி.`, { force: true });
 });
 $("createBack").addEventListener("click", () => { show("vWho"); renderWho(); });
 $("switchBtn").addEventListener("click", () => { stopSpeaking(); if (S.unsubDays) { S.unsubDays(); S.unsubDays = null; } S.pid = null; show("vWho"); renderWho(); });
 $("continueBtn").addEventListener("click", () => startLevel(nextLevel().id));
+$("introGo").addEventListener("click", () => { $("introCard").hidden = true; $("qCard").hidden = false; nextQ(); });
+$("skillSubj").addEventListener("change", renderSkills);
+$("voiceLangSel").addEventListener("change", (e) => { if (!S.pid) return; S.profile.voiceLang = e.target.value; saveProfile(); say("This is how the game will sound.", "விளையாட்டு இப்படித்தான் பேசும்.", { force: true }); });
+function recordFeel(f) {
+  const k = dayKey(), d = S.days[k]; if (!d || !d.sessions.length) return;
+  const nd = clone(d); nd.sessions[nd.sessions.length - 1].feel = f; S.days[k] = nd; saveDay(k);
+  say({ easy: "Great! Let's try something harder next.", ok: "Good. Practice makes it easier.", hard: "Thank you for telling me. Tricky things get easier with practice." }[f],
+      { easy: "சூப்பர்! அடுத்து கொஞ்சம் கஷ்டமானதை முயற்சி பண்ணலாம்.", ok: "நல்லது. பயிற்சி பண்ணப் பண்ண சுலபமாகும்.", hard: "சொன்னதுக்கு நன்றி. கஷ்டமானதும் பயிற்சி பண்ணா சுலபமாகும்." }[f]);
+}
 $("reviewBtn").addEventListener("click", () => startLevel("review"));
 $("nextBtn").addEventListener("click", () => { G.i++; nextQ(); });
 $("quitBtn").addEventListener("click", () => { stopSpeaking(); if (rec && listening) { try { rec.abort(); } catch (e) {} } if (G) { G.locked2 = true; finishLevel(true); } });
-$("speakBtn").addEventListener("click", () => { if (G) speak(questionSpeech(G.q), { force: true }); });
+$("speakBtn").addEventListener("click", () => { if (G && G.q) sayQ(G.q, { force: true }); });
 $("micBtn").addEventListener("click", listen);
-$("voiceToggle").addEventListener("click", () => { S.profile.voice = S.profile.voice === false; saveProfile(); $("voiceToggle").setAttribute("aria-pressed", S.profile.voice); if (!S.profile.voice) stopSpeaking(); else if (G) speak(questionSpeech(G.q)); });
+$("voiceToggle").addEventListener("click", () => { S.profile.voice = S.profile.voice === false; saveProfile(); $("voiceToggle").setAttribute("aria-pressed", S.profile.voice); if (!S.profile.voice) stopSpeaking(); else if (G && G.q) sayQ(G.q); });
 $("resNext").addEventListener("click", (e) => startLevel(e.currentTarget.dataset.level));
 $("resAgain").addEventListener("click", (e) => startLevel(e.currentTarget.dataset.level));
 $("resMap").addEventListener("click", () => { G = null; stopSpeaking(); show("vMap"); renderMap(); });
@@ -1399,3 +2110,5 @@ initStore();
 route();
 })();
 </script>
+
+</body></html>
