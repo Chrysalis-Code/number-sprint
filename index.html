@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache"><style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>Class 2 Learning Quest</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -302,10 +302,21 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 .vomenu button[aria-checked="true"] { border-color: var(--mango); background: var(--sun-soft); }
 .top, .playbar { padding-right: 120px; }
 @media (max-width: 520px) { .top, .playbar { padding-right: 0; padding-top: 40px; } .vofab { padding: 5px 10px; font-size: .85rem; top: calc(env(safe-area-inset-top, 0px) + 6px); } .vofab svg { width: 18px; height: 18px; } .vomenu { top: calc(env(safe-area-inset-top, 0px) + 46px); } }
-.stepper { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
-.stepper span { font: 700 .78rem var(--font-display); padding: 3px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
-.stepper span.now { background: var(--mango); border-color: var(--mango); color: #fff; }
-.stepper span.done { background: var(--good-soft); border-color: var(--good); color: var(--good); }
+.stepper { display: flex; gap: 6px; align-items: center; justify-content: center; }
+.stepper i { width: 28px; height: 6px; border-radius: 3px; background: var(--line); }
+.stepper i.done { background: var(--good); }
+.stepper i.now { background: var(--mango); }
+.stepper span { margin-left: 6px; font: 700 .85rem var(--font-display); color: var(--muted); }
+.kacts { display: flex; gap: 8px; margin-top: 8px; }
+.kact { width: 44px; height: 44px; border-radius: 50%; border: 0; display: grid; place-items: center; cursor: pointer; background: var(--teal-soft); color: var(--teal); }
+.kact.mic { background: var(--mango); color: #fff; box-shadow: 0 3px 0 var(--mango-deep); }
+.kact.mic.listening { background: var(--bad); box-shadow: 0 3px 0 #8f1f31; animation: pulse 1s ease-in-out infinite; }
+.kidline { align-self: flex-end; }
+.goal .streak { display: inline-flex; align-items: center; gap: 3px; font: 800 1rem var(--font-display); color: var(--mango-deep); }
+.footlinks { display: flex; justify-content: center; padding-top: 8px; }
+.linkbtn { background: none; border: 0; color: var(--muted); font: 700 .95rem var(--font-body); text-decoration: underline; cursor: pointer; padding: 10px; min-height: 44px; }
+.verbadge { position: fixed; z-index: 29; top: calc(env(safe-area-inset-top, 0px) + 4px); left: max(8px, env(safe-area-inset-left, 0px)); font: 700 .68rem var(--font-body); color: var(--muted); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; opacity: .85; pointer-events: none; }
+.updbar { position: fixed; z-index: 40; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); background: var(--ink); color: #fff; border-radius: 999px; padding: 10px 18px; font: 700 .95rem var(--font-display); box-shadow: 0 8px 24px -8px rgba(0,0,0,.4); }
 .kili { display: flex; gap: 10px; align-items: flex-end; }
 .kili .kbird { width: 96px; position: relative; flex: none; }
 .kiliSvg { width: 100%; height: auto; display: block; overflow: visible; }
@@ -359,9 +370,44 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
   .opt { min-height: 78px; }
   .hello h1 { font-size: 1.4rem; }
 }
+
+/* ---------- activities ---------- */
+.act { width: 100%; }
+.act-match { position: relative; display: grid; grid-template-columns: 1fr 1fr; column-gap: 64px; }
+.act .lines { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.act .lines line { stroke-width: 6; stroke-linecap: round; }
+.act .lines line.drag { stroke: var(--mango); stroke-dasharray: 2 10; }
+.mcol { display: flex; flex-direction: column; gap: 14px; }
+.mitem { min-height: 80px; border-radius: 18px; border: 3px solid var(--line); background: var(--card); box-shadow: 0 4px 0 var(--line-strong); font: 800 1.3rem var(--font-display); color: var(--ink); display: grid; place-items: center; padding: 6px; touch-action: none; cursor: pointer; text-align: center; }
+.mitem.sel { border-color: var(--mango); background: var(--sun-soft); }
+.mitem.done { border-color: var(--pc, var(--good)); background: var(--good-soft); box-shadow: none; }
+.mitem .oe.big, .dchip .oe { font-size: 2.6rem; line-height: 1; }
+.mini { display: block; } .mini svg { max-height: 68px; width: auto; max-width: 100%; height: auto; }
+.mitem .oe:not(.big) { font-size: 1.8rem; } .mitem .ol { font-size: 1rem; }
+.shake { animation: shake .4s; }
+.tray { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; min-height: 64px; }
+.dchip { min-height: 60px; min-width: 60px; padding: 8px 14px; border-radius: 16px; border: 3px solid var(--line); background: var(--card); box-shadow: 0 4px 0 var(--line-strong); font: 800 1.3rem var(--font-display); color: var(--ink); touch-action: none; cursor: grab; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.dchip .ol { font-size: 1rem; }
+.dchip.sel { border-color: var(--mango); background: var(--sun-soft); }
+.dchip.dragging { position: relative; z-index: 15; box-shadow: 0 14px 26px -8px rgba(20, 40, 70, .45); cursor: grabbing; }
+.bins { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.bin { border: 3px dashed var(--line-strong); border-radius: 18px; min-height: 140px; padding: 10px 6px; background: var(--seq0); display: flex; flex-direction: column; gap: 8px; align-items: center; cursor: pointer; }
+.bin b { font: 800 1.05rem var(--font-display); text-align: center; }
+.binitems { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.binitems .dchip { min-height: 44px; min-width: 44px; padding: 4px 8px; box-shadow: none; font-size: 1rem; }
+.binitems .dchip .oe { font-size: 1.6rem; }
+.dchip.done { border-color: var(--good); background: var(--good-soft); cursor: default; }
+.bin .dchip.done { pointer-events: none; }
+.answerline { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 18px; min-height: 56px; }
+.slot { min-width: 64px; min-height: 52px; border-bottom: 4px solid var(--line-strong); display: grid; place-items: center; font: 800 1.35rem var(--font-display); padding: 0 8px; }
+.slot.filled { border-color: var(--good); color: var(--good); }
+.act-order .tray .dchip.done { visibility: hidden; }
+@media (max-width: 520px) { .act-match { column-gap: 34px; } .mitem { min-height: 68px; font-size: 1.1rem; } .bin { min-height: 120px; } .dchip { font-size: 1.1rem; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 
+<span class="verbadge" id="verBadge">v0</span>
+<div class="updbar" id="updBar" hidden>Updating to the newest version…</div>
 <button class="vofab" id="voFab" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Choose Kili's voice">
   <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path id="voWaves" d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
   <span id="voLabel">தமிழ்</span>
@@ -430,28 +476,28 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       <div class="top">
         <div class="hello">
           <button class="avatar em" id="switchBtn" type="button" aria-label="Switch player"><span id="myAvatar">🦁</span></button>
-          <div><h1 id="helloName">Hi!</h1><p id="helloSub">Pick a level to play.</p></div>
+          <div><h1 id="helloName">Hi!</h1><p id="helloSub" hidden></p></div>
         </div>
         <div class="pills">
           <span class="pill" title="Coins"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="var(--sun)" stroke="var(--warn)" stroke-width="2"/><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="var(--warn)">₹</text></svg><span id="coinCount">0</span><span class="sr">coins</span></span>
-          <span class="pill" title="Stars"><span id="starIcon"></span><span id="starCount">0</span>/<span id="starMax">300</span></span>
-          <span class="pill" title="Days in a row"><svg width="20" height="22" viewBox="0 0 20 24" aria-hidden="true"><path d="M10 1c1 5 7 7 7 14a7 7 0 0 1-14 0c0-4 3-6 3-9 2 1 3 3 3 5 1-3 1-6 1-10z" fill="var(--mango)"/></svg><span id="streakCount">0</span> day streak</span>
-          <button class="pill btnish" id="stickersBtn" type="button">Stickers</button>
-          <button class="pill btnish" id="parentsBtn" type="button">Parents</button>
+          <span class="pill" title="Stars"><span id="starIcon"></span><span id="starCount">0</span><span class="sr">stars</span><span hidden>/<span id="starMax">300</span></span></span>
+          <button class="pill btnish" id="stickersBtn" type="button" aria-label="Sticker book"><span aria-hidden="true">🎁</span> Stickers</button>
         </div>
       </div>
       <div class="goal">
-        <span class="label">Today's goal</span>
+        <span class="label">Today</span>
         <div class="bar" aria-hidden="true"><i id="goalFill" style="width:0%"></i></div>
-        <b id="goalText">0 / 20 questions</b>
+        <b id="goalText">0 / 20</b>
+        <span class="streak" title="Days in a row"><svg width="16" height="18" viewBox="0 0 20 24" aria-hidden="true"><path d="M10 1c1 5 7 7 7 14a7 7 0 0 1-14 0c0-4 3-6 3-9 2 1 3 3 3 5 1-3 1-6 1-10z" fill="var(--mango)"/></svg><span id="streakCount">0</span></span>
       </div>
       <div class="subjects" id="subjects" role="tablist" aria-label="Subjects"></div>
       <div class="map-actions" id="mapActions">
         <button class="btn" id="continueBtn" type="button">Continue: Count the dots</button>
         <button class="btn soft" id="reviewBtn" type="button" hidden>Practise tricky ones</button>
       </div>
-      <p class="status" id="saveStatus">Loading progress…</p>
+      <p class="status" id="saveStatus" hidden></p>
       <div class="worlds" id="worlds"></div>
+      <div class="footlinks"><button class="linkbtn" id="parentsBtn" type="button">For parents</button></div>
     </div>
   </section>
 
@@ -483,11 +529,14 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 <path class="kBeakTop" d="M82 44 C94 42 104 50 101 62 C98 57 92 55 84 56 Z" fill="#f5a524"/>
 <path class="kJaw" d="M84 56 C92 56 97 58 98 61 C94 66 88 67 83 64 Z" fill="#d97f0f"/>
 </g></g></svg><span class="ear" id="kiliEar" hidden>👂</span></div>
-        <div class="kbubble"><b>Kili <span class="turn" id="turn"></span></b><span id="kiliLine">Hi!</span></div>
+        <div class="kbubble"><b>Kili <span class="turn" id="turn"></span></b><span id="kiliLine">Hi!</span>
+          <div class="kacts">
+            <button class="kact" id="speakBtn" type="button" aria-label="Say it again" title="Say it again"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>
+            <button class="kact mic" type="button" data-mic="1" hidden aria-label="Talk to Kili" title="Talk to Kili"><svg width="18" height="20" viewBox="0 0 18 22" aria-hidden="true"><rect x="5" y="1" width="8" height="13" rx="4" fill="currentColor"/><path d="M2 10a7 7 0 0 0 14 0M9 17v4" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><span class="ml sr">Talk to Kili</span></button>
+          </div>
+        </div>
       </div>
-      <div class="kidrow"><div class="kidline" id="kidLine" hidden></div>
-        <button class="mic" type="button" data-mic="1" hidden><svg width="18" height="20" viewBox="0 0 18 22" aria-hidden="true"><rect x="5" y="1" width="8" height="13" rx="4" fill="#fff"/><path d="M2 10a7 7 0 0 0 14 0M9 17v4" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><span class="ml">Talk to Kili</span></button>
-      </div>
+      <div class="kidline" id="kidLine" hidden></div>
       <div class="dots" id="progDots" aria-hidden="true"></div>
       <div class="qcard intro" id="introCard" hidden>
         <span class="label">Wonder</span>
@@ -504,12 +553,6 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
       <div class="qcard" id="qCard">
         <div class="qtext" id="qText"></div>
         <div class="visual" id="qVisual"></div>
-        <div class="voicebar">
-          <button class="speak" id="speakBtn" type="button" hidden>
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="var(--teal)"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14" stroke="var(--teal)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-            Say it again
-          </button>
-        </div>
         <div class="opts" id="qOpts"></div>
         <div class="praise" id="praise" role="status" aria-live="polite"></div>
         <div class="hint" id="hintBox" hidden></div>
@@ -715,6 +758,7 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 <script>
 (() => {
 "use strict";
+const APP_VERSION = "2.0.0";
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -1961,7 +2005,7 @@ function kidSays(t) { const k = document.getElementById("kidLine"); if (k) { k.h
 // so no voice has to be installed on the tablet. Clips load per bundle the first time they are needed.
 const CLIPS = {}, CLIP_BUF = {}, BUNDLES = {}, LOADED = {};
 function loadBundle(name) {
-  if (!BUNDLES[name]) BUNDLES[name] = fetch(`audio/hi-${name}.json`).then(r => r.ok ? r.json() : {}).then(d => { Object.assign(CLIPS, d); LOADED[name] = true; return Object.keys(d).length; }).catch(() => { LOADED[name] = true; return 0; });
+  if (!BUNDLES[name]) BUNDLES[name] = fetch(`audio/${name.includes("-") ? name : "hi-" + name}.json?v=${APP_VERSION}`).then(r => r.ok ? r.json() : {}).then(d => { Object.assign(CLIPS, d); LOADED[name] = true; return Object.keys(d).length; }).catch(() => { LOADED[name] = true; return 0; });
   return BUNDLES[name];
 }
 const clipKey = (t) => t.replace(/\s+/g, " ").trim();
@@ -2068,10 +2112,10 @@ function openCreate() {
 function renderAvatars() { $("avatars").innerHTML = AVATARS.map(a => `<button type="button" class="av" data-av="${a}" aria-pressed="${a === newAvatar}">${a}</button>`).join(""); }
 
 function renderStatus() {
-  const el = $("saveStatus"); el.className = "status";
+  const el = $("saveStatus"); el.className = "status"; el.hidden = true;
   if (!S.ready || !S.daysReady) { el.textContent = `Loading ${me()}'s progress…`; return; }
-  if (S.saveErr) { el.className = "status warn"; el.textContent = "Progress couldn't be saved to the cloud just now. It's kept on this device and will save again after the next level."; return; }
-  if (S.cloudErr || S.slow) { el.className = "status warn"; el.textContent = "Can't reach saved progress right now. Playing on this device for now."; return; }
+  if (S.saveErr) { el.hidden = false; el.className = "status warn"; el.textContent = "Progress couldn't be saved to the cloud just now. It's kept on this device and will save again after the next level."; return; }
+  if (S.cloudErr || S.slow) { el.hidden = false; el.className = "status warn"; el.textContent = "Can't reach saved progress right now. Playing on this device for now."; return; }
   el.textContent = S.mode === "cloud" ? "Progress is saved to your Claude account." : "Progress is saved on this device only.";
 }
 function renderTop() {
@@ -2084,7 +2128,7 @@ function renderTop() {
   $("streakCount").textContent = streak();
   const t = today(), g = S.profile.goal || 20, pct = Math.min(100, Math.round(t.questions / g * 100));
   $("goalFill").style.width = pct + "%";
-  $("goalText").textContent = t.questions >= g ? `Goal done! ${t.questions} today` : `${t.questions} / ${g} questions`;
+  $("goalText").textContent = t.questions >= g ? `${t.questions} ✓` : `${t.questions} / ${g}`;
   const st = streak();
   $("helloSub").textContent = t.questions >= g ? "You reached today's goal. Shabash!" : st > 1 ? `${st} days in a row. Keep it going!` : "Pick a level to play.";
 }
@@ -2098,7 +2142,7 @@ function renderMap() {
   $("reviewBtn").disabled = !S.daysReady;
   $("worlds").innerHTML = sb.worlds.map((w, wi) => `
     <article class="world" style="--wdeep:${w.deep};--wsoft:${w.soft}">
-      <div class="world-head"><div><div class="world-num">${sb.name} · World ${wi + 1}</div><h2>${w.name}</h2><p>${w.topic}</p>${w.story ? `<p class="world-story">${esc(w.story)}</p>` : ""}</div>${worldDone(w) ? `<span class="badge-done">Completed</span>` : ""}</div>
+      <div class="world-head"><div><div class="world-num">${sb.name} · World ${wi + 1}</div><h2>${w.name}</h2><p>${w.topic}</p></div>${worldDone(w) ? `<span class="badge-done">Completed</span>` : ""}</div>
       <div class="stops">${w.levels.map((l, li) => { const st = lvStat(l.id), un = isUnlocked(l), isNext = un && l === nl;
         return `<button type="button" class="stop ${un ? "" : "locked"} ${isNext ? "next" : ""}" data-level="${l.id}" ${un ? "" : 'aria-disabled="true"'} aria-label="Level ${li + 1}: ${l.name}${un ? `, ${st.stars || 0} stars` : ", locked"}">
           <span class="disc">${un ? li + 1 : `<svg width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><rect x="2" y="9" width="16" height="12" rx="3" fill="var(--line-strong)"/><path d="M6 9V6a4 4 0 0 1 8 0v3" stroke="var(--line-strong)" stroke-width="2.5" fill="none"/></svg>`}</span>
@@ -2159,7 +2203,7 @@ function reviewPool(sb = curSubj()) {
 }
 function setStep(i) {
   G.step = i;
-  $("stepper").innerHTML = STEPS.map((s, k) => `<span class="${k < i ? "done" : k === i ? "now" : ""}">${k + 1}. ${s}</span>`).join("");
+  $("stepper").innerHTML = STEPS.map((s, k) => `<i class="${k < i ? "done" : k === i ? "now" : ""}" title="${s}"></i>`).join("") + `<span>${STEPS[i]}</span>`;
 }
 function showPanel(id) { ["introCard", "qCard", "chatCard"].forEach(x => $(x).hidden = x !== id); }
 function needBundles(id) {
@@ -2234,19 +2278,27 @@ function makeQ(lv) {
   G.seen.add(strip(q.text) + (q.desc || "")); q.lv = lv; return q;
 }
 function renderQ(q, demo) {
-  showPanel("qCard");
+  showPanel("qCard"); if (G) G.act = null;
   $("qText").innerHTML = q.text; $("qText").className = "qtext" + (q.huge ? " huge" : "");
   $("qVisual").innerHTML = q.visual || ""; $("qVisual").hidden = !q.visual;
   $("qOpts").className = "opts" + (q.cols === 3 ? " three" : "");
   $("qOpts").innerHTML = q.options.map((o, i) => `<button type="button" class="opt${o.wordy ? " wordy" : ""}" id="opt${i}" data-v="${esc(o.v)}" aria-label="${esc(o.say || strip(o.html))}" ${demo ? "disabled" : ""}>${o.html}</button>`).join("");
   $("praise").textContent = ""; $("praise").className = "praise";
   $("hintBox").hidden = true; $("nextBtn").hidden = true; $("myTurn").hidden = true;
-  $("speakBtn").hidden = !canSpeak;
 }
 function nextQ() {
   if (!G) return;
   if (G.bbActive) return;
   if (G.i >= G.n) return G.review ? finishLevel(false) : offerBrainBuster();
+  G.act = null;
+  const actGen = !G.review && G.lv && ACTIVITIES[G.lv.id] && (G.i === 3 || G.i === 7);
+  if (actGen) {
+    let q = null; try { q = actGen(); } catch (e) { console.warn(e); }
+    if (q && (q.pairs || q.items) && (q.pairs || q.items).length >= 3) {
+      q.lv = G.lv; G.q = q; G.tries = 0; G.locked = false; G.silent = 0;
+      renderActivity(q); askQ(); return;
+    }
+  }
   G.q = makeQ(); G.tries = 0; G.locked = false; G.silent = 0;
   renderQ(G.q); renderDots();
   askQ();
@@ -2254,6 +2306,12 @@ function nextQ() {
 // Kili's turn: read the question and the answers, then hand the turn to the child and wait.
 function askQ(repeat) {
   if (!G || !G.q) return;
+  if (G.q.kind) {
+    const q = G.q, n = G.i + 1, A = ACT_SAY[q.kind];
+    G.waiting = false;
+    kili({ en: `Question ${n}. ${q.text} ${A.en}`, ta: `கேள்வி ${n}. ${q.ta || ""} ${A.ta}`, hi: `सवाल ${n}। ${q.hi || ""} ${A.hi}` }, { then: yourTurn });
+    $("kiliLine").textContent = q.text; return;
+  }
   const q = G.q, s = questionSpeech(q), n = G.bbActive ? 0 : G.i + 1;
   const pre = repeat ? { en: "Listen again.", ta: "மறுபடியும் கேளு.", hi: "फिर से सुनो।" } : n ? { en: `Question ${n}.`, ta: `கேள்வி ${n}.`, hi: `सवाल ${n}।` } : { en: "", ta: "", hi: "" };
   const ask = { en: "What do you think?", ta: "நீ என்ன நினைக்கிற?", hi: "तुम्हें क्या लगता है?" };
@@ -2265,6 +2323,7 @@ function askQ(repeat) {
 function yourTurn() {
   if (!G || G.locked || !G.q) return;
   G.waiting = true; setTurn("you");
+  if (G.q.kind) return;   // activities are done with taps and drags
   if (S.profile.autoMic !== false && SR && !micBlocked) listen("answer", heardAnswer, silence);
 }
 function silence() {
@@ -2274,7 +2333,7 @@ function silence() {
   else { $("kiliLine").textContent = "Your turn. Tap an answer, or tap Talk to Kili."; setTurn("you"); }
 }
 function heardAnswer(alts) {
-  if (!G || G.locked) return;
+  if (!G || G.locked || (G.q && G.q.kind)) return;
   const all = alts.join(" | ");
   const hit = matchOption(alts, G.q);
   if (hit) { const btn = [...document.querySelectorAll(".opt")].find(b => b.dataset.v === hit.v); if (btn && !btn.disabled) { answer(btn); return; } }
@@ -2429,7 +2488,7 @@ function showResult(stars, newStars, bonus) {
   $("resText").textContent = r.review ? `You got ${r.first} out of ${r.n} right on the first try.` :
     stars >= 1 ? `You got ${r.first} out of 10 right on the first try.${newStars ? ` You earned ${newStars} new star${newStars > 1 ? "s" : ""}!` : ""}` :
     `You got ${r.first} out of 10 on the first try. Get 7 to earn a star and open the next level.`;
-  $("resPills").innerHTML = `<span class="pill">+${r.coins + bonus} coins${bonus ? ` (includes ${bonus} star bonus)` : ""}</span>${r.bb === "first" || r.bb === "second" ? `<span class="pill">Brain buster cracked</span>` : ""}`;
+  $("resPills").innerHTML = `<span class="pill">+${r.coins + bonus} coins</span>${r.bb === "first" || r.bb === "second" ? `<span class="pill">🧠 Brain buster</span>` : ""}`;
   const nl = r.review ? null : r.lv.subj.levels[r.lv.sidx + 1];
   $("resNext").hidden = !nl || !isUnlocked(nl);
   if (nl) $("resNext").textContent = `Next: ${nl.name}`;
@@ -2499,6 +2558,7 @@ function micTap(where) {
   if (!$("chatCard").hidden && G.step === 2) return listen("free", (a) => { const t = a.join(" ").toLowerCase(); thinkReply(/count|எண்ண|गिन/.test(t) ? "counted" : /guess|अंदाज़/.test(t) ? "guessed" : "spoke"); });
   if (!$("chatCard").hidden && G.step === 3) return listen("yesno", (a) => { const t = a.join(" "); if (CMD.yes.test(t)) startBB(); else finishLevel(false); });
   if (G.locked && !$("nextBtn").hidden) return listen("yesno", () => { G.i++; nextQ(); });
+  if (G.q && G.q.kind) return;
   if (G.q && !G.locked) { G.silent = 0; G.waiting = true; return listen("answer", heardAnswer, silence); }
 }
 let editAv = null;
@@ -2521,6 +2581,179 @@ async function deleteProfile(pid) {
   lsSet(LS_PROFILES, next); try { localStorage.removeItem(LS_DAYS(pid)); } catch (e) {}
   if (S.pid === pid) { S.pid = null; S.days = {}; }
 }
+
+/* ===================== hands-on activities: match, sort, order (tap or drag, no typing) ===================== */
+const ACT_SAY = {
+  match: { en: "Match the pairs. Tap one on the left, then its partner on the right. You can drag a line too.", ta: "ஜோடி சேர்ப்போம். இடது பக்கம் ஒன்னைத் தொட்டு, அப்புறம் வலது பக்கம் அதோட ஜோடியைத் தொடு. கோடு இழுத்தும் சேர்க்கலாம்.", hi: "जोड़ी मिलाओ। बाईं ओर एक को छुओ, फिर दाईं ओर उसकी जोड़ी को छुओ। तुम लाइन खींचकर भी मिला सकते हो।" },
+  sort: { en: "Put each card in the right box. Tap a card, then tap its box, or drag it there.", ta: "ஒவ்வொரு அட்டையையும் சரியான பெட்டியில போடு. அட்டையைத் தொட்டு, அப்புறம் பெட்டியைத் தொடு, இல்லன்னா இழுத்துப் போடு.", hi: "हर कार्ड को सही डिब्बे में रखो। कार्ड छुओ, फिर उसका डिब्बा छुओ, या उसे खींचकर रखो।" },
+  order: { en: "Tap them in the right order.", ta: "சரியான வரிசையில ஒவ்வொன்னா தொடு.", hi: "इन्हें सही क्रम में एक-एक करके छुओ।" },
+};
+const ACT_NOPE = { en: "Not that one. Try again!", ta: "அது இல்லை. மறுபடி முயற்சி பண்ணு!", hi: "वह नहीं। फिर से कोशिश करो!" };
+const small = (html) => `<span class="mini">${html}</span>`;
+// pairs: [[leftHTML, rightHTML, key]]; items for sort: [[html, binIndex]]; order: [html] in the right order
+const MATCH = (text, ta, hi, pairs) => ({ kind: "match", text, ta, hi, pairs: shuffle(pairs).slice(0, 3), desc: "match" });
+const SORT = (text, ta, hi, bins, items) => ({ kind: "sort", text, ta, hi, bins, items: shuffle(items).slice(0, 6), desc: "sort" });
+const ORDERQ = (text, ta, hi, items) => ({ kind: "order", text, ta, hi, items, desc: "order" });
+const uniqBy = (arr, f) => { const seen = new Set(); return arr.filter(x => { const k = f(x); if (seen.has(k)) return false; seen.add(k); return true; }); };
+const fromGen = (lv, n = 3) => { const out = []; let g = 0; while (out.length < n && g++ < 60) { const q = lv.gen(); const a = q.options.find(o => o.v === q.answer); if (!a) continue; const left = strip(q.text).replace(/=\s*\?$/, "").trim(); if (out.some(x => x[0] === left || x[1] === a.html)) continue; out.push([esc(left), a.html]); } return out; };
+const ACTIVITIES = {
+  // ---- Maths ----
+  w1l1: () => { const ns = shuffle([5, 7, 9, 11, 12, 14, 16, 18]).slice(0, 3); return MATCH("Match the dots to the number.", "புள்ளிகளையும் எண்ணையும் ஜோடி சேர்.", "बिंदुओं को सही संख्या से मिलाओ।", ns.map(n => [small(frames(n)), String(n)])); },
+  w1l5: () => { const step = pick([2, 5, 10]), st = step * rnd(1, 5); const seq = Array.from({ length: 5 }, (_, i) => String(st + i * step)); return ORDERQ(`Count by ${step}s. Tap the numbers in order.`, `${step}, ${step}-ஆ தாவி எண்ணு. எண்களை வரிசையா தொடு.`, `${step}-${step} करके गिनो। संख्याओं को क्रम से छुओ।`, seq); },
+  w2l5: () => { const s = new Set(); while (s.size < 5) s.add(rnd(10, 99)); const seq = [...s].sort((a, b) => a - b).map(String); return ORDERQ("Tap from the smallest to the biggest.", "சின்ன எண்ணுல இருந்து பெரிய எண் வரைக்கும் வரிசையா தொடு.", "सबसे छोटी से सबसे बड़ी संख्या तक क्रम से छुओ।", seq); },
+  w3l2: () => MATCH("Match each sum to its answer.", "ஒவ்வொரு கூட்டலையும் அதோட விடையோட சேர்.", "हर जोड़ को उसके जवाब से मिलाओ।", fromGen(LEVEL.w3l2)),
+  w3l4: () => MATCH("Match each sum to its answer.", "ஒவ்வொரு கூட்டலையும் அதோட விடையோட சேர்.", "हर जोड़ को उसके जवाब से मिलाओ।", fromGen(LEVEL.w3l4)),
+  w4l2: () => MATCH("Match each take-away to its answer.", "ஒவ்வொரு கழித்தலையும் அதோட விடையோட சேர்.", "हर घटाव को उसके जवाब से मिलाओ।", fromGen(LEVEL.w4l2)),
+  w4l4: () => MATCH("Match each take-away to its answer.", "ஒவ்வொரு கழித்தலையும் அதோட விடையோட சேர்.", "हर घटाव को उसके जवाब से मिलाओ।", fromGen(LEVEL.w4l4)),
+  w5l1: () => MATCH("Match the money to its value.", "பணத்தை அதோட மதிப்போட சேர்.", "पैसों को उनकी कीमत से मिलाओ।", shuffle([1, 2, 5, 10, 20, 50, 100]).slice(0, 3).map(v => [small(money([v])), "₹" + v])),
+  w6l1: () => { const hs = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).slice(0, 3); return MATCH("Match each clock to its time.", "ஒவ்வொரு கடிகாரத்தையும் அதோட நேரத்தோட சேர்.", "हर घड़ी को उसके समय से मिलाओ।", hs.map(h => [small(clock(h, 0)), `${h} o'clock`])); },
+  w6l3: () => { const i = rnd(0, 6), seq = Array.from({ length: 5 }, (_, k) => DAYS[(i + k) % 7]); return ORDERQ("Tap the days in order.", "நாட்களை வரிசையா தொடு.", "दिनों को क्रम से छुओ।", seq); },
+  w6l4: () => { const i = rnd(0, 11), seq = Array.from({ length: 4 }, (_, k) => MONTHS[(i + k) % 12]); return ORDERQ("Tap the months in order.", "மாதங்களை வரிசையா தொடு.", "महीनों को क्रम से छुओ।", seq); },
+  w7l1: () => MATCH("Match each shape to its name.", "ஒவ்வொரு வடிவத்தையும் அதோட பெயரோட சேர்.", "हर आकृति को उसके नाम से मिलाओ।", shuffle(["circle", "triangle", "square", "rectangle", "hexagon"]).slice(0, 3).map(k => [small(shapeIcon(k)), k])),
+  w7l5: () => { const ns = new Set(); while (ns.size < 6) ns.add(rnd(1, 50)); return SORT("Sort the numbers: odd or even?", "எண்களைப் பிரி: ஒற்றைப்படையா, இரட்டைப்படையா?", "संख्याओं को छाँटो: विषम या सम?", ["Odd", "Even"], [...ns].map(n => [String(n), n % 2 ? 0 : 1])); },
+  w8l2: () => MATCH("Match each times sum to its answer.", "ஒவ்வொரு பெருக்கலையும் அதோட விடையோட சேர்.", "हर गुणा को उसके जवाब से मिलाओ।", fromGen(LEVEL.w8l2)),
+  w8l3: () => MATCH("Match each times sum to its answer.", "ஒவ்வொரு பெருக்கலையும் அதோட விடையோட சேர்.", "हर गुणा को उसके जवाब से मिलाओ।", fromGen(LEVEL.w8l3)),
+  // ---- English ----
+  en1l1: () => { const ws = uniqBy(shuffle(BEGIN), w => w[0].replace("k", "c")).slice(0, 3); return MATCH("Match each picture to its first letter.", "ஒவ்வொரு படத்தையும் அதோட முதல் எழுத்தோட சேர்.", "हर तस्वीर को उसके पहले अक्षर से मिलाओ।", ws.map(w => [`<span class="oe big">${PICS[w]}</span>`, w[0]])); },
+  en1l5: () => MATCH("Match the rhyming words.", "ஒரே மாதிரி ஒலிக்கிற வார்த்தைகளைச் சேர்.", "तुक वाले शब्दों को मिलाओ।", shuffle(RHYME).slice(0, 3).map(f => { const [a, b] = shuffle(f); return [a, b]; })),
+  en2l1: () => MATCH("Match each picture to its word.", "ஒவ்வொரு படத்தையும் அதோட வார்த்தையோட சேர்.", "हर तस्वीर को उसके शब्द से मिलाओ।", shuffle(Object.keys(PICS).filter(k => k.length > 2)).slice(0, 3).map(w => [`<span class="oe big">${PICS[w]}</span>`, w])),
+  en2l4: () => MATCH("Match each word to its opposite.", "ஒவ்வொரு வார்த்தையையும் அதோட எதிர்ச்சொல்லோட சேர்.", "हर शब्द को उसके उलटे शब्द से मिलाओ।", shuffle(OPP).slice(0, 3).map(([a, b]) => [a, b])),
+  en3l1: () => SORT("Sort the words: naming word or action word?", "வார்த்தைகளைப் பிரி: naming word-ஆ, action word-ஆ?", "शब्दों को छाँटो: naming word या action word?", ["Naming word", "Action word"], [...shuffle(NOUNS).slice(0, 3).map(x => [x[1], 0]), ...shuffle(VERBS).slice(0, 3).map(x => [x[1], 1])]),
+  en4l2: () => { const s = pick(ORDER), words = s.replace(".", "").split(" "); return ORDERQ("Tap the words to make the sentence.", "வார்த்தைகளை வரிசையா தொட்டு வாக்கியம் செய்.", "शब्दों को क्रम से छूकर वाक्य बनाओ।", words); },
+  // ---- Hindi ----
+  hi1l3: () => { const ps = uniqBy(shuffle(HPIC), p => [...p[0]][0]).slice(0, 3); return MATCH("Match each picture to its first letter.", "ஒவ்வொரு படத்தையும் அதோட முதல் ஹிந்தி எழுத்தோட சேர்.", "हर तस्वीर को उसके पहले अक्षर से मिलाओ।", ps.map(([w, em]) => [`<span class="oe big">${em}</span>`, [...w][0]])); },
+  hi1l4: () => { const row = pick(HROWS.filter(r => r.length >= 4)), st = rnd(0, row.length - 4); return ORDERQ("Tap the letters in order.", "எழுத்துகளை வரிசையா தொடு.", "अक्षरों को क्रम से छुओ।", row.slice(st, st + 4)); },
+  hi3l1: () => MATCH("Match each picture to its Hindi word.", "ஒவ்வொரு படத்தையும் அதோட ஹிந்தி வார்த்தையோட சேர்.", "हर तस्वीर को उसके शब्द से मिलाओ।", shuffle(HPIC).slice(0, 3).map(([w, em]) => [`<span class="oe big">${em}</span>`, w])),
+  hi3l4: () => MATCH("Match each word to its opposite.", "ஒவ்வொரு வார்த்தையையும் அதோட எதிர்ச்சொல்லோட சேர்.", "हर शब्द को उसके उलटे शब्द से मिलाओ।", shuffle(VILOM).slice(0, 3).map(([a, b]) => [a, b])),
+  hi4l3: () => { const ns = shuffle(Array.from({ length: 20 }, (_, i) => i + 1)).slice(0, 3); return MATCH("Match each number to its Hindi name.", "ஒவ்வொரு எண்ணையும் அதோட ஹிந்திப் பெயரோட சேர்.", "हर संख्या को उसके हिंदी नाम से मिलाओ।", ns.map(n => [String(n), HNUM[n - 1]])); },
+  hi4l4: () => { const i = rnd(0, 6), seq = Array.from({ length: 4 }, (_, k) => HDAYS[(i + k) % 7]); return ORDERQ("Tap the days in order.", "நாட்களை வரிசையா தொடு.", "दिनों को क्रम से छुओ।", seq); },
+  // ---- World Around Us ----
+  ev1l3: () => SORT("Sort the food: healthy or only sometimes?", "சாப்பாட்டைப் பிரி: ஆரோக்கியமானதா, எப்பவாவது மட்டுமா?", "खाने को छाँटो: सेहतमंद या कभी-कभी?", ["Healthy", "Only sometimes"], [["🍎 Apple", 0], ["🥕 Carrot", 0], ["🥛 Milk", 0], ["🍌 Banana", 0], ["🥗 Salad", 0], ["🍟 Chips", 1], ["🍭 Lollipop", 1], ["🥤 Cold drink", 1], ["🍩 Doughnut", 1], ["🍫 Chocolate", 1]].map(([t, b]) => [optOf(t).html, b])),
+  ev2l2: () => MATCH("Match each animal to its home.", "ஒவ்வொரு மிருகத்தையும் அதோட வீட்டோட சேர்.", "हर जानवर को उसके घर से मिलाओ।", shuffle([["🐦", "Nest"], ["🐶", "Kennel"], ["🐴", "Stable"], ["🦁", "Den"], ["🐝", "Hive"], ["🕷️", "Web"], ["🐰", "Burrow"], ["🐄", "Shed"]]).slice(0, 3).map(([e, h]) => [`<span class="oe big">${e}</span>`, h])),
+  ev2l3: () => MATCH("Match each animal to its baby.", "ஒவ்வொரு மிருகத்தையும் அதோட குட்டியோட சேர்.", "हर जानवर को उसके बच्चे से मिलाओ।", shuffle([["🐱", "Kitten"], ["🐶", "Puppy"], ["🐄", "Calf"], ["🐔", "Chick"], ["🐐", "Kid"], ["🐴", "Foal"], ["🐑", "Lamb"], ["🦆", "Duckling"], ["🐸", "Tadpole"], ["🦁", "Cub"]]).slice(0, 3).map(([e, y]) => [`<span class="oe big">${e}</span>`, y])),
+  ev2l5: () => SORT("Sort the animals: pet, farm or wild?", "மிருகங்களைப் பிரி: செல்லப்பிராணியா, பண்ணையா, காடா?", "जानवरों को छाँटो: पालतू, खेत या जंगली?", ["Pet", "Farm", "Wild"], [["🐶", 0], ["🐱", 0], ["🐠", 0], ["🐄", 1], ["🐐", 1], ["🐔", 1], ["🦁", 2], ["🐅", 2], ["🐻", 2], ["🦓", 2]].map(([e, b]) => [`<span class="oe">${e}</span>`, b])),
+  ev3l2: () => MATCH("Match each helper to their work.", "ஒவ்வொரு உதவியாளரையும் அவங்க வேலையோட சேர்.", "हर मददगार को उसके काम से मिलाओ।", shuffle([["🧑‍⚕️ Doctor", "Treats sick people"], ["🧑‍🌾 Farmer", "Grows food"], ["🧑‍🏫 Teacher", "Teaches us"], ["🧑‍🚒 Firefighter", "Puts out fires"], ["👮 Police officer", "Keeps us safe"], ["🧑‍🍳 Cook", "Makes food"]]).slice(0, 3).map(([a, b]) => [optOf(a).html, b])),
+  ev3l5: () => SORT("Sort them: land, water or air?", "பிரி: நிலமா, தண்ணீரா, வானமா?", "छाँटो: ज़मीन, पानी या हवा?", ["Land", "Water", "Air"], [["🚌", 0], ["🚲", 0], ["🛺", 0], ["🚂", 0], ["⛵", 1], ["🚢", 1], ["🛶", 1], ["✈️", 2], ["🚁", 2], ["🎈", 2]].map(([e, b]) => [`<span class="oe">${e}</span>`, b])),
+  ev4l5: () => SORT("Sort the waste: wet or dry?", "குப்பையைப் பிரி: ஈரக் குப்பையா, காய்ந்த குப்பையா?", "कचरे को छाँटो: गीला या सूखा?", ["Wet waste", "Dry waste"], [["🍌 Banana peel", 0], ["🍛 Leftover food", 0], ["🥚 Eggshells", 0], ["🍃 Leaves", 0], ["🧴 Plastic bottle", 1], ["📰 Newspaper", 1], ["🥫 Tin can", 1], ["📦 Cardboard", 1]].map(([t, b]) => [optOf(t).html, b])),
+};
+// Render an activity into the question card
+function renderActivity(q) {
+  showPanel("qCard");
+  $("qText").innerHTML = esc(q.text); $("qText").className = "qtext";
+  $("qVisual").hidden = true; $("qVisual").innerHTML = "";
+  $("praise").textContent = ""; $("praise").className = "praise"; $("hintBox").hidden = true; $("nextBtn").hidden = true; $("myTurn").hidden = true;
+  G.act = { q, mistakes: 0, done: 0, sel: null };
+  const box = $("qOpts"); box.className = "act act-" + q.kind;
+  if (q.kind === "match") {
+    const rights = shuffle(q.pairs.map((p, i) => [p[1], i]));
+    box.innerHTML = `<svg class="lines" id="actLines" aria-hidden="true"></svg><div class="mcol">${q.pairs.map((p, i) => `<button type="button" class="mitem left" data-side="L" data-k="${i}">${p[0]}</button>`).join("")}</div><div class="mcol">${rights.map(([h, i]) => `<button type="button" class="mitem right" data-side="R" data-k="${i}">${h}</button>`).join("")}</div>`;
+  } else if (q.kind === "sort") {
+    box.innerHTML = `<div class="tray">${shuffle(q.items.map((it, i) => [it, i])).map(([it, i]) => `<button type="button" class="dchip" data-k="${i}">${it[0]}</button>`).join("")}</div><div class="bins" style="--n:${q.bins.length}">${q.bins.map((b, i) => `<div class="bin" data-bin="${i}" role="button" tabindex="0"><b>${esc(b)}</b><div class="binitems"></div></div>`).join("")}</div>`;
+  } else {
+    box.innerHTML = `<div class="answerline" id="ansLine">${q.items.map(() => `<span class="slot"></span>`).join("")}</div><div class="tray">${shuffle(q.items.map((h, i) => [h, i])).map(([h, i]) => `<button type="button" class="dchip" data-k="${i}">${esc(h)}</button>`).join("")}</div>`;
+  }
+  renderDots();
+}
+function actPos(el, box) { const r = el.getBoundingClientRect(), b = box.getBoundingClientRect(); return { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2, l: r.left - b.left, r: r.right - b.left }; }
+function drawLines(extra) {
+  const box = $("qOpts"), svgEl = $("actLines"); if (!svgEl || !G || !G.act) return;
+  svgEl.setAttribute("width", box.clientWidth); svgEl.setAttribute("height", box.clientHeight);
+  let h = "";
+  box.querySelectorAll(".mitem.left.done").forEach(L => { const R = box.querySelector(`.mitem.right[data-k="${L.dataset.k}"]`); if (!R) return; const a = actPos(L, box), b = actPos(R, box); h += `<line x1="${a.r}" y1="${a.y}" x2="${b.l}" y2="${b.y}" class="ok" style="stroke:${L.style.getPropertyValue("--pc")}"/>`; });
+  if (extra) h += `<line x1="${extra.x1}" y1="${extra.y1}" x2="${extra.x2}" y2="${extra.y2}" class="drag"/>`;
+  svgEl.innerHTML = h;
+}
+window.addEventListener("resize", () => drawLines());
+const PAIR_COLORS = ["#23935c", "#177f91", "#c4561a", "#6b4bb8"];
+function actMistake(el) {
+  const a = G.act; a.mistakes++; tone([240], 0.18); kiliMood("oops", 1200);
+  if (el) { el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  if (a.mistakes === 1) { const h = hintOf(G.q.lv); kili({ en: `${ACT_NOPE.en} ${h.en}`, ta: `${ACT_NOPE.ta} ${h.ta}`, hi: `${ACT_NOPE.hi} ${h.hi}` }); }
+  else say(ACT_NOPE);
+}
+function actGood() { tone([660, 880], 0.09); }
+function matchTry(L, R) {
+  if (!L || !R || L.classList.contains("done") || R.classList.contains("done")) return;
+  if (L.dataset.k === R.dataset.k) {
+    const c = PAIR_COLORS[G.act.done % PAIR_COLORS.length];
+    [L, R].forEach(x => { x.classList.add("done"); x.classList.remove("sel"); x.style.setProperty("--pc", c); x.disabled = true; });
+    G.act.done++; G.act.sel = null; actGood(); drawLines();
+    if (G.act.done === G.act.q.pairs.length) actComplete();
+  } else { actMistake(R); L.classList.remove("sel"); G.act.sel = null; }
+}
+function sortTry(chip, bin) {
+  if (!chip || !bin || chip.classList.contains("done")) return;
+  const it = G.act.q.items[+chip.dataset.k];
+  if (it[1] === +bin.dataset.bin) {
+    chip.classList.remove("sel"); chip.classList.add("done"); chip.setAttribute("aria-disabled", "true"); bin.querySelector(".binitems").appendChild(chip);
+    G.act.done++; G.act.sel = null; actGood();
+    if (G.act.done === G.act.q.items.length) actComplete();
+  } else { actMistake(chip); chip.classList.remove("sel"); G.act.sel = null; }
+}
+function orderTry(chip) {
+  if (!chip || chip.classList.contains("done")) return;
+  if (+chip.dataset.k === G.act.done) {
+    const slot = $("ansLine").children[G.act.done]; slot.textContent = chip.textContent; slot.classList.add("filled");
+    chip.classList.add("done"); chip.disabled = true; G.act.done++; actGood();
+    if (G.act.done === G.act.q.items.length) actComplete();
+  } else actMistake(chip);
+}
+function actComplete() {
+  const a = G.act; tick(); G.locked = true; G.waiting = false;
+  const first = a.mistakes === 0, ok = a.mistakes <= 2;
+  G.results[G.i] = first ? 1 : ok ? 2 : 0; if (first) { G.first++; G.combo++; } else G.combo = 0; G.coins += first ? 2 : ok ? 1 : 0;
+  if (!ok) G.misses.push({ t: `${a.q.text} (activity)`, a: "—", g: `${a.mistakes} mistakes`, l: G.q.lv.id });
+  renderDots(); kiliMood("cheer", 1200); if (first) burst(18);
+  const [pr, prTa, prHi] = pick(PRAISE);
+  const L = first ? { en: `${pr} You got them all right!`, ta: `${prTa} எல்லாமே சரியா செஞ்சிட்ட!`, hi: `${prHi} तुमने सब सही किया!` }
+                  : { en: "All done! Well done for sticking with it.", ta: "எல்லாம் முடிஞ்சது! விடாம முயற்சி பண்ணது சூப்பர்.", hi: "सब हो गया! लगे रहने के लिए शाबाश।" };
+  $("praise").className = "praise"; $("praise").textContent = (first ? pr : "All done!") + (first ? " +2 coins" : ok ? " +1 coin" : "");
+  const g0 = G;
+  kili(L, { then: () => { if (G === g0 && !G.locked2) { G.act = null; G.i++; nextQ(); } } });
+}
+// Taps and drags. A drag that ends on a target counts like tapping the target.
+(function actInput() {
+  let drag = null;
+  const box = () => $("qOpts");
+  document.addEventListener("pointerdown", (e) => {
+    if (!G || !G.act || G.locked) return;
+    const el = e.target.closest(".act .mitem.left, .act .dchip"); if (!el || el.disabled) return;
+    drag = { el, x0: e.clientX, y0: e.clientY, moved: false, id: e.pointerId };
+  });
+  document.addEventListener("pointermove", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x0, dy = e.clientY - drag.y0;
+    if (!drag.moved && Math.hypot(dx, dy) < 10) return;
+    drag.moved = true; e.preventDefault();
+    if (drag.el.classList.contains("mitem")) { const b = box().getBoundingClientRect(), a = actPos(drag.el, box()); drawLines({ x1: a.r, y1: a.y, x2: e.clientX - b.left, y2: e.clientY - b.top }); }
+    else { drag.el.classList.add("dragging"); drag.el.style.transform = `translate(${dx}px, ${dy}px)`; }
+  }, { passive: false });
+  document.addEventListener("pointerup", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag; drag = null;
+    if (!d.moved) return; // a plain tap: handled by the click handler
+    d.el.style.pointerEvents = "none";
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    d.el.style.pointerEvents = ""; d.el.style.transform = ""; d.el.classList.remove("dragging");
+    d.el.dataset.dragged = "1"; setTimeout(() => { delete d.el.dataset.dragged; }, 50);
+    if (d.el.classList.contains("mitem")) { drawLines(); const R = under && under.closest(".mitem.right"); if (R) matchTry(d.el, R); }
+    else { const bin = under && under.closest(".bin"); if (bin && G.act.q.kind === "sort") sortTry(d.el, bin); }
+  });
+  document.addEventListener("click", (e) => {
+    if (!G || !G.act || G.locked) return;
+    let t = e.target.closest(".act .mitem, .act .dchip, .act .bin"); if (!t || t.dataset.dragged) return;
+    if (t.classList.contains("dchip") && t.classList.contains("done")) { t = t.closest(".bin"); if (!t) return; }   // a placed card: treat the tap as a tap on its box
+    const q = G.act.q;
+    if (q.kind === "match") {
+      if (t.dataset.side === "L") { box().querySelectorAll(".mitem.left.sel").forEach(x => x.classList.remove("sel")); if (!t.disabled) { t.classList.add("sel"); G.act.sel = t; } }
+      else if (G.act.sel) matchTry(G.act.sel, t);
+      else { t.classList.remove("shake"); void t.offsetWidth; t.classList.add("shake"); $("kiliLine").textContent = "First tap one on the left."; }
+    } else if (q.kind === "sort") {
+      if (t.classList.contains("dchip")) { box().querySelectorAll(".dchip.sel").forEach(x => x.classList.remove("sel")); t.classList.add("sel"); G.act.sel = t; }
+      else if (G.act.sel) sortTry(G.act.sel, t);
+    } else if (t.classList.contains("dchip")) orderTry(t);
+  });
+})();
 
 /* ===================== stickers ===================== */
 function renderStickers() {
@@ -2789,6 +3022,20 @@ window.addEventListener("hashchange", route);
 
 show(authed ? "vWho" : "vLogin");
 initStore();
+// ---- versioning: show the version, and on GitHub Pages pick up new versions without a hard refresh ----
+$("verBadge").textContent = "v" + APP_VERSION;
+(function autoUpdate() {
+  if (window.claude || location.protocol === "file:") return;            // the Claude viewer updates pages itself
+  const cmp = (a, b) => { const x = a.split(".").map(Number), y = b.split(".").map(Number); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) - (y[i] || 0); } return 0; };
+  let pending = null;
+  const apply = () => { if (!pending) return; if (G && !$("vPlay").hidden) return; // never interrupt a level
+    $("updBar").hidden = false; const u = new URL(location.href); u.searchParams.set("v", pending); setTimeout(() => location.replace(u.toString()), 600); };
+  const check = () => fetch("version.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => {
+    if (j && j.version && cmp(j.version, APP_VERSION) > 0) { pending = j.version; apply(); } }).catch(() => {});
+  check(); setInterval(check, 5 * 60 * 1000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) check(); });
+  window.addEventListener("hashchange", apply); setInterval(apply, 15000);
+})();
 if (voiceLang() === "hi") loadBundle("core");
 route();
 })();
