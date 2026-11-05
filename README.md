@@ -73,6 +73,14 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 **Microphone.** Listening works in Chrome on Android and in Safari on iPad when the game is opened from GitHub Pages. The Claude artifact viewer blocks the microphone, so there the child taps instead.
 
+## Learning path and lessons
+
+Inspired by Duolingo: each subject is a winding path of round level circles grouped into worlds. The next lesson pulses with a START label, finished levels show their stars, and a crown marks 3 stars. During a lesson a progress bar fills at the top, with a 🔥 counter for answers right in a row. After each answer a green or red panel slides up ("You got it!" or "Correct answer: 53") with a Continue button. Kili also moves on by herself when she finishes talking. A finished lesson shows coins, accuracy and time, and a day-streak celebration.
+
+## Classwork (assign levels)
+
+Inspired by Google Classroom: in the parent area, **Classwork** lets you pick a subject, a level and a due date, then tap **Assign**. The child sees it at the top of the map ("📋 From your parent", with a Start button), and the level is marked on the path. When the child finishes it, Classwork shows it as **Done** with the score and stars. Work not done by the due date shows as **Missing**.
+
 ## Parent dashboard
 
 Tap **Parents** and answer a times-table question. Shows today's time, questions and accuracy, a 14-day chart, a practice calendar, skill status for every level, tricky questions, a daily log, and per-child settings, and a way to edit or delete a child's profile.
