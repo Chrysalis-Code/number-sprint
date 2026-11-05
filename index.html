@@ -448,6 +448,10 @@ tr.wh td { background: var(--teal-soft); font-family: var(--font-display); font-
 @keyframes flipIn { from { transform: rotateY(90deg); } to { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .balloon, .mcard.up { animation: none; } }
 @media (max-width: 480px) { .balloon { width: 88px; height: 106px; font-size: 1.15rem; } .ynbtn { min-height: 100px; } .mcard { min-height: 92px; font-size: 1rem; } }
+.voicedl { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 16px; background: rgba(15, 40, 55, .45); }
+.vdcard { width: min(420px, 100%); background: var(--card); border-radius: 24px; padding: 22px 20px; text-align: center; display: grid; gap: 10px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.45); }
+.vdbird { font-size: 3rem; animation: bob 1.6s ease-in-out infinite; } .vdcard h2 { font-size: 1.25rem; }
+.vdtrack { height: 14px; border-radius: 7px; background: var(--line); overflow: hidden; } .vdtrack i { display: block; height: 100%; width: 0; background: var(--mango); border-radius: 7px; transition: width .3s; }
 .purse { min-height: 120px; margin-bottom: 14px; } .purse b { font: 800 1.4rem var(--font-display); }
 .coinbtn { padding: 4px 6px; } .coinbtn svg { width: auto; height: 54px; }
 .pcoin { border: 0; background: none; padding: 0; cursor: pointer; } .pcoin svg { width: auto; height: 38px; display: block; }
@@ -570,6 +574,10 @@ body { background:
 
 <span class="verbadge" id="verBadge">v0</span>
 <div class="updbar" id="updBar" hidden>Updating to the newest version…</div>
+<div class="voicedl" id="voiceDl" hidden role="dialog" aria-modal="true" aria-labelledby="vdTitle"><div class="vdcard">
+  <div class="vdbird" aria-hidden="true">🦜</div><h2 id="vdTitle">Getting Kili's voice ready</h2><p class="note" id="vdNote"></p>
+  <div class="vdtrack"><i id="vdBar"></i></div><b id="vdPct">0%</b>
+  <button class="btn soft" type="button" id="vdGo">Start now</button></div></div>
 <button class="vofab" id="voFab" type="button" aria-pressed="true" aria-label="Kili's voice on or off">
   <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path id="voWaves" d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
   <span id="voLabel">On</span>
@@ -913,7 +921,7 @@ body { background:
 <script>
 (() => {
 "use strict";
-const APP_VERSION = "2.4.1";
+const APP_VERSION = "2.5.0";
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -2108,7 +2116,7 @@ const ctxSubjId = () => { try { if (!G) return null; if (G.lv) return G.lv.subj.
 const ctxLang = () => { const id = ctxSubjId(); return id === "tamil" ? "ta" : id === "hindi" ? "hi" : "en"; };
 const voiceLang = () => ctxLang();
 const voiceOn = () => S.pid ? S.profile.voice !== false : guestVoice !== "off";
-const langOK = (l) => l === "en" || !!VOICES[l] || !voicesLoaded || !!CLIPS_LANG[l];
+const langOK = (l) => l === "en" || !!VOICES[l] || !voicesLoaded || !!CLIPS_LANG[l] || !!(typeof NTTS !== "undefined" && NTTS.ready[l]);
 const EMO_G = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}|[️‍⃣])+/gu;
 const SPEAK_WORDS = { ta: ["ரூபாய்", "கழித்தல்", "பெருக்கல்", "கோடிட்ட இடம்"], hi: ["रुपये", "घटा", "गुणा", "खाली जगह"], en: ["rupees", "minus", "times", "blank"] };
 // Tamil number words (spoken Tamil Nadu style), so the Tamil voice says numbers in Tamil.
@@ -2158,6 +2166,126 @@ function segments(text, base, mergeEn) {
   return out;
 }
 let speakSeq = 0;
+/* ===================== Kili's built-in Tamil and Hindi voice: Piper neural TTS running on the device ===================== */
+// The voice models download once (about 64 MB each) and are kept in the browser's cache; the engine runs in a
+// background worker so the screen never freezes. Sentences are made one ahead of the one being spoken.
+const NTTS_LOCAL = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) && new URLSearchParams(location.search).get("ttsbase");
+const NTTS_CFG = {
+  ort: NTTS_LOCAL ? NTTS_LOCAL + "/ort.min.mjs" : "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/esm/ort.min.js",
+  ortBase: NTTS_LOCAL ? NTTS_LOCAL + "/" : "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/",
+  phon: NTTS_LOCAL ? NTTS_LOCAL + "/phon.js" : "https://cdn.jsdelivr.net/npm/@mintplex-labs/piper-tts-web@1.0.4/dist/piper-o91UDS6e.js",
+  phonWasm: NTTS_LOCAL ? NTTS_LOCAL + "/piper_phonemize.wasm" : "https://cdn.jsdelivr.net/npm/@diffusionstudio/piper-wasm@1.0.0/build/piper_phonemize.wasm",
+  phonData: NTTS_LOCAL ? NTTS_LOCAL + "/piper_phonemize.data" : "https://cdn.jsdelivr.net/npm/@diffusionstudio/piper-wasm@1.0.0/build/piper_phonemize.data",
+  voices: {
+    ta: { model: NTTS_LOCAL ? NTTS_LOCAL + "/ta_IN-HemaLatha-medium.onnx" : "https://huggingface.co/Jeyaram-K/piper-tamil-voices/resolve/main/ta_IN-HemaLatha-medium/ta_IN-HemaLatha-medium.onnx", espeak: "ta", scales: [0.6, 1.55, 0.8], mb: 64 },
+    hi: { model: NTTS_LOCAL ? NTTS_LOCAL + "/hi_IN-priyamvada-medium.onnx" : "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/hi/hi_IN/priyamvada/medium/hi_IN-priyamvada-medium.onnx", espeak: "hi", scales: [0.6, 1.12, 0.8], mb: 64 },
+  },
+};
+const NTTS_WORKER = (C) => `
+import * as ort from ${JSON.stringify(C.ort)};
+import { createPiperPhonemize } from ${JSON.stringify(C.phon)};
+ort.env.wasm.wasmPaths = ${JSON.stringify(C.ortBase)};
+ort.env.wasm.numThreads = self.crossOriginIsolated ? Math.min(4, navigator.hardwareConcurrency || 2) : 1;
+const CACHE = "kili-voice-v1", sessions = {}, voices = {};
+let phonData = null, phonWasm = null;
+async function get(url, tag) {
+  let c = null; try { c = await caches.open(CACHE); const hit = await c.match(url); if (hit) return await hit.arrayBuffer(); } catch (e) {}
+  const res = await fetch(url); if (!res.ok) throw new Error("download failed " + res.status);
+  const total = +(res.headers.get("Content-Length") || 0), rd = res.body.getReader(), parts = []; let got = 0, last = 0;
+  for (;;) { const { done, value } = await rd.read(); if (done) break; parts.push(value); got += value.length; if (tag && Date.now() - last > 250) { last = Date.now(); postMessage({ type: "progress", tag, got, total }); } }
+  const blob = new Blob(parts); try { if (c) await c.put(url, new Response(blob)); } catch (e) {}
+  if (tag) postMessage({ type: "progress", tag, got, total: total || got });
+  return await blob.arrayBuffer();
+}
+async function phonemes(text, voice) {
+  const ids = [];
+  const mod = await createPiperPhonemize({ print: (d) => { try { ids.push(...JSON.parse(d).phoneme_ids); } catch (e) {} }, printErr: () => {},
+    locateFile: (u) => u.endsWith(".wasm") ? ${JSON.stringify(C.phonWasm)} : ${JSON.stringify(C.phonData)},
+    getPreloadedPackage: () => phonData, wasmBinary: phonWasm });
+  mod.callMain(["-l", voice, "--input", JSON.stringify([{ text }]), "--espeak_data", "/espeak-ng-data"]);
+  return ids;
+}
+onmessage = async (e) => {
+  const m = e.data;
+  try {
+    if (m.type === "load") {
+      const v = m.voice;
+      if (!phonData) { const [d, w] = await Promise.all([get(${JSON.stringify(C.phonData)}, "engine"), get(${JSON.stringify(C.phonWasm)})]); phonData = d; phonWasm = w; }
+      if (!sessions[m.lang]) { const buf = await get(v.model, m.lang); sessions[m.lang] = await ort.InferenceSession.create(buf, { executionProviders: ["wasm"] });
+        const cfg = JSON.parse(new TextDecoder().decode(await get(v.model + ".json"))); voices[m.lang] = { ...v, sr: cfg.audio.sample_rate, multi: Object.keys(cfg.speaker_id_map || {}).length > 0 }; }
+      postMessage({ type: "ready", lang: m.lang });
+    } else if (m.type === "synth") {
+      const v = voices[m.lang], s = sessions[m.lang]; if (!s) throw new Error("not loaded");
+      const ids = await phonemes(m.text, v.espeak); if (!ids.length) { postMessage({ type: "audio", id: m.id, pcm: new Float32Array(0), sr: v.sr }); return; }
+      const feeds = { input: new ort.Tensor("int64", BigInt64Array.from(ids.map(BigInt)), [1, ids.length]), input_lengths: new ort.Tensor("int64", BigInt64Array.from([BigInt(ids.length)]), [1]), scales: new ort.Tensor("float32", Float32Array.from(m.scales || v.scales), [3]) };
+      if (v.multi) feeds.sid = new ort.Tensor("int64", BigInt64Array.from([0n]), [1]);
+      const out = await s.run(feeds), pcm = new Float32Array(out.output.data);
+      postMessage({ type: "audio", id: m.id, pcm, sr: v.sr }, [pcm.buffer]);
+    }
+  } catch (err) { postMessage({ type: "error", id: m.id, lang: m.lang, msg: String(err && err.message || err) }); }
+};`;
+const NTTS = {
+  worker: null, ready: {}, loading: {}, failed: {}, prog: {}, wait: {}, jobs: new Map(), cache: new Map(), seq: 0, listeners: new Set(),
+  ok() { return typeof Worker !== "undefined" && typeof WebAssembly !== "undefined" && typeof BigInt64Array !== "undefined"; },
+  start() {
+    if (this.worker || !this.ok()) return this.worker;
+    try { this.worker = new Worker(URL.createObjectURL(new Blob([NTTS_WORKER(NTTS_CFG)], { type: "text/javascript" })), { type: "module" }); } catch (e) { this.worker = null; return null; }
+    this.worker.onmessage = (e) => { const m = e.data;
+      if (m.type === "progress") { this.prog[m.tag] = m; this.emit(); }
+      else if (m.type === "ready") { this.ready[m.lang] = true; this.loading[m.lang] = false; (this.wait[m.lang] || []).forEach(f => f(true)); this.wait[m.lang] = []; this.emit(); }
+      else if (m.type === "audio") { const j = this.jobs.get(m.id); if (j) { this.jobs.delete(m.id); j.res({ pcm: m.pcm, sr: m.sr }); } }
+      else if (m.type === "error") { if (m.id && this.jobs.has(m.id)) { this.jobs.get(m.id).res(null); this.jobs.delete(m.id); }
+        else if (m.lang) { this.failed[m.lang] = m.msg; this.loading[m.lang] = false; (this.wait[m.lang] || []).forEach(f => f(false)); this.wait[m.lang] = []; this.emit(); } } };
+    this.worker.onerror = () => { Object.keys(NTTS_CFG.voices).forEach(l => { if (this.loading[l]) { this.failed[l] = "engine"; this.loading[l] = false; (this.wait[l] || []).forEach(f => f(false)); this.wait[l] = []; } }); this.emit(); };
+    try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
+    return this.worker;
+  },
+  load(lang) {
+    if (!NTTS_CFG.voices[lang]) return Promise.resolve(false);
+    if (this.ready[lang]) return Promise.resolve(true);
+    const p = new Promise(r => (this.wait[lang] = this.wait[lang] || []).push(r));
+    if (!this.loading[lang] && this.start()) { this.loading[lang] = true; delete this.failed[lang]; this.worker.postMessage({ type: "load", lang, voice: NTTS_CFG.voices[lang] }); this.emit(); }
+    else if (!this.worker) { (this.wait[lang] || []).forEach(f => f(false)); this.wait[lang] = []; }
+    return p;
+  },
+  synth(lang, text) {
+    const key = lang + "|" + text; if (this.cache.has(key)) return this.cache.get(key);
+    const id = ++this.seq, p = new Promise(res => { this.jobs.set(id, { res }); this.worker.postMessage({ type: "synth", id, lang, text }); });
+    this.cache.set(key, p); p.then(a => { if (!a) this.cache.delete(key); });
+    if (this.cache.size > 160) this.cache.delete(this.cache.keys().next().value);
+    return p;
+  },
+  percent(lang) { const a = this.prog.engine, b = this.prog[lang], mb = (x, d) => x ? (x.total || d * 1e6) : d * 1e6; const tot = mb(a, 18) + mb(b, NTTS_CFG.voices[lang].mb); return Math.min(99, Math.round(100 * ((a ? a.got : 0) + (b ? b.got : 0)) / tot)); },
+  emit() { this.listeners.forEach(f => { try { f(); } catch (e) {} }); },
+};
+// play the engine's audio through the same path as the lip-sync
+function playPCM(a, onDur) {
+  return new Promise((resolve) => {
+    if (!a || !a.pcm || !a.pcm.length) return resolve();
+    const ctx = audioCtx(), dur = a.pcm.length / a.sr;
+    try {
+      if (ctx && ctx.state === "running") {
+        const buf = ctx.createBuffer(1, a.pcm.length, a.sr); buf.copyToChannel(a.pcm, 0);
+        const src = ctx.createBufferSource(); src.buffer = buf; src.connect(analyser); curSrc = src; mouthMode = "clip"; if (onDur) onDur(dur);
+        src.onended = () => { if (curSrc === src) { curSrc = null; mouthMode = null; } resolve(); }; src.start(); return;
+      }
+    } catch (e) {}
+    const el = new Audio(URL.createObjectURL(new Blob([pcm2wav(a.pcm, a.sr)], { type: "audio/wav" }))); curEl = el; mouthMode = "sim";
+    el.onplaying = () => { if (onDur) onDur(dur); };
+    el.onended = el.onerror = () => { if (curEl === el) { curEl = null; mouthMode = null; } URL.revokeObjectURL(el.src); resolve(); };
+    el.play().catch(() => resolve());
+  });
+}
+function pcm2wav(pcm, sr) {
+  const n = pcm.length, v = new DataView(new ArrayBuffer(44 + n * 2)), w = (o, s) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  w(0, "RIFF"); v.setUint32(4, 36 + n * 2, true); w(8, "WAVE"); w(12, "fmt "); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, "data"); v.setUint32(40, n * 2, true);
+  for (let i = 0; i < n; i++) { const x = Math.max(-1, Math.min(1, pcm[i])); v.setInt16(44 + i * 2, x < 0 ? x * 32768 : x * 32767, true); }
+  return v.buffer;
+}
+// split a line into sentences so the first one can start while the rest are made
+const sentencesOf = (t) => (String(t).match(/[^.?!।]+[.?!।]*\s*/g) || [t]).map(x => x.trim()).filter(Boolean);
+
 function speakText(text, base, { force = false, onend, showIn } = {}) {
   const seq = ++speakSeq;
   let done = false; const finish = () => { if (done || seq !== speakSeq) return; done = true; kiliTalking(false); mouthMode = null; setTurn(null); if (onend) setTimeout(onend, 250); };
@@ -2168,14 +2296,16 @@ function speakText(text, base, { force = false, onend, showIn } = {}) {
   // Keep English words inside a Tamil or Hindi sentence in the same voice; the English subject speaks
   // English words in the English voice because their pronunciation is what is being taught.
   const keepEn = !!(G && G.q && G.q.lv && G.q.lv.subj.id === "english") || base === "en";
-  const parts = segments(cleanSpeech(text, base), base, !keepEn && !!VOICES[base] && !CLIPS_LANG[base]);
+  const parts = segments(cleanSpeech(text, base), base, !keepEn && (!!VOICES[base] || !!NTTS.ready[base]) && !CLIPS_LANG[base]);
   const items = [];
   for (const [l, t] of parts) {
-    if ((l === "hi" || l === "ta") && CLIPS_LANG[l]) { for (const c of hiChunks(t)) { if (CLIPS[c]) items.push({ clip: c, l, t: c }); else piecewise(c, l).forEach(x => items.push(x)); } }
+    if ((l === "hi" || l === "ta") && NTTS.ready[l]) { sentencesOf(t).forEach(x => items.push({ neural: true, l, t: x })); }
+    else if ((l === "hi" || l === "ta") && CLIPS_LANG[l]) { for (const c of hiChunks(t)) { if (CLIPS[c]) items.push({ clip: c, l, t: c }); else piecewise(c, l).forEach(x => items.push(x)); } }
     else items.push({ l, t });
   }
   // merge neighbouring device-voice items in the same language so speech flows
-  const merged = []; items.forEach(it => { const last = merged[merged.length - 1]; if (last && !it.clip && !last.clip && last.l === it.l) last.t += " " + it.t; else merged.push({ ...it }); });
+  const merged = []; items.forEach(it => { const last = merged[merged.length - 1]; if (last && !it.clip && !last.clip && !it.neural && !last.neural && last.l === it.l) last.t += " " + it.t; else merged.push({ ...it }); });
+  merged.forEach(it => { if (it.neural) it.p = NTTS.synth(it.l, it.t); });   // all sentences start being made now, in order
   if (!merged.length) { setTimeout(finish, 200); return; }
   setTurn("kili"); kiliTalking(true);
   const hl = readAlong(merged, showIn);
@@ -2198,7 +2328,9 @@ function speakText(text, base, { force = false, onend, showIn } = {}) {
       if ((started || el > 2500) && !busy && el > 600) end(); else if (!started && el > 6000) end(); else if (el > 90000) end(); }, 200);
   });
   (async () => {
-    for (let i = 0; i < merged.length; i++) { const it = merged[i]; if (seq !== speakSeq) return; hl.start(i, it); if (it.clip) await playClip(it.clip, (d) => hl.timed(i, d)); else await sayTTS(it, i); }
+    for (let i = 0; i < merged.length; i++) { const it = merged[i]; if (seq !== speakSeq) return; hl.start(i, it);
+      if (it.neural) { const a = await it.p; if (seq !== speakSeq) return; if (a) await playPCM(a, (d) => hl.timed(i, d)); else await sayTTS(it, i); }
+      else if (it.clip) await playClip(it.clip, (d) => hl.timed(i, d)); else await sayTTS(it, i); }
     hl.end(); finish();
   })();
 }
@@ -2650,14 +2782,23 @@ function setStep(i) {
   $("stepper").innerHTML = STEPS.map((s, k) => `<i class="${k < i ? "done" : k === i ? "now" : ""}" title="${s}"></i>`).join("") + `<span>${STEPS[i]}</span>`;
 }
 function showPanel(id) { ["introCard", "qCard", "chatCard"].forEach(x => $(x).hidden = x !== id); }
-function needBundles(id) {
-  const lv = LEVEL[id], sj = lv ? lv.subj.id : id === "review" ? curSubj().id : null;
-  if (sj === "hindi") return ["core", "hindi", "hi-words"];
-  if (sj === "tamil") return ["ta-core", "ta-tamil", "ta-words"];
-  return [];
+function needBundles(id) { return []; }   // Tamil and Hindi are spoken by the built-in engine now
+const lvVoiceLang = (id) => { const lv = LEVEL[id], sj = lv ? lv.subj.id : id === "review" ? curSubj().id : null; return sj === "tamil" ? "ta" : sj === "hindi" ? "hi" : null; };
+function voiceGate(lang, go) {
+  const box = $("voiceDl"), name = { ta: "Tamil", hi: "Hindi" }[lang];
+  const upd = () => { if (box.hidden) return; const f = NTTS.failed[lang];
+    $("vdTitle").textContent = f ? `Couldn't get Kili's ${name} voice` : `Getting Kili's ${name} voice ready`;
+    $("vdNote").textContent = f ? "Check the internet connection. You can play now; Kili will try again next time." : "First time only, about 80 MB. After this it works without internet.";
+    $("vdBar").style.width = (f ? 0 : NTTS.percent(lang)) + "%"; $("vdPct").textContent = f ? "" : NTTS.percent(lang) + "%"; $("vdGo").textContent = f ? "Play now" : "Start now, Kili will talk when ready"; };
+  const done = () => { NTTS.listeners.delete(upd); box.hidden = true; go(); };
+  box.hidden = false; NTTS.listeners.add(upd); upd();
+  $("vdGo").onclick = done;
+  NTTS.load(lang).then(ok => { if (!box.hidden && ok) done(); else upd(); });
 }
 function startLevel(id, ready) {
   if (!S.ready || !S.daysReady || !S.pid) return;
+  const vl = lvVoiceLang(id);
+  if (!ready && vl && voiceOn() && NTTS.ok() && !NTTS.ready[vl] && !NTTS.failed[vl]) { voiceGate(vl, () => startLevel(id, true)); return; }
   const need = ready ? [] : needBundles(id).filter(n => !LOADED[n]);
   if (need.length) {
     if (startLevel.waiting) return;
@@ -3964,6 +4105,7 @@ function setVoice(on) {
   say({ en: "I'll talk again.", ta: "நான் மறுபடியும் பேசுவேன்.", hi: "मैं फिर से बोलूँगा।" }, { force: true, onend: () => { if (G && G.q && G.waiting && !G.locked) askQ(true); } });
 }
 $("voFab").addEventListener("click", () => setVoice(!voiceOn()));
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-subj]"); if (!b) return; const l = b.dataset.subj === "tamil" ? "ta" : b.dataset.subj === "hindi" ? "hi" : null; if (l && voiceOn() && NTTS.ok()) NTTS.load(l); });
 $("autoMicChk").addEventListener("change", (e) => { if (!S.pid) return; S.profile.autoMic = e.target.checked; saveProfile(); });
 const sayTest = () => say({ en: "Hi! I'm Kili. This is how I will sound.", ta: "வணக்கம்! நான் கிளி. நான் இப்படித்தான் பேசுவேன்.", hi: "नमस्ते! मैं किली हूँ। मैं ऐसे बोलूँगा।" }, { force: true });
 function recordFeel(f) {
