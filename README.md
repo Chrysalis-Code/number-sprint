@@ -51,6 +51,8 @@ Tap an answer, say it out loud, or do one of the hands-on activities. 6 of every
 - **Memory cards**: flip two cards at a time to find the pairs
 - **Pay with coins**: tap or drag coins and notes into the purse to pay a price or give change
 
+**One screen, no scrolling.** Lessons are fitted to the screen on phones and tablets, upright or sideways: the question card fills the space left, and if an activity is too tall, its contents are scaled down to fit. The map and the parent area are long lists and scroll as usual.
+
 **Works in any orientation.** On a phone turned sideways, Kili sits on the left and the question on the right, so each question fits on one screen. Checked in Chrome on phone and tablet sizes, portrait and landscape.
 
 **Listening questions** ("Listen. Which letter do you hear?") never show the letter or word on screen or in Kili's speech bubble. A big speaker button plays just that sound again.
@@ -69,7 +71,7 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 **Natural Tamil and Hindi voices, built in.** Tamil and Hindi are spoken by a neural speech engine that runs inside the browser ([Piper](https://github.com/rhasspy/piper) voices *ta_IN-HemaLatha* and *hi_IN-priyamvada*, using onnxruntime-web). Every sentence is spoken whole, numbers included, and nothing is installed on the tablet. The first time a Tamil or Hindi lesson opens, the device downloads the engine and that voice: about 80 MB, with a progress screen. After that it works without internet. The engine runs in a background worker so the screen never freezes, and it makes the next sentence while the current one plays. If the download isn't possible, Kili uses the tablet's own voice.
 
-**Fun and jokes.** Halfway through every lesson Kili stops for **Joke time!**: kid-friendly jokes in English lessons, classic riddles (விடுகதை) in Tamil lessons and पहेलियाँ in Hindi lessons. The child taps to hear the answer and Kili laughs. Jokes don't repeat until the child has heard them all. Kili also cracks a silly line when the child gets 3, 5 or 8 answers right in a row.
+**Did you know?** Halfway through every lesson Kili shares an amazing fact: maths facts (zero was first used as a number in India), science and nature facts (an octopus has 3 hearts, butterflies taste with their feet), or word facts. Tamil and Hindi lessons get facts in Tamil and Hindi. The child taps "🤩 Wow!" and the lesson carries on. Facts don't repeat until the child has seen them all. Kili also says something silly when the child gets 3, 5 or 8 answers right in a row.
 
 **Animated Kili.** Kili is a cartoon-mascot parrot (big glossy eyes, eyebrows, soft shading), in the style of apps like Airlearn and Duolingo: she blinks, nods while talking, tilts her head while listening, and flaps her wings for right answers. Her beak moves with the loudness of the recorded voice (lip-sync), or with word timing for the tablet's voice.
 
