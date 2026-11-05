@@ -913,7 +913,7 @@ body { background:
 <script>
 (() => {
 "use strict";
-const APP_VERSION = "2.4.0";
+const APP_VERSION = "2.4.1";
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -2179,13 +2179,18 @@ function speakText(text, base, { force = false, onend, showIn } = {}) {
   if (!merged.length) { setTimeout(finish, 200); return; }
   setTurn("kili"); kiliTalking(true);
   const hl = readAlong(merged, showIn);
-  const sayTTS = (it) => new Promise((res) => {
+  const sayTTS = (it, i) => new Promise((res) => {
     if (!canSpeak) return res();
-    let started = false, fin = false; const t0 = Date.now(); const end = () => { if (fin) return; fin = true; clearInterval(poll); mouthMode = null; res(); };
+    let started = false, fin = false, gotWord = false, fbOn = false, fb = null; const t0 = Date.now(); const end = () => { if (fin) return; fin = true; clearInterval(poll); clearTimeout(fb); mouthMode = null; res(); };
+    // seconds this line will take: about 2.4 words a second in English, a little slower in Tamil and Hindi
+    const estSec = Math.max(0.6, it.t.trim().split(/\s+/).length / (it.l === "en" ? 2.4 : 1.9) + it.t.length * 0.012);
+    const startFallback = () => { if (gotWord || fbOn || fin) return; fbOn = true; hl.timed(i, estSec); };
     const u = new SpeechSynthesisUtterance(it.t.trim());
     u.lang = LANG_TAG[it.l] || "en-IN"; if (VOICES[it.l]) u.voice = VOICES[it.l];
     u.rate = it.l === "en" ? 0.9 : 0.9; u.pitch = young ? 1.15 : 1.0;
-    u.onstart = () => { started = true; mouthMode = "tts"; }; u.onboundary = (e) => { wordPulse = 0.9; if (it.onWord) it.onWord(e.charIndex); };
+    u.onstart = () => { started = true; mouthMode = "tts"; clearTimeout(fb); fb = setTimeout(startFallback, 450); };
+    u.onboundary = (e) => { wordPulse = 0.9; if (fbOn) return; if (e.name && e.name !== "word") return; gotWord = true; if (it.onWord) it.onWord(e.charIndex); };
+    fb = setTimeout(startFallback, 1200);
     u.onend = end; u.onerror = end;
     speechSynthesis.speak(u);
     // Some browsers never fire onend: finish only when the engine has really stopped speaking.
@@ -2193,7 +2198,7 @@ function speakText(text, base, { force = false, onend, showIn } = {}) {
       if ((started || el > 2500) && !busy && el > 600) end(); else if (!started && el > 6000) end(); else if (el > 90000) end(); }, 200);
   });
   (async () => {
-    for (let i = 0; i < merged.length; i++) { const it = merged[i]; if (seq !== speakSeq) return; hl.start(i, it); if (it.clip) await playClip(it.clip, (d) => hl.timed(i, d)); else await sayTTS(it); }
+    for (let i = 0; i < merged.length; i++) { const it = merged[i]; if (seq !== speakSeq) return; hl.start(i, it); if (it.clip) await playClip(it.clip, (d) => hl.timed(i, d)); else await sayTTS(it, i); }
     hl.end(); finish();
   })();
 }
@@ -2238,7 +2243,8 @@ function readAlong(items, showIn) {
   let fi = 0;
   if (box) box.innerHTML = items.map((it, i) => `<span class="ki" data-i="${i}">${String(it.t).trim().split(/\s+/).map(w => { const at = fi++; return masked.has(at) ? `<span class="kw masked">${masked.has(at - 1) ? "" : "🔊"}</span>` : `<span class="kw">${esc(w)}</span>`; }).join(" ")}</span>`).join(" ");
   const words = (i) => box ? [...box.querySelectorAll(`.ki[data-i="${i}"] .kw`)] : [];
-  const mark = (i, j) => { if (!box) return; box.querySelectorAll(".kw.now").forEach(w => w.classList.remove("now")); const ws = words(i); if (ws[j]) ws[j].classList.add("now"); };
+  const mark = (i, j) => { if (!box) return; box.querySelectorAll(".kw.now").forEach(w => w.classList.remove("now")); const ws = words(i); const w = ws[j]; if (!w) return; w.classList.add("now");
+    if (box.scrollHeight > box.clientHeight + 2) { const br = box.getBoundingClientRect(), wr = w.getBoundingClientRect(); if (wr.bottom > br.bottom - 4 || wr.top < br.top) box.scrollTop += wr.top - br.top - 8; } };
   return {
     start(i, it) {
       document.querySelectorAll(".opt.reading").forEach(b => b.classList.remove("reading"));
@@ -2248,7 +2254,9 @@ function readAlong(items, showIn) {
       if (!it.clip) { const ws = String(it.t).trim().split(/\s+/); const starts = []; let pos = 0; ws.forEach(w => { const at = String(it.t).indexOf(w, pos); starts.push(at); pos = at + w.length; });
         it.onWord = (ci) => { let j = 0; while (j + 1 < starts.length && starts[j + 1] <= ci) j++; mark(i, j); }; }
     },
-    timed(i, dur) { const ws = words(i); if (ws.length < 2 || !dur) return; const step = (dur * 1000) / ws.length; for (let j = 1; j < ws.length; j++) hlTimers.push(setTimeout(() => mark(i, j), j * step)); },
+    // move through the words over dur seconds, longer words taking longer (used when the voice gives no word timing)
+    timed(i, dur) { const ws = words(i); if (ws.length < 2 || !dur) return; const wt = ws.map(w => w.textContent.length + 2), tot = wt.reduce((a, b) => a + b, 0); let acc = 0;
+      for (let j = 1; j < ws.length; j++) { acc += wt[j - 1]; hlTimers.push(setTimeout(() => mark(i, j), (acc / tot) * dur * 1000)); } },
     end() { hlTimers.forEach(clearTimeout); hlTimers = []; if (box) box.querySelectorAll(".kw.now").forEach(w => w.classList.remove("now")); document.querySelectorAll(".opt.reading").forEach(b => b.classList.remove("reading")); },
   };
 }
@@ -2416,7 +2424,10 @@ function playClip(key, onDur) {
       }
     } catch (e) {}
     const el = new Audio("data:audio/mpeg;base64," + b64); el.playbackRate = rate; curEl = el; mouthMode = "sim";
-    el.onloadedmetadata = () => { if (onDur && isFinite(el.duration)) onDur(el.duration / rate); };
+    let sent = false; const send = (d) => { if (sent || !onDur) return; sent = true; onDur(d / rate); };
+    const estDur = (b64.length * 0.75 * 8) / 32000;   // clips are 32 kbps MP3
+    el.onloadedmetadata = () => { if (isFinite(el.duration) && el.duration > 0) send(el.duration); };
+    el.onplaying = () => setTimeout(() => send(isFinite(el.duration) && el.duration > 0 ? el.duration : estDur), 30);
     el.onended = el.onerror = () => { if (curEl === el) { curEl = null; mouthMode = null; } resolve(); };
     el.play().catch(() => resolve());
   });
