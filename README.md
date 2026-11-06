@@ -75,7 +75,7 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 **Hindi text.** Simple NCERT Class 2 Hindi: the child is called तुम, Kili speaks as a girl ("मैं सुन रही हूँ", "पूछूँगी"), and there are no English words ("छुओ" for tap, "स्तर" for level, "उंगली फेरो" for trace). The "I can" goals use "हम … सकते हैं", so they suit both a boy and a girl.
 
-**Hindi voice.** Hindi lessons are spoken by a neural speech engine that runs inside the browser (Piper *hi_IN-priyamvada*, using onnxruntime-web). It downloads once, about 80 MB with a progress screen, and then works offline.
+**Natural Hindi voice.** Hindi lessons are voiced by the same natural voice, Shruti (Sarvam AI Bulbul v3), speaking Hindi. It is recorded once and shipped as `audio/hi-*.json`: about 3,500 lines, words and letters (every vowel, consonant and consonant + matra). A Hindi lesson loads only Kili's core lines, the word set and that world's recordings, so there is no big download and no API key in the app. The in-browser speech engine (Piper *hi_IN-priyamvada*) remains only as a backup.
 
 **Did you know?** Halfway through every lesson Kili shares an amazing fact: maths facts (zero was first used as a number in India), science and nature facts (an octopus has 3 hearts, butterflies taste with their feet), or word facts. Tamil and Hindi lessons get facts in Tamil and Hindi. The child taps "🤩 Wow!" and the lesson carries on. Facts don't repeat until the child has seen them all. Kili also says something silly when the child gets 3, 5 or 8 answers right in a row.
 

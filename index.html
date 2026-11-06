@@ -1069,7 +1069,7 @@ body { background:
 <script>
 (() => {
 "use strict";
-const APP_VERSION = "2.11.1";
+const APP_VERSION = "2.12.0";
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -2683,7 +2683,7 @@ function kidSays(t) { const k = document.getElementById("kidLine"); if (k) { k.h
 // Natural Hindi recordings are built into the game (generated with the open Piper "Priyamvada" voice),
 // so no voice has to be installed on the tablet. Clips load per bundle the first time they are needed.
 const CLIPS = {}, CLIP_BUF = {}, BUNDLES = {}, LOADED = {}, CLIPS_LANG = {};
-const BUNDLE_PARTS = {"ta-tm3": ["ta-tm3a", "ta-tm3b"]};
+const BUNDLE_PARTS = {};
 function loadBundle(name) {
   const file = name.includes("-") ? name : "hi-" + name;
   // a part that fails to download (weak network) is fetched again next time, instead of being remembered as loaded
@@ -2985,7 +2985,7 @@ function setStep(i) {
 }
 function showPanel(id) { ["introCard", "qCard", "chatCard"].forEach(x => $(x).hidden = x !== id); fitSoon(); }
 // Tamil lessons play recorded lines (Sarvam "Shruti"); Hindi is spoken by the built-in engine.
-const HI_CLIPS = false;   // true once the Hindi Sarvam recordings are bundled
+const HI_CLIPS = true;    // true once the Hindi Sarvam recordings are bundled
 function needBundles(id) {
   const lv = LEVEL[id], sj = lv ? lv.subj.id : id === "review" ? curSubj().id : null;
   const p = sj === "tamil" ? "ta" : sj === "hindi" && HI_CLIPS ? "hi" : null; if (!p) return [];
