@@ -71,7 +71,9 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 **Natural Tamil voice.** Tamil lessons are voiced by a natural, human-like Tamil voice ("Shruti", from Sarvam AI's Bulbul v3), recorded once at a calm pace and shipped with the game as `audio/ta-*.json`. That's about 3,400 lines and words, covering 100% of what Kili says in Tamil lessons. Nothing is downloaded from a voice service while playing, and no API key is in the app. A Tamil lesson loads only Kili's core lines, the word set and that world's recordings.
 
-**Tamil text.** Everything in Tamil lessons is written in standard, simple Tamil as used in Samacheer Kalvi Class 2 books: no colloquial spellings or English words in Tamil sentences, correct case endings ("திங்கட்கிழமைக்கு", "கண்களால்"), and "என்னால் … முடியும்" for the "I can" goals.
+**Tamil text.** Everything in Tamil lessons is written in standard, simple Tamil as used in Samacheer Kalvi Class 2 books: no colloquial spellings or English words in Tamil sentences, correct case endings ("திங்கட்கிழமைக்கு", "கண்களால்"), and "என்னால் … முடியும்" for the "I can" goals. In 2.11 every line Kili says was checked again with an AI translator (Sarvam), against the English, with instructions for a kind teacher speaking to a 7-year-old. Each suggestion was reviewed by hand, and only the clearly better ones were kept.
+
+**Hindi text.** Simple NCERT Class 2 Hindi: the child is called तुम, Kili speaks as a girl ("मैं सुन रही हूँ", "पूछूँगी"), and there are no English words ("छुओ" for tap, "स्तर" for level, "उंगली फेरो" for trace). The "I can" goals use "हम … सकते हैं", so they suit both a boy and a girl.
 
 **Hindi voice.** Hindi lessons are spoken by a neural speech engine that runs inside the browser (Piper *hi_IN-priyamvada*, using onnxruntime-web). It downloads once, about 80 MB with a progress screen, and then works offline.
 
