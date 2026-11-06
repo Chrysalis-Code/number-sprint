@@ -21,7 +21,7 @@ Every level is mapped to a learning outcome, success criteria and the NCF for Fo
 | 5 | Rupee Market | Coins and notes, counting money, shopping, change |
 | 6 | Clock Tower | O'clock, half past, days of the week, months |
 | 7 | Shape Park | Shapes, sides and corners, patterns, measuring in cm, odd and even |
-| 8 | Times Table Jungle | Equal groups, tables of 2–5 and 10, sharing, word problems |
+| 8 | Times Table Jungle | Equal groups, tables of 2–5 and 10, sharing, word problems, plus challenge levels for the tables of 1, 6, 7, 8 and 9 (all tables 1–10) |
 
 ## Other subjects
 
