@@ -40,7 +40,7 @@ Tap an answer, say it out loud, or do one of the hands-on activities. 6 of every
 - **Sort into boxes**: drag or tap cards into bins (wet or dry waste, odd or even, pet, farm or wild)
 - **Put in order**: tap in sequence (days, months, counting, building a sentence)
 - **Circle it**: draw a ring around the right picture with a finger
-- **Trace it**: trace big letters and numbers (அ, क, b, 7)
+- **Trace it**: trace big letters and numbers (அ, क, b, 7). Guide dots run along the middle of the letter and turn green as the finger passes over them. The trace counts only when almost all dots are green, the finger stayed on the letter, and it followed the letter's lines instead of scribbling: zigzags, spirals and random lines over the letter are rejected, and Kili says what to fix ("No scribbling! Move your finger slowly along the letter.").
 - **Number line**: drag the frog to the right number
 - **Tap to count**: tap the right number of pictures (or share them equally)
 - **Build the word**: tap letter or syllable tiles in order (cat, गाय, மரம்), including a few tiles that don't belong; also number parts and shape patterns
@@ -69,7 +69,7 @@ Every level is a conversation with Kili the parrot, in five steps that follow th
 
 **Language.** There is no language to choose. Maths, English and World Around Us are shown and spoken in English, in an Indian English (en-IN) voice at a calm speed. Inside a Tamil lesson everything is Tamil: questions, buttons, hints and Kili's voice. Inside a Hindi lesson everything is Hindi. The speaker button at the top right turns Kili's voice on or off.
 
-**Natural Tamil voice.** Tamil lessons are voiced by a natural, human-like Tamil voice ("Shruti", from Sarvam AI's Bulbul v3), recorded once at a calm pace and shipped with the game as `audio/ta-*.json`. That's about 3,400 lines and words, covering 100% of what Kili says in Tamil lessons. Nothing is downloaded from a voice service while playing, and no API key is in the app. A Tamil lesson loads only Kili's core lines, the word set and that world's recordings.
+**Natural Tamil voice.** Tamil lessons are voiced by a natural, human-like Tamil voice ("Shruti", from Sarvam AI's Bulbul v3), recorded once at a calm pace and shipped with the game as `audio/ta-*.json`. That's about 3,400 lines and words, covering 100% of what Kili says in Tamil lessons. Nothing is downloaded from a voice service while playing, and no API key is in the app. A Tamil lesson loads only Kili's core lines, the word set and that world's recordings. The recordings for the next level start downloading while the map is open, and a lesson waits until they have fully arrived (with a progress percentage), so no word is skipped or read by a different voice. A download that fails is retried. The child's name is shown on screen, but in Tamil and Hindi lines Kili does not say it, so her voice never switches mid-sentence.
 
 **Tamil text.** Everything in Tamil lessons is written in standard, simple Tamil as used in Samacheer Kalvi Class 2 books: no colloquial spellings or English words in Tamil sentences, correct case endings ("திங்கட்கிழமைக்கு", "கண்களால்"), and "என்னால் … முடியும்" for the "I can" goals. In 2.11 every line Kili says was checked again with an AI translator (Sarvam), against the English, with instructions for a kind teacher speaking to a 7-year-old. Each suggestion was reviewed by hand, and only the clearly better ones were kept.
 
