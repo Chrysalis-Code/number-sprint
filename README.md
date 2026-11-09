@@ -55,9 +55,8 @@ Tap an answer, say it out loud, or do one of the hands-on activities. 6 of every
 
 **Works in any orientation.** On a phone turned sideways, Kili sits on the left and the question on the right, so each question fits on one screen. Checked in Chrome on phone and tablet sizes, portrait and landscape.
 
-**Listening questions** ("Listen. Which letter do you hear?") never show the letter or word on screen or in Kili's speech bubble. A big speaker button plays just that sound again.
 
-**Listening questions.** When a question asks which letter, word or sentence the child hears, the text is hidden and a big 🔊 button plays only that sound, never the whole question. Kili's speaker button and saying "repeat" do the same. The sound plays slowly (75% speed, same voice pitch), louder and evened out, and a short sound (a letter, or a letter and its word) plays twice with a pause.
+**Listening questions** ("Listen. Which letter do you hear?") never show the letter or word on screen or in Kili's speech bubble, and a big 🔊 button plays only that sound, never the whole question. Kili's speaker button and saying "repeat" do the same. The sound plays slowly (75% speed, same voice pitch), louder and evened out, and a short sound (a letter, or a letter and its word) plays twice with a pause.
 
 ## Talking with Kili
 
