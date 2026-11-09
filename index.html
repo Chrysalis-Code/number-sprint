@@ -1070,7 +1070,7 @@ body { background:
 <script>
 (() => {
 "use strict";
-const APP_VERSION = "2.13.0";
+const APP_VERSION = "2.13.1";
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -2566,7 +2566,8 @@ function say(a, b, c) {
   speakText(L[lang] || L.en, lang, opts);
 }
 const speak = (text, opts) => speakText(text, "en", opts);
-const stopSpeaking = () => { speakSeq++; try { canSpeak && speechSynthesis.cancel(); } catch (e) {} stopClip(); kiliTalking(false); };
+var hearSeq = 0;
+const stopSpeaking = () => { speakSeq++; hearSeq++; try { canSpeak && speechSynthesis.cancel(); } catch (e) {} stopClip(); kiliTalking(false); };
 
 // Voice input (speech to text): works where the browser allows the microphone.
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -3184,7 +3185,7 @@ function heardAnswer(alts) {
   const all = alts.join(" | ");
   const hit = matchOption(alts, G.q);
   if (hit) { const btn = [...document.querySelectorAll(".opt")].find(b => b.dataset.v === hit.v); if (btn && !btn.disabled) { G.voiceAns = (G.voiceAns || 0) + 1; answer(btn); return; } }
-  if (CMD.repeat.test(all)) { askQ(true); return; }
+  if (CMD.repeat.test(all)) { if (G.hide && $("hearBtn")) hearSound(); else askQ(true); return; }
   if (CMD.dunno.test(all) || CMD.hint.test(all)) { giveHint(true); return; }
   const x = alts[0] || "";
   kili({ en: `I heard "${x}". That's not one of the answers. Please say one of them, or tap it.`, ta: `நான் "${x}" என்று கேட்டேன். அது விடைகளில் இல்லை. ஒரு விடையைச் சொல், அல்லது தொடு.`, hi: `मैंने "${x}" सुना। यह जवाबों में नहीं है। कोई एक जवाब बोलो, या उसे छुओ।` }, { then: yourTurn });
@@ -3901,11 +3902,39 @@ function setupListen(q) {
   if (!G.hide) return;
   const v = $("qVisual"); v.innerHTML = HEAR_BTN + (q.visual || ""); v.hidden = false;
 }
-document.addEventListener("click", (e) => {
-  const b = e.target.closest("#hearBtn"); if (!b || !G || !G.q || !G.hide) return;
-  const w = G.hide; stopListening(); stopSpeaking(); b.classList.add("playing");
-  say({ en: w, ta: w, hi: w }, { force: true, onend: () => { b.classList.remove("playing"); if (G && G.waiting && !G.locked && !G.q.kind) yourTurn(); } });
-});
+// Play only the sound to identify (a letter, a word or a sentence): slow, loud and clear, never the whole question.
+// A short sound (a letter, or a letter and its word) is played twice with a pause.
+function playClear(key) {
+  return new Promise((resolve) => {
+    const b64 = CLIPS[key]; if (!b64) return resolve(false);
+    const el = new Audio("data:audio/mpeg;base64," + b64); el.preservesPitch = el.mozPreservesPitch = el.webkitPreservesPitch = true; el.playbackRate = 0.75;
+    const ctx = audioCtx();
+    try { if (ctx && ctx.state === "running") {   // louder and even: compressor + gain, through Kili's mouth analyser
+      const src = ctx.createMediaElementSource(el), comp = ctx.createDynamicsCompressor(), gain = ctx.createGain();
+      comp.threshold.value = -26; comp.knee.value = 12; comp.ratio.value = 6; comp.attack.value = 0.003; comp.release.value = 0.2; gain.gain.value = 2.2;
+      src.connect(comp); comp.connect(gain); gain.connect(analyser || ctx.destination); mouthMode = "clip";
+    } else { el.volume = 1; mouthMode = "sim"; } } catch (e) { el.volume = 1; mouthMode = "sim"; }
+    curEl = el; let over = false; const end = () => { if (over) return; over = true; if (curEl === el) { curEl = null; mouthMode = null; } resolve(true); };
+    el.onended = el.onerror = end; setTimeout(end, (b64.length * 0.75 * 8 / 32000) / 0.75 * 1000 + 2500);
+    el.play().catch(end);
+  });
+}
+async function hearSound() {
+  if (!G || !G.q || !G.hide) return;
+  stopListening(); stopSpeaking();
+  const b = $("hearBtn"), w = G.hide, l = voiceLang(), id = ++hearSeq; if (b) b.classList.add("playing");
+  const keys = hiChunks(cleanSpeech(w, l)), ok = keys.length && keys.every(k => CLIPS[k]);
+  const fin = () => { if (id !== hearSeq) return; kiliTalking(false); setTurn(null); if (b) b.classList.remove("playing"); if (G && G.waiting && !G.locked && !G.q.kind) yourTurn(); };
+  if (!ok) { say({ en: w, ta: w, hi: w }, { force: true, onend: fin }); return; }
+  kiliTalking(true); setTurn("kili");
+  const times = w.split(/\s+/).length <= 3 ? 2 : 1;
+  for (let t = 0; t < times && id === hearSeq; t++) {
+    if (t) await new Promise(r => setTimeout(r, 900));
+    for (const k of keys) { if (id !== hearSeq) return; await playClear(k); if (id === hearSeq) await new Promise(r => setTimeout(r, 250)); }
+  }
+  fin();
+}
+document.addEventListener("click", (e) => { if (e.target.closest("#hearBtn")) hearSound(); });
 // ---------- rendering and input for build, fill, find and pay ----------
 function renderAct3(q, box) {
   if (q.kind === "build") {
@@ -4645,7 +4674,7 @@ function recordFeel(f) {
 $("reviewBtn").addEventListener("click", () => startLevel("review"));
 $("nextBtn").addEventListener("click", () => { stopListening(); if (G) { G.i++; nextQ(); } });
 $("quitBtn").addEventListener("click", () => { stopSpeaking(); stopListening(); if (G) { G.locked2 = true; if (G.results.some(r => r !== undefined)) finishLevel(true); else { G = null; show("vMap"); renderMap(); } } });
-$("speakBtn").addEventListener("click", () => { if (G && G.q && G.step >= 2) askQ(true); else if (G && G.demo) sayQ(G.demo, { force: true }); });
+$("speakBtn").addEventListener("click", () => { if (G && G.q && G.step >= 2 && G.hide && $("hearBtn")) hearSound(); else if (G && G.q && G.step >= 2) askQ(true); else if (G && G.demo) sayQ(G.demo, { force: true }); });
 
 $("resNext").addEventListener("click", (e) => startLevel(e.currentTarget.dataset.level));
 $("resAgain").addEventListener("click", (e) => startLevel(e.currentTarget.dataset.level));
